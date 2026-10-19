@@ -1,5 +1,8 @@
 // Criação/edição do personagem, dividida em passos.
-import { cloneElement, isValidElement, useId, useMemo, useState, type ReactNode } from 'react';
+import { cloneElement, isValidElement, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react';
+import {
+  ArrowLeftIcon, ArrowRightIcon, CheckIcon, LockSimpleIcon, PlusIcon, PrinterIcon, StarFourIcon, WarningCircleIcon,
+} from '@phosphor-icons/react';
 import {
   ABILITIES, ARMOR, BACKGROUNDS, CLASSES, FEATS, SKILLS, SPECIES, SPELLS, WEAPONS,
   abilityLabel, byKey, modifier, signed, skillLabel,
@@ -26,12 +29,17 @@ const STEPS: { id: StepId; title: string }[] = [
   { id: 'abilities', title: 'Atributos' },
   { id: 'skills', title: 'Perícias' },
   { id: 'feats', title: 'Feats' },
-  { id: 'hp', title: 'Vida' },
+  { id: 'hp', title: 'Pontos de vida' },
   { id: 'equipment', title: 'Equipamento' },
   { id: 'spells', title: 'Magias' },
   { id: 'story', title: 'História' },
   { id: 'review', title: 'Revisão' },
 ];
+
+/** Passos que contam no progresso: história é opcional e a revisão só confere. */
+const REQUIRED = STEPS.filter((s) => s.id !== 'story' && s.id !== 'review');
+
+const pad = (n: number) => String(n).padStart(2, '0');
 
 function Intro({ children }: { children: ReactNode }) {
   return <p className="step-intro">{children}</p>;
@@ -70,53 +78,89 @@ function Field({ label, children, hint, help }: { label: string; children: React
 
 const toggle = <T,>(list: T[], item: T) => (list.includes(item) ? list.filter((x) => x !== item) : [...list, item]);
 
-export function Editor({ c, sheet, update }: Props) {
-  const [step, setStep] = useState(0);
-  const current = STEPS[step];
-  const warningsFor = (id: StepId) => sheet.warnings.filter((w) => w.area === id);
-  const stepWarnings = warningsFor(current.id);
-
-  const go = (i: number) => {
-    setStep(i);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+/** Trilho com os passos da criação, o que falta em cada um e o progresso. */
+export function StepRail({ sheet, step, current, onStep }: {
+  sheet: Sheet;
+  step: number;
+  /** Falso quando a ficha completa está aberta no lugar do passo. */
+  current: boolean;
+  onStep: (i: number) => void;
+}) {
+  const pending = (id: StepId) => sheet.warnings.filter((w) => w.area === id).length;
+  const done = REQUIRED.filter((s) => pending(s.id) === 0).length;
 
   return (
-    <div className="editor">
-      <ol className="stepper">
-        {STEPS.map((s, i) => (
-          <li key={s.id}>
-            <button
-              type="button" title={s.title} onClick={() => go(i)}
-              className={[i === step && 'current', warningsFor(s.id).length > 0 && 'warn'].filter(Boolean).join(' ')}
-              aria-current={i === step ? 'step' : undefined}
-            >
-              <span className="step-num">{i + 1}</span>
-              <span className="step-title">{s.title}</span>
-            </button>
-          </li>
-        ))}
+    <nav className="step-rail" aria-label="Passos da criação">
+      <div className="kicker">Criação</div>
+      <ol>
+        {STEPS.map((s, i) => {
+          const isCurrent = current && i === step;
+          const n = pending(s.id);
+          return (
+            <li key={s.id}>
+              <button
+                type="button" className={`step-link${isCurrent ? ' current' : ''}`} onClick={() => onStep(i)}
+                aria-current={isCurrent ? 'step' : undefined}
+              >
+                <span className="mono-num">{pad(i + 1)}</span>
+                {s.title}
+                <span className="status">
+                  {isCurrent ? <ArrowRightIcon />
+                    : n > 0 ? <span className="tag tag-accent" title={`${n} pendência${n > 1 ? 's' : ''}`}>{n}</span>
+                    : s.id === 'story' ? <span className="optional">opcional</span>
+                    : s.id !== 'review' && <CheckIcon />}
+                </span>
+              </button>
+            </li>
+          );
+        })}
       </ol>
+      <div className="progress">
+        <div className="progress-label"><span>Progresso</span><span>{done} de {REQUIRED.length}</span></div>
+        <div className="progress-track"><div className="progress-fill" style={{ width: `${(done / REQUIRED.length) * 100}%` }} /></div>
+      </div>
+    </nav>
+  );
+}
 
-      <section className="section step">
-        <p className="step-count">Passo {step + 1} de {STEPS.length}</p>
-        <h2>{current.title}</h2>
-        {stepWarnings.length > 0 && (
+/** O passo atual: título, explicação, pendências, campos e navegação. */
+export function StepPanel({ c, sheet, update, step, onStep }: Props & { step: number; onStep: (i: number) => void }) {
+  const main = useRef<HTMLElement>(null);
+  const current = STEPS[step];
+  const warnings = sheet.warnings.filter((w) => w.area === current.id);
+  const prev = STEPS[step - 1];
+  const next = STEPS[step + 1];
+
+  useEffect(() => {
+    main.current?.scrollTo({ top: 0 });
+    if (main.current && main.current.getBoundingClientRect().top < 0) window.scrollTo({ top: 0 });
+  }, [step]);
+
+  return (
+    <main className="step-main" ref={main}>
+      <section className="step">
+        <header className="step-head">
+          <span className="mono-num">PASSO {pad(step + 1)}</span>
+          <h1>{current.title}</h1>
+        </header>
+        {warnings.length > 0 && (
           <ul className="warnings">
-            {stepWarnings.map((w) => <li key={w.text}>{w.text}</li>)}
+            {warnings.map((w) => <li key={w.text}><WarningCircleIcon />{w.text}</li>)}
           </ul>
         )}
-        <StepBody id={current.id} c={c} sheet={sheet} update={update} go={go} />
+        <div className="step-body">
+          <StepBody id={current.id} c={c} sheet={sheet} update={update} go={onStep} />
+        </div>
         <nav className="step-nav">
-          <button type="button" disabled={step === 0} onClick={() => go(step - 1)}>← Voltar</button>
-          {step < STEPS.length - 1 ? (
-            <button type="button" className="primary" onClick={() => go(step + 1)}>Próximo: {STEPS[step + 1].title} →</button>
+          {prev && <button type="button" onClick={() => onStep(step - 1)}><ArrowLeftIcon />{prev.title}</button>}
+          {next ? (
+            <button type="button" className="primary" onClick={() => onStep(step + 1)}>{next.title}<ArrowRightIcon /></button>
           ) : (
-            <button type="button" className="primary" onClick={() => window.print()}>Imprimir / PDF</button>
+            <button type="button" className="primary" onClick={() => window.print()}><PrinterIcon />Imprimir / PDF</button>
           )}
         </nav>
       </section>
-    </div>
+    </main>
   );
 }
 
@@ -124,6 +168,7 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
   const cls = sheet.cls;
   const bg = sheet.background;
   const species = byKey(SPECIES, c.speciesKey);
+  const bonus = Object.fromEntries(sheet.skills.map((s) => [s.key, s.bonus])) as Record<SkillKey, number>;
 
   switch (id) {
     case 'basic':
@@ -234,7 +279,7 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
             principal do {cls.pt}. Depois some os pontos do antecedente{bg ? ` (${bg.abilities.map(abilityLabel).join(', ')})` : ''}:
             +2 num e +1 noutro, ou +1 em três.
           </Intro>
-          <table className="ability-table">
+          <table className="table ability-table">
             <thead>
               <tr><th>Atributo</th><th>Base</th><th>Antecedente</th><th>Feats</th><th>Total</th><th>Mod</th></tr>
             </thead>
@@ -282,12 +327,14 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
             {bg ? ` ${bg.skills.map(skillLabel).join(' e ')}` : ' duas'}. Agora escolha as da classe.
           </Intro>
           <SkillPicker
-            title={`Perícias da classe: escolha ${cls.skillChoice.count}`}
+            title="Perícias da classe"
             help={HELP.skills}
             options={cls.skillChoice.options}
             selected={c.classSkills}
             max={cls.skillChoice.count}
             locked={bg?.skills ?? []}
+            lockedBy={bg?.pt}
+            bonus={bonus}
             onChange={(classSkills) => update({ classSkills })}
           />
           <SkillPicker
@@ -296,6 +343,8 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
             options={SKILLS.map((s) => s.key)}
             selected={c.extraSkills}
             locked={[...(bg?.skills ?? []), ...c.classSkills]}
+            bonus={bonus}
+            grid
             onChange={(extraSkills) => update({ extraSkills })}
           />
           <SkillPicker
@@ -303,6 +352,8 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
             help={HELP.expertise}
             options={sheet.skills.filter((s) => s.proficient).map((s) => s.key)}
             selected={c.expertise}
+            bonus={bonus}
+            expertise
             onChange={(expertise) => update({ expertise })}
           />
           <p className="hint">
@@ -429,7 +480,7 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
         <>
           <Intro>
             Confira se ficou faltando alguma escolha. A ficha já está pronta para imprimir ou salvar em PDF, e você pode voltar a
-            qualquer passo clicando nos números lá em cima.
+            qualquer passo pela lista ao lado.
           </Intro>
           {sheet.warnings.length > 0 ? (
             <ul className="review-list">
@@ -444,40 +495,57 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
               })}
             </ul>
           ) : (
-            <p className="ok">Tudo certo! Nenhuma escolha pendente.</p>
+            <p className="ok"><CheckIcon />Tudo certo! Nenhuma escolha pendente.</p>
           )}
-          <p className="hint">Use <strong>Exportar JSON</strong> na barra de cima para guardar uma cópia da ficha.</p>
+          <p className="hint">Use <strong>Exportar JSON</strong> no menu ⋯ da barra de cima para guardar uma cópia da ficha.</p>
         </>
       );
   }
 }
 
-function SkillPicker({ title, help, options, selected, onChange, max, locked = [] }: {
+/** Perícias como fichas clicáveis, com o bônus atual de cada uma. */
+function SkillPicker({ title, help, options, selected, onChange, bonus, max, locked = [], lockedBy, grid, expertise }: {
   title: string;
   help?: ReactNode;
   options: SkillKey[];
   selected: SkillKey[];
   onChange: (v: SkillKey[]) => void;
+  bonus: Record<SkillKey, number>;
   max?: number;
   locked?: SkillKey[];
+  /** De onde vêm as perícias travadas, ex.: o antecedente. */
+  lockedBy?: string;
+  grid?: boolean;
+  expertise?: boolean;
 }) {
   return (
     <div className="picker">
-      <FieldHead label={<>{title}{max !== undefined && ` (${selected.length}/${max})`}</>} help={help} />
-      <div className="check-grid">
+      <div className="picker-head">
+        <FieldHead label={title} help={help} />
+        {max !== undefined && <span className="tag tag-outline">{selected.length}/{max}</span>}
+      </div>
+      <div className={`chips${grid ? ' grid' : ''}`}>
         {options.map((k) => {
-          const isLocked = locked.includes(k) && !selected.includes(k);
-          const full = max !== undefined && selected.length >= max && !selected.includes(k);
+          const isSelected = selected.includes(k);
+          const isLocked = locked.includes(k) && !isSelected;
+          const full = !isLocked && max !== undefined && selected.length >= max && !isSelected;
+          const state = isSelected ? 'selected' : isLocked ? 'locked' : full ? 'full' : '';
           return (
-            <label key={k} className={isLocked || full ? 'muted' : ''}>
-              <input
-                type="checkbox" checked={selected.includes(k)} disabled={isLocked || full}
-                onChange={() => onChange(toggle(selected, k))}
-              />
+            <button
+              key={k} type="button" className={`chip ${state}`} aria-pressed={isSelected} disabled={isLocked || full}
+              title={isLocked ? `Já vem ${lockedBy ? `de ${lockedBy}` : 'de outra escolha'}` : undefined}
+              onClick={() => onChange(toggle(selected, k))}
+            >
+              {isSelected ? (expertise ? <StarFourIcon className="lead" /> : <CheckIcon className="lead" />)
+                : isLocked ? <LockSimpleIcon className="lead" />
+                : full ? null
+                : grid || expertise ? <span className="lead" /> : <PlusIcon className="lead" />}
               {skillLabel(k)}
-            </label>
+              <span className="bonus">{isLocked && lockedBy && !grid ? lockedBy : signed(bonus[k])}</span>
+            </button>
           );
         })}
+        {options.length === 0 && <span className="hint">Nenhuma perícia proficiente ainda.</span>}
       </div>
     </div>
   );
@@ -560,7 +628,7 @@ function SpellSection({ c, sheet, update }: Props) {
 
   const sc = sheet.spellcasting;
   return (
-    <div>
+    <div className="step-body">
       {cls.casterType !== 'NONE' && (
         <p className="hint">
           Truques: {sc?.cantrips ?? 0} · Magias preparadas: {sc?.prepared ?? 0} · Nível máx. de magia: {max}
@@ -577,13 +645,18 @@ function SpellSection({ c, sheet, update }: Props) {
       <p className="hint">Selecionadas: {c.spellKeys.length}. Desmarque "só a lista" para adicionar magias de Magic Initiate, domínio ou patrono.</p>
       <div className="spell-list">
         {list.map((s) => (
-          <label key={s.key} title={s.desc}>
+          <label key={s.key} className="spell-row" title={s.desc}>
             <input type="checkbox" checked={c.spellKeys.includes(s.key)} onChange={() => update({ spellKeys: toggle(c.spellKeys, s.key) })} />
             <span className="spell-level">{s.level === 0 ? 'T' : s.level}</span>
             {s.name}
-            <span className="muted"> · {s.school}{s.concentration ? ' · C' : ''}{s.ritual ? ' · R' : ''}</span>
+            <span className="school">{s.school}</span>
+            <span className="flags">
+              {s.concentration && <span className="tag tag-neutral" title="Concentração">C</span>}
+              {s.ritual && <span className="tag tag-neutral" title="Ritual">R</span>}
+            </span>
           </label>
         ))}
+        {list.length === 0 && <p className="hint">Nenhuma magia encontrada.</p>}
       </div>
     </div>
   );
