@@ -9,7 +9,7 @@ import {
   type AbilityKey, type SkillKey,
 } from '../data/rules';
 import {
-  featSlots, isWeaponProficient, maxSpellLevel,
+  backgroundBonusProblem, featSlots, isWeaponProficient, maxSpellLevel,
   type Character, type Sheet, type WarningArea,
 } from '../engine/character';
 import { labelPt, translation } from '../data/translations';
@@ -285,7 +285,11 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
             </thead>
             <tbody>
               {ABILITIES.map((a) => {
-                const fromFeats = sheet.scores[a.key] - c.baseScores[a.key] - (c.backgroundBonus[a.key] ?? 0);
+                const fromFeats = sheet.scores[a.key] - c.baseScores[a.key] - (sheet.backgroundBonus[a.key] ?? 0);
+                // Desativa o que quebraria a regra; se a ficha já estiver inválida, deixa tudo livre para corrigir.
+                const alreadyInvalid = !!bg && backgroundBonusProblem(c.backgroundBonus, bg.abilities) !== null;
+                const allowed = (n: number) =>
+                  !bg || alreadyInvalid || backgroundBonusProblem({ ...c.backgroundBonus, [a.key]: n }, bg.abilities) === null;
                 return (
                   <tr key={a.key}>
                     <td>{a.pt}</td>
@@ -302,8 +306,8 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
                           onChange={(e) => update({ backgroundBonus: { ...c.backgroundBonus, [a.key]: Number(e.target.value) } })}
                         >
                           <option value={0}>—</option>
-                          <option value={1}>+1</option>
-                          <option value={2}>+2</option>
+                          <option value={1} disabled={!allowed(1)}>+1</option>
+                          <option value={2} disabled={!allowed(2)}>+2</option>
                         </select>
                       ) : <span className="muted">—</span>}
                     </td>
@@ -315,6 +319,10 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
               })}
             </tbody>
           </table>
+          <p className="hint">
+            Antecedente: só um atributo pode receber +2, e o total é 3 pontos. Para mudar o +2 de lugar, tire-o primeiro do
+            atributo onde ele está.
+          </p>
           <p className="hint">{HELP.modifier}</p>
         </>
       );

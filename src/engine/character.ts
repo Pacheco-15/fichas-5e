@@ -92,6 +92,20 @@ export function normalizeCharacter(raw: Partial<Character>): Character {
   return c;
 }
 
+/* ---------- Bônus do antecedente ---------- */
+
+/**
+ * Regra de 2024: +2 num atributo e +1 noutro, ou +1 em três, só entre os atributos do antecedente.
+ * Devolve o problema da combinação, ou null se ela é válida (mesmo incompleta).
+ */
+export function backgroundBonusProblem(bonus: Partial<Scores>, abilities: AbilityKey[]): string | null {
+  const picked = (Object.entries(bonus) as [AbilityKey, number | undefined][]).filter(([, n]) => n);
+  if (picked.some(([k, n]) => !abilities.includes(k) || n! < 0 || n! > 2)) return 'só os atributos do antecedente podem receber bônus.';
+  if (picked.filter(([, n]) => n === 2).length > 1) return 'só um atributo pode receber +2.';
+  if (picked.reduce((s, [, n]) => s + n!, 0) > 3) return 'o antecedente dá só 3 pontos no total.';
+  return null;
+}
+
 /* ---------- Espaços de feat ---------- */
 
 export interface FeatSlot {
@@ -174,6 +188,8 @@ export interface Sheet {
   pb: number;
   scores: Scores;
   mods: Scores;
+  /** Bônus do antecedente que entrou na conta (vazio se a combinação escolhida for inválida). */
+  backgroundBonus: Partial<Scores>;
   saves: { key: AbilityKey; proficient: boolean; bonus: number }[];
   skills: SkillRow[];
   passivePerception: number;
@@ -257,15 +273,28 @@ export function computeSheet(c: Character): Sheet {
   });
   const hasFeat = (name: string) => feats.some((f) => f.feat?.name === name);
 
+  const bgProblem = background ? backgroundBonusProblem(c.backgroundBonus, background.abilities) : null;
+  const backgroundBonus: Partial<Scores> = {};
   const scores = { ...c.baseScores };
-  for (const a of ABILITIES) scores[a.key] += c.backgroundBonus[a.key] ?? 0;
+  if (background && !bgProblem) {
+    for (const a of background.abilities) {
+      // O bônus do antecedente não leva nenhum atributo acima de 20.
+      const bonus = Math.min(c.backgroundBonus[a] ?? 0, Math.max(0, 20 - scores[a]));
+      if (bonus) backgroundBonus[a] = bonus;
+      scores[a] += bonus;
+    }
+  }
   for (const { feat, abilities } of feats) {
     for (const a of abilities) scores[a] = Math.min(feat!.maxScore, scores[a] + 1);
   }
   const mods = Object.fromEntries(ABILITIES.map((a) => [a.key, modifier(scores[a.key])])) as Scores;
 
   const bonusTotal = Object.values(c.backgroundBonus).reduce((s, n) => s + (n ?? 0), 0);
-  if (background && bonusTotal !== 3) warn('abilities', `Distribua 3 pontos do antecedente (+2/+1 ou +1/+1/+1). Atual: ${bonusTotal}.`);
+  if (bgProblem) {
+    warn('abilities', `Bônus do antecedente inválido: ${bgProblem} Use +2/+1 ou +1/+1/+1; até corrigir, ele não entra na ficha.`);
+  } else if (background && bonusTotal !== 3) {
+    warn('abilities', `Distribua 3 pontos do antecedente (+2/+1 ou +1/+1/+1). Atual: ${bonusTotal}.`);
+  }
 
   /* Salvaguardas e perícias */
   const saves = ABILITIES.map((a) => {
@@ -437,7 +466,7 @@ export function computeSheet(c: Character): Sheet {
   }
 
   return {
-    cls, subclass, species, speciesLabel, background, armor, pb, scores, mods, saves, skills,
+    cls, subclass, species, speciesLabel, background, armor, pb, scores, mods, backgroundBonus, saves, skills,
     passivePerception: 10 + perception,
     initiative: mods.dex + (hasFeat('Alert') ? pb : 0),
     ac, acNote, speed, hpMax,
