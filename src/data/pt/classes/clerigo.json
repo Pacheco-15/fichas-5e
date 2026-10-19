@@ -1,0 +1,70 @@
+{
+  "srd-2024_cleric/Channel Divinity": { "name": "Canalizar Divindade" },
+
+  "srd-2024_cleric_divine-order": {
+    "name": "Ordem Divina",
+    "desc": "Você se dedicou a um dos papéis sagrados a seguir, à sua escolha.\n\n**Protetor.** Treinado para a batalha, você ganha proficiência com armas Marciais e treinamento com armadura Pesada.\n\n**Taumaturgo.** Você conhece um truque extra da lista de magias de Clérigo. Além disso, sua ligação mística com o divino dá um bônus nos seus testes de Inteligência (Arcanismo ou Religião), igual ao seu modificador de Sabedoria (mínimo de +1)."
+  },
+  "srd-2024_cleric_spellcasting": {
+    "name": "Conjuração",
+    "desc": "Você aprendeu a conjurar magias por meio de oração e meditação. As regras abaixo explicam como isso funciona com as magias de Clérigo.\n\n**Truques.** Você conhece três truques à sua escolha da lista de magias de Clérigo. Guidance, Sacred Flame e Thaumaturgy são os recomendados.\n\nSempre que ganhar um nível de Clérigo, você pode trocar um dos seus truques por outro truque da lista de magias de Clérigo.\n\nNos níveis 4 e 10 de Clérigo você aprende mais um truque à sua escolha da lista de magias de Clérigo.\n\n**Espaços de Magia.** O número de espaços de magia que você tem para conjurar magias de nível 1+ aparece na página de magias da ficha. Você recupera todos os espaços gastos ao terminar um Descanso Longo.\n\n**Magias Preparadas de Nível 1+.** Você prepara a lista de magias de nível 1+ que pode conjurar com esta característica. Para começar, escolha quatro magias de nível 1 da lista de magias de Clérigo. Bless, Cure Wounds, Guiding Bolt e Shield of Faith são as recomendadas.\n\nO número de magias da sua lista aumenta com seus níveis de Clérigo (o valor atual aparece na página de magias da ficha). Sempre que esse número aumentar, escolha mais magias da lista de Clérigo até completar a quantidade. As magias escolhidas precisam ser de um nível para o qual você tenha espaços de magia. Por exemplo, um Clérigo de nível 3 pode ter na lista seis magias de nível 1 e 2, em qualquer combinação.\n\nSe outra característica de Clérigo der magias que você sempre tem preparadas, elas não contam no limite desta característica, mas contam como magias de Clérigo para você.\n\n**Trocando as Magias Preparadas.** Sempre que terminar um Descanso Longo, você pode mudar sua lista de magias preparadas, trocando qualquer uma delas por outras magias de Clérigo para as quais tenha espaços de magia.\n\n**Atributo de Conjuração.** Sabedoria é o seu atributo de conjuração para as magias de Clérigo.\n\n**Foco de Conjuração.** Você pode usar um Símbolo Sagrado como Foco de Conjuração para as magias de Clérigo."
+  },
+  "srd-2024_cleric_channel-divinity": {
+    "name": "Canalizar Divindade",
+    "desc": "Você consegue canalizar energia divina diretamente dos Planos Exteriores para criar efeitos mágicos. Você começa com dois desses efeitos, Centelha Divina e Expulsar Mortos-Vivos, descritos abaixo. Cada vez que usar o Canalizar Divindade desta classe, escolha qual dos efeitos dela criar. Você ganha mais opções de efeito em níveis mais altos de Clérigo.\n\nVocê pode usar o Canalizar Divindade desta classe duas vezes. Recupera um uso gasto ao terminar um Descanso Curto e todos os usos ao terminar um Descanso Longo. Você ganha mais usos em certos níveis de Clérigo; o número atual aparece em Recursos de classe, na primeira página da ficha.\n\nSe um efeito de Canalizar Divindade pedir uma salvaguarda, a CD é igual à CD de salvaguarda de magia da característica Conjuração desta classe.\n\n**Centelha Divina.** Com uma ação de Magia, você aponta seu Símbolo Sagrado para outra criatura que possa ver a até 30 pés de você e concentra energia divina nela. Role 1d8 e some seu modificador de Sabedoria. Você pode curar a criatura em Pontos de Vida iguais a esse total ou forçá-la a fazer uma salvaguarda de Constituição. Se falhar, ela sofre dano Necrótico ou Radiante (à sua escolha) igual ao total; se passar, sofre metade desse dano (arredondado para baixo).\n\nVocê rola um d8 a mais nos níveis 7 (2d8), 13 (3d8) e 18 (4d8) de Clérigo.\n\n**Expulsar Mortos-Vivos.** Com uma ação de Magia, você ergue seu Símbolo Sagrado e repreende criaturas Mortas-Vivas. Cada Morto-Vivo à sua escolha a até 30 pés de você precisa fazer uma salvaguarda de Sabedoria. Se falhar, ele fica Amedrontado e Incapacitado por 1 minuto. Durante esse tempo, tenta se afastar o máximo possível de você nos turnos dele. O efeito termina antes para a criatura se ela sofrer qualquer dano, se você ficar Incapacitado ou se você morrer."
+  },
+  "srd-2024_cleric_cleric-subclasses": {
+    "name": "Subclasse de Clérigo",
+    "desc": "Você ganha uma subclasse de Clérigo à sua escolha; este app traz o Domínio da Vida (Life Domain). Uma subclasse é uma especialização que dá características em certos níveis de Clérigo. Pelo resto da carreira, você ganha cada característica da subclasse cujo nível seja igual ou menor que o seu nível de Clérigo."
+  },
+  "srd-2024_cleric_ability-score-improvement": {
+    "name": "Aumento no Valor de Atributo",
+    "desc": "Você ganha o feat Ability Score Improvement (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Você ganha esta característica de novo nos níveis 8, 12 e 16 de Clérigo."
+  },
+  "srd-2024_cleric_sear-undead": {
+    "name": "Queimar Mortos-Vivos",
+    "desc": "Sempre que usar Expulsar Mortos-Vivos, você pode rolar um número de d8 igual ao seu modificador de Sabedoria (mínimo de 1d8) e somar os resultados. Cada Morto-Vivo que falhar na salvaguarda contra esse uso de Expulsar Mortos-Vivos sofre dano Radiante igual ao total. Esse dano não encerra o efeito de expulsão."
+  },
+  "srd-2024_cleric_blessed-strikes": {
+    "name": "Golpes Abençoados",
+    "desc": "Poder divino toma conta de você em combate. Você ganha uma das opções a seguir, à sua escolha (se receber alguma delas de uma subclasse de Clérigo de um livro mais antigo, use só a que escolher aqui).\n\n**Golpe Divino.** Uma vez em cada um dos seus turnos, quando acertar uma criatura com uma jogada de ataque usando uma arma, você pode fazer o alvo sofrer 1d8 de dano Necrótico ou Radiante extra (à sua escolha).\n\n**Conjuração Potente.** Some seu modificador de Sabedoria ao dano que causar com qualquer truque de Clérigo."
+  },
+  "srd-2024_cleric_divine-intervention": {
+    "name": "Intervenção Divina",
+    "desc": "Você pode pedir que sua divindade ou seu panteão intervenha a seu favor. Com uma ação de Magia, escolha qualquer magia de Clérigo de nível 5 ou menor que não precise de Reação para ser conjurada. Como parte da mesma ação, você conjura essa magia sem gastar espaço de magia nem precisar de componentes Materiais. Você só pode usar esta característica de novo ao terminar um Descanso Longo."
+  },
+  "srd-2024_cleric_improved-blessed-strikes": {
+    "name": "Golpes Abençoados Aprimorados",
+    "desc": "A opção que você escolheu em Golpes Abençoados fica mais poderosa.\n\n**Golpe Divino.** O dano extra do seu Golpe Divino aumenta para 2d8.\n\n**Conjuração Potente.** Quando conjurar um truque de Clérigo e causar dano a uma criatura com ele, você pode dar vitalidade a si mesmo ou a outra criatura a até 60 pés de você, concedendo Pontos de Vida Temporários iguais ao dobro do seu modificador de Sabedoria."
+  },
+  "srd-2024_cleric_epic-boon": {
+    "name": "Dádiva Épica",
+    "desc": "Você ganha um feat de Dádiva Épica (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Boon of Fate é o recomendado."
+  },
+  "srd-2024_cleric_greater-divine-intervention": {
+    "name": "Intervenção Divina Maior",
+    "desc": "Você pode pedir uma intervenção divina ainda mais poderosa. Quando usar a característica Intervenção Divina, pode escolher a magia Wish. Se fizer isso, só pode usar Intervenção Divina de novo depois de terminar 2d4 Descansos Longos."
+  },
+
+  "srd-2024_life-domain": { "name": "Domínio da Vida" },
+  "srd-2024_cleric_life-domain_disciple-of-life": {
+    "name": "Discípulo da Vida",
+    "desc": "Quando uma magia que você conjura com um espaço de magia restaura Pontos de Vida de uma criatura, ela recupera Pontos de Vida adicionais no turno em que você conjura a magia, iguais a 2 + o nível do espaço de magia."
+  },
+  "srd-2024_cleric_life-domain_life-domain-spells": {
+    "name": "Magias do Domínio da Vida",
+    "desc": "Sua ligação com este domínio divino garante que você sempre tenha certas magias à mão. Ao alcançar um nível de Clérigo indicado na tabela abaixo, você passa a ter sempre as magias listadas preparadas.\n\n|Nível de Clérigo|Magias Preparadas|\n|---|---|\n|3|Aid, Bless, Cure Wounds, Lesser Restoration|\n|5|Mass Healing Word, Revivify|\n|7|Aura of Life, Death Ward|\n|9|Greater Restoration, Mass Cure Wounds|"
+  },
+  "srd-2024_cleric_life-domain_preserve-life": {
+    "name": "Preservar a Vida",
+    "desc": "Com uma ação de Magia, você ergue seu Símbolo Sagrado e gasta um uso de Canalizar Divindade para invocar energia de cura capaz de restaurar um número de Pontos de Vida igual a cinco vezes o seu nível de Clérigo. Escolha criaturas Sangrando a até 30 pés de você (você pode estar entre elas) e divida esses Pontos de Vida entre elas. Esta característica não pode levar uma criatura a mais da metade do seu máximo de Pontos de Vida."
+  },
+  "srd-2024_cleric_life-domain_blessed-healer": {
+    "name": "Curandeiro Abençoado",
+    "desc": "As magias de cura que você conjura nos outros também curam você. Logo depois de conjurar, com um espaço de magia, uma magia que restaure Pontos de Vida de uma ou mais criaturas além de você, você recupera Pontos de Vida iguais a 2 + o nível do espaço de magia."
+  },
+  "srd-2024_cleric_life-domain_supreme-healing": {
+    "name": "Cura Suprema",
+    "desc": "Quando normalmente rolaria um ou mais dados para restaurar Pontos de Vida de uma criatura com uma magia ou com Canalizar Divindade, não role esses dados: use o maior número possível de cada um. Por exemplo, em vez de restaurar 2d6 Pontos de Vida com uma magia, você restaura 12."
+  }
+}

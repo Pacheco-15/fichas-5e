@@ -1,0 +1,66 @@
+{
+  "srd-2024_sorcerer/Sorcery Points": { "name": "Pontos de Feitiçaria" },
+
+  "srd-2024_sorcerer_innate-sorcery": {
+    "name": "Feitiçaria Inata",
+    "desc": "Um acontecimento do seu passado deixou uma marca permanente em você e o encheu de magia latente. Com uma Ação Bônus, você pode liberar essa magia por 1 minuto e, durante esse tempo, ganha estes benefícios:\n\n- A CD de salvaguarda das suas magias de Feiticeiro aumenta em 1.\n- Você tem Vantagem nas jogadas de ataque das magias de Feiticeiro que conjurar.\n\nVocê pode usar esta característica duas vezes e recupera todos os usos gastos ao terminar um Descanso Longo."
+  },
+  "srd-2024_sorcerer_spellcasting": {
+    "name": "Conjuração",
+    "desc": "Usando sua magia inata, você consegue conjurar magias. As regras abaixo explicam como isso funciona com as magias de Feiticeiro.\n\n**Truques.** Você conhece quatro truques de Feiticeiro à sua escolha. Light, Prestidigitation, Shocking Grasp e Sorcerous Burst são os recomendados. Sempre que ganhar um nível de Feiticeiro, você pode trocar um dos truques desta característica por outro truque de Feiticeiro.\n\nNos níveis 4 e 10 de Feiticeiro você aprende mais um truque de Feiticeiro à sua escolha.\n\n**Espaços de Magia.** O número de espaços de magia que você tem para conjurar magias de nível 1+ aparece na página de magias da ficha. Você recupera todos os espaços gastos ao terminar um Descanso Longo.\n\n**Magias Preparadas de Nível 1+.** Você prepara a lista de magias de nível 1+ que pode conjurar com esta característica. Para começar, escolha duas magias de Feiticeiro de nível 1. Burning Hands e Detect Magic são as recomendadas.\n\nO número de magias da sua lista aumenta com seus níveis de Feiticeiro (o valor atual aparece na página de magias da ficha). Sempre que esse número aumentar, escolha mais magias de Feiticeiro até completar a quantidade. As magias escolhidas precisam ser de um nível para o qual você tenha espaços de magia. Por exemplo, um Feiticeiro de nível 3 pode ter na lista seis magias de Feiticeiro de nível 1 ou 2, em qualquer combinação.\n\nSe outra característica de Feiticeiro der magias que você sempre tem preparadas, elas não contam no limite desta característica, mas contam como magias de Feiticeiro para você.\n\n**Trocando as Magias Preparadas.** Sempre que ganhar um nível de Feiticeiro, você pode trocar uma magia da sua lista por outra magia de Feiticeiro para a qual tenha espaços de magia.\n\n**Atributo de Conjuração.** Carisma é o seu atributo de conjuração para as magias de Feiticeiro.\n\n**Foco de Conjuração.** Você pode usar um Foco Arcano como Foco de Conjuração para as magias de Feiticeiro."
+  },
+  "srd-2024_sorcerer_font-of-magic": {
+    "name": "Fonte de Magia",
+    "desc": "Você consegue acessar a fonte de magia que existe dentro de você. Ela é representada pelos Pontos de Feitiçaria, que permitem criar vários efeitos mágicos.\n\nVocê tem 2 Pontos de Feitiçaria e ganha mais em níveis mais altos; o número atual aparece em Recursos de classe, na primeira página da ficha. Você não pode ter mais pontos que esse número e recupera todos os pontos gastos ao terminar um Descanso Longo.\n\nVocê pode usar seus Pontos de Feitiçaria nas opções abaixo e em outras características que gastam esses pontos, como a Metamagia.\n\n**Converter Espaços de Magia em Pontos de Feitiçaria.** Você pode gastar um espaço de magia para ganhar Pontos de Feitiçaria iguais ao nível do espaço (sem precisar de ação).\n\n**Criar Espaços de Magia.** Com uma Ação Bônus, você pode transformar Pontos de Feitiçaria não gastos num espaço de magia. A tabela abaixo mostra o custo de criar um espaço de cada nível e o nível mínimo de Feiticeiro para isso. Você só pode criar espaços de até nível 5.\n\nQualquer espaço de magia criado com esta característica some quando você termina um Descanso Longo.\n\n|Nível do Espaço|Custo em Pontos|Nível Mínimo de Feiticeiro|\n|---|---|---|\n|1|2|2|\n|2|3|3|\n|3|5|5|\n|4|6|7|\n|5|7|9|"
+  },
+  "srd-2024_sorcerer_metamagic": {
+    "name": "Metamagia",
+    "desc": "Como sua magia vem de dentro, você pode alterar suas magias conforme a necessidade: você ganha duas opções de Metamagia à sua escolha (elas estão descritas no SRD, na seção do Feiticeiro). Você usa essas opções para modificar temporariamente as magias que conjura. Para usar uma opção, gaste o número de Pontos de Feitiçaria que ela custa.\n\nVocê só pode usar uma opção de Metamagia por magia ao conjurá-la, a menos que a opção diga o contrário.\n\nSempre que ganhar um nível de Feiticeiro, você pode trocar uma das opções de Metamagia por outra que não conheça. Você ganha mais duas opções no nível 10 de Feiticeiro e mais duas no nível 17."
+  },
+  "srd-2024_sorcerer_sorcerer-subclass": {
+    "name": "Subclasse de Feiticeiro",
+    "desc": "Você ganha uma subclasse de Feiticeiro à sua escolha; este app traz a Feitiçaria Dracônica (Draconic Sorcery). Uma subclasse é uma especialização que dá características em certos níveis de Feiticeiro. Pelo resto da carreira, você ganha cada característica da subclasse cujo nível seja igual ou menor que o seu nível de Feiticeiro."
+  },
+  "srd-2024_sorcerer_ability-score-improvement": {
+    "name": "Aumento no Valor de Atributo",
+    "desc": "Você ganha o feat Ability Score Improvement (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Você ganha esta característica de novo nos níveis 8, 12 e 16 de Feiticeiro."
+  },
+  "srd-2024_sorcerer_sorcerous-restoration": {
+    "name": "Restauração Feiticeira",
+    "desc": "Ao terminar um Descanso Curto, você pode recuperar Pontos de Feitiçaria gastos, no máximo metade do seu nível de Feiticeiro (arredondado para baixo). Depois de usar esta característica, você só pode usá-la de novo ao terminar um Descanso Longo."
+  },
+  "srd-2024_sorcerer_sorcery-incarnate": {
+    "name": "Feitiçaria Encarnada",
+    "desc": "Se não tiver mais usos de Feitiçaria Inata, você pode usá-la gastando 2 Pontos de Feitiçaria ao realizar a Ação Bônus para ativá-la.\n\nAlém disso, enquanto a Feitiçaria Inata estiver ativa, você pode usar até duas opções de Metamagia em cada magia que conjurar."
+  },
+  "srd-2024_sorcerer_epic-boon": {
+    "name": "Dádiva Épica",
+    "desc": "Você ganha um feat de Dádiva Épica (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Boon of Dimensional Travel é o recomendado."
+  },
+  "srd-2024_sorcerer_arcane-apotheosis": {
+    "name": "Apoteose Arcana",
+    "desc": "Enquanto a Feitiçaria Inata estiver ativa, você pode usar uma opção de Metamagia em cada um dos seus turnos sem gastar Pontos de Feitiçaria com ela."
+  },
+
+  "srd-2024_draconic-sorcery": { "name": "Feitiçaria Dracônica" },
+  "srd-2024_sorcerer_draconic-sorcery_draconic-resilience": {
+    "name": "Resiliência Dracônica",
+    "desc": "A magia no seu corpo manifesta traços físicos do seu dom dracônico. Seu máximo de Pontos de Vida aumenta em 3, e aumenta mais 1 sempre que você ganhar outro nível de Feiticeiro.\n\nPartes do seu corpo também são cobertas por escamas de dragão. Enquanto não estiver usando armadura, sua Classe de Armadura base é igual a 10 + seus modificadores de Destreza e Carisma. A ficha já soma esses bônus."
+  },
+  "srd-2024_sorcerer_draconic-sorcery_draconic-spells": {
+    "name": "Magias Dracônicas",
+    "desc": "Ao alcançar um nível de Feiticeiro indicado na tabela abaixo, você passa a ter sempre as magias listadas preparadas.\n\n|Nível de Feiticeiro|Magias|\n|---|---|\n|3|Alter Self, Chromatic Orb, Command, Dragon's Breath|\n|5|Fear, Fly|\n|7|Arcane Eye, Charm Monster|\n|9|Legend Lore, Summon Dragon|"
+  },
+  "srd-2024_sorcerer_draconic-sorcery_elemental-affinity": {
+    "name": "Afinidade Elemental",
+    "desc": "Sua magia dracônica tem afinidade com um tipo de dano ligado aos dragões. Escolha um destes tipos: Ácido, Frio, Fogo, Elétrico ou Veneno.\n\nVocê tem Resistência a esse tipo de dano e, quando conjurar uma magia que cause dano desse tipo, pode somar seu modificador de Carisma a uma das jogadas de dano dela."
+  },
+  "srd-2024_sorcerer_draconic-sorcery_dragon-wings": {
+    "name": "Asas de Dragão",
+    "desc": "Com uma Ação Bônus, você pode fazer asas dracônicas surgirem nas suas costas. Elas duram 1 hora ou até você dispensá-las (sem precisar de ação). Durante esse tempo, você tem Deslocamento de Voo de 60 pés.\n\nDepois de usar esta característica, você só pode usá-la de novo ao terminar um Descanso Longo, a menos que gaste 3 Pontos de Feitiçaria (sem precisar de ação) para recuperá-la."
+  },
+  "srd-2024_sorcerer_draconic-sorcery_dragon-companion": {
+    "name": "Companheiro Dracônico",
+    "desc": "Você pode conjurar Summon Dragon sem componente Material. Também pode conjurá-la uma vez sem espaço de magia e recupera essa capacidade ao terminar um Descanso Longo.\n\nSempre que começar a conjurar essa magia, você pode modificá-la para que não exija Concentração. Se fizer isso, a duração dela passa a ser de 1 minuto nessa conjuração."
+  }
+}

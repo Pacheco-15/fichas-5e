@@ -1,0 +1,64 @@
+{
+  "srd-2024_wizard_arcane-recovery": {
+    "name": "Recuperação Arcana",
+    "desc": "Você pode recuperar parte da sua energia mágica estudando seu grimório. Ao terminar um Descanso Curto, você pode escolher espaços de magia gastos para recuperar. A soma dos níveis desses espaços pode ser no máximo metade do seu nível de Mago (arredondado para cima), e nenhum deles pode ser de nível 6 ou maior. Por exemplo, um Mago de nível 4 pode recuperar até dois níveis de espaços: um espaço de nível 2 ou dois de nível 1.\n\nDepois de usar esta característica, você só pode usá-la de novo ao terminar um Descanso Longo."
+  },
+  "srd-2024_wizard_ritual-adept": {
+    "name": "Adepto de Rituais",
+    "desc": "Você pode conjurar como Ritual qualquer magia que tenha a marcação Ritual e esteja no seu grimório. Não precisa ter a magia preparada, mas precisa ler o livro para conjurá-la desse jeito."
+  },
+  "srd-2024_wizard_spellcasting": {
+    "name": "Conjuração",
+    "desc": "Como estudante de magia arcana, você aprendeu a conjurar magias. As regras abaixo explicam como isso funciona com as magias de Mago.\n\n**Truques.** Você conhece três truques de Mago à sua escolha. Light, Mage Hand e Ray of Frost são os recomendados. Sempre que terminar um Descanso Longo, você pode trocar um dos truques desta característica por outro truque de Mago.\n\nNos níveis 4 e 10 de Mago você aprende mais um truque de Mago à sua escolha.\n\n**Grimório.** Seu aprendizado de mago terminou com a criação de um livro único: seu grimório. Ele é um objeto Minúsculo que pesa 3 libras (cerca de 1,5 kg), tem 100 páginas e só pode ser lido por você ou por alguém conjurando Identify. Você define a aparência e os materiais do livro, como um tomo com bordas douradas ou folhas de pergaminho amarradas com barbante.\n\nO livro contém as magias de nível 1+ que você conhece. Ele começa com seis magias de Mago de nível 1 à sua escolha. Detect Magic, Feather Fall, Mage Armor, Magic Missile, Sleep e Thunderwave são as recomendadas.\n\nSempre que ganhar um nível de Mago depois do 1, acrescente duas magias de Mago à sua escolha ao grimório. Cada uma precisa ser de um nível para o qual você tenha espaços de magia. Essas magias são o resultado da pesquisa arcana que você faz regularmente.\n\n**Espaços de Magia.** O número de espaços de magia que você tem para conjurar magias de nível 1+ aparece na página de magias da ficha. Você recupera todos os espaços gastos ao terminar um Descanso Longo.\n\n**Magias Preparadas de Nível 1+.** Você prepara a lista de magias de nível 1+ que pode conjurar com esta característica. Para isso, escolha quatro magias do seu grimório. Elas precisam ser de um nível para o qual você tenha espaços de magia.\n\nO número de magias da sua lista aumenta com seus níveis de Mago (o valor atual aparece na página de magias da ficha). Sempre que esse número aumentar, escolha mais magias de Mago até completar a quantidade. As magias escolhidas precisam ser de um nível para o qual você tenha espaços de magia. Por exemplo, um Mago de nível 3 pode ter na lista seis magias de nível 1 e 2 do seu grimório, em qualquer combinação.\n\nSe outra característica de Mago der magias que você sempre tem preparadas, elas não contam no limite desta característica, mas contam como magias de Mago para você.\n\n**Trocando as Magias Preparadas.** Sempre que terminar um Descanso Longo, você pode mudar sua lista de magias preparadas, trocando qualquer uma delas por magias do seu grimório.\n\n**Atributo de Conjuração.** Inteligência é o seu atributo de conjuração para as magias de Mago.\n\n**Foco de Conjuração.** Você pode usar um Foco Arcano ou seu grimório como Foco de Conjuração para as magias de Mago.\n\n**Ampliando e Substituindo o Grimório.** As magias que você acrescenta ao grimório ao subir de nível refletem sua pesquisa mágica contínua, mas você pode encontrar outras magias nas aventuras e acrescentá-las ao livro. Pode achar uma magia de Mago num Spell Scroll (Pergaminho de Magia), por exemplo, e copiá-la para o grimório.\n\n**Copiando uma Magia para o Livro.** Quando encontrar uma magia de Mago de nível 1+, você pode copiá-la para o grimório se ela for de um nível que você consiga preparar e se tiver tempo para isso. Para cada nível da magia, a cópia leva 2 horas e custa 50 PO. Depois, você pode preparar a magia como as outras do grimório.\n\n**Copiando o Livro.** Você pode copiar uma magia do seu grimório para outro livro. É como copiar uma magia nova, só que mais rápido, porque você já sabe conjurá-la: leva só 1 hora e custa 10 PO por nível da magia copiada.\n\nSe perder seu grimório, você pode usar o mesmo procedimento para transcrever as magias de Mago que tem preparadas para um grimório novo. Para completar o resto do livro, precisa encontrar novas magias. Por isso, muitos magos guardam um grimório reserva."
+  },
+  "srd-2024_wizard_scholar": {
+    "name": "Erudito",
+    "desc": "Enquanto estudava magia, você também se especializou em outra área. Escolha uma destas perícias em que seja proficiente: Arcanismo, História, Investigação, Medicina, Natureza ou Religião. Você tem Especialização na perícia escolhida."
+  },
+  "srd-2024_wizard_wizard-subclass": {
+    "name": "Subclasse de Mago",
+    "desc": "Você ganha uma subclasse de Mago à sua escolha; este app traz o Evocador (Evoker). Uma subclasse é uma especialização que dá características em certos níveis de Mago. Pelo resto da carreira, você ganha cada característica da subclasse cujo nível seja igual ou menor que o seu nível de Mago."
+  },
+  "srd-2024_wizard_ability-score-improvement": {
+    "name": "Aumento no Valor de Atributo",
+    "desc": "Você ganha o feat Ability Score Improvement (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Você ganha esta característica de novo nos níveis 8, 12 e 16 de Mago."
+  },
+  "srd-2024_wizard_memorize-spell": {
+    "name": "Memorizar Magia",
+    "desc": "Sempre que terminar um Descanso Curto, você pode estudar seu grimório e trocar uma das magias de Mago de nível 1+ que tem preparadas pela característica Conjuração por outra magia de nível 1+ do livro."
+  },
+  "srd-2024_wizard_spell-mastery": {
+    "name": "Maestria em Magia",
+    "desc": "Você domina tanto certas magias que consegue conjurá-las à vontade. Escolha uma magia de nível 1 e uma de nível 2 do seu grimório que tenham tempo de conjuração de uma ação. Você sempre tem essas magias preparadas e pode conjurá-las no nível mais baixo sem gastar espaço de magia. Para conjurar qualquer uma delas num nível mais alto, precisa gastar um espaço de magia.\n\nSempre que terminar um Descanso Longo, você pode estudar seu grimório e trocar uma dessas magias por outra do mesmo nível que se encaixe nas regras."
+  },
+  "srd-2024_wizard_epic-boon": {
+    "name": "Dádiva Épica",
+    "desc": "Você ganha um feat de Dádiva Épica (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Boon of Spell Recall é o recomendado."
+  },
+  "srd-2024_wizard_signature-spells": {
+    "name": "Magias Marcantes",
+    "desc": "Escolha duas magias de nível 3 do seu grimório como suas magias marcantes. Você sempre tem essas magias preparadas e pode conjurar cada uma delas uma vez no nível 3 sem gastar espaço de magia. Depois disso, só pode conjurá-las assim de novo ao terminar um Descanso Curto ou Longo. Para conjurar qualquer uma delas num nível mais alto, precisa gastar um espaço de magia."
+  },
+
+  "srd-2024_evoker": { "name": "Evocador" },
+  "srd-2024_wizard_evoker_evocation-savant": {
+    "name": "Sábio da Evocação",
+    "desc": "Escolha duas magias de Mago da escola de Evocação, cada uma de nível 2 ou menor, e acrescente-as ao grimório de graça.\n\nAlém disso, sempre que ganhar acesso a um novo nível de espaços de magia nesta classe, você pode acrescentar de graça ao grimório uma magia de Mago da escola de Evocação. Ela precisa ser de um nível para o qual você tenha espaços de magia."
+  },
+  "srd-2024_wizard_evoker_potent-cantrip": {
+    "name": "Truque Potente",
+    "desc": "Seus truques de dano afetam até as criaturas que escapam do pior do efeito. Quando conjurar um truque numa criatura e errar a jogada de ataque, ou o alvo passar na salvaguarda contra o truque, ele sofre metade do dano do truque (se houver), mas nenhum efeito adicional."
+  },
+  "srd-2024_wizard_evoker_sculpt-spells": {
+    "name": "Esculpir Magias",
+    "desc": "Você consegue criar bolsões de relativa segurança dentro dos efeitos das suas evocações. Quando conjurar uma magia de Evocação que afete outras criaturas que você possa ver, pode escolher um número delas igual a 1 + o nível da magia. As criaturas escolhidas passam automaticamente nas salvaguardas contra a magia e não sofrem dano se normalmente sofreriam metade ao passar."
+  },
+  "srd-2024_wizard_evoker_empowered-evocation": {
+    "name": "Evocação Fortalecida",
+    "desc": "Sempre que conjurar uma magia de Mago da escola de Evocação, você pode somar seu modificador de Inteligência a uma das jogadas de dano dela."
+  },
+  "srd-2024_wizard_evoker_overchannel": {
+    "name": "Sobrecarga",
+    "desc": "Você consegue aumentar o poder das suas magias. Quando conjurar uma magia de Mago que cause dano usando um espaço de magia de nível 1 a 5, pode causar o dano máximo com ela no turno em que a conjurar.\n\nNa primeira vez que fizer isso, não sofre nenhum efeito negativo. Se usar esta característica de novo antes de terminar um Descanso Longo, você sofre 2d12 de dano Necrótico por nível do espaço de magia, logo depois de conjurar. Esse dano ignora Resistência e Imunidade.\n\nCada vez que usar esta característica de novo antes de terminar um Descanso Longo, o dano Necrótico por nível da magia aumenta em 1d12."
+  }
+}

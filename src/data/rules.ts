@@ -6,6 +6,7 @@ import rawFeats from './srd/feats.json';
 import rawSpells from './srd/spells.json';
 import rawWeapons from './srd/weapons.json';
 import rawArmor from './srd/armor.json';
+import { translation } from './translations';
 
 /* ---------- Atributos e perícias ---------- */
 
@@ -84,6 +85,7 @@ export interface TableColumn {
 export interface SubclassDef {
   key: string;
   name: string;
+  pt: string;
   desc: string;
   features: Feature[];
 }
@@ -117,6 +119,23 @@ export interface ClassDef {
   subclasses: SubclassDef[];
 }
 
+export interface ChoiceOption {
+  /** Valor salvo na ficha. */
+  name: string;
+  label: string;
+  desc: string;
+}
+
+/** Uma escolha feita ao pegar a espécie: linhagem, ancestral, tamanho ou atributo de conjuração. */
+export interface SpeciesChoice {
+  key: string;
+  kind: 'trait' | 'ability' | 'size';
+  /** Traço de origem (vazio para o tamanho). */
+  trait: string;
+  label: string;
+  options: ChoiceOption[];
+}
+
 export interface SpeciesDef {
   key: string;
   name: string;
@@ -125,6 +144,7 @@ export interface SpeciesDef {
   size: string;
   speed: number;
   traits: { name: string; desc: string }[];
+  choices: SpeciesChoice[];
 }
 
 export interface BackgroundDef {
@@ -205,6 +225,19 @@ const SPECIES_PT: Record<string, string> = {
   Dragonborn: 'Draconato', Dwarf: 'Anão', Elf: 'Elfo', Gnome: 'Gnomo', Goliath: 'Golias',
   Halfling: 'Halfling', Human: 'Humano', Orc: 'Orc', Tiefling: 'Tiefling',
 };
+const CHOICE_PT: Record<string, string> = {
+  'Draconic Ancestry': 'Dragão ancestral', 'Elven Lineage': 'Linhagem élfica', 'Gnomish Lineage': 'Linhagem gnômica',
+  'Giant Ancestry': 'Ancestral gigante', 'Fiendish Legacy': 'Legado infernal',
+};
+const SIZE_PT: Record<string, string> = { Medium: 'Médio', Small: 'Pequeno' };
+const OPTION_PT: Record<string, string> = {
+  Black: 'Preto', Blue: 'Azul', Brass: 'Latão', Bronze: 'Bronze', Copper: 'Cobre', Gold: 'Ouro', Green: 'Verde',
+  Red: 'Vermelho', Silver: 'Prata', White: 'Branco',
+  Drow: 'Drow', 'High Elf': 'Alto Elfo', 'Wood Elf': 'Elfo da Floresta',
+  'Forest Gnome': 'Gnomo da Floresta', 'Rock Gnome': 'Gnomo das Rochas',
+  Abyssal: 'Abissal', Chthonic: 'Ctônico', Infernal: 'Infernal',
+};
+const optionLabel = (name: string) => (OPTION_PT[name] && OPTION_PT[name] !== name ? `${OPTION_PT[name]} (${name})` : name);
 const BACKGROUND_PT: Record<string, string> = {
   Acolyte: 'Acólito', Criminal: 'Criminoso', Sage: 'Sábio', Soldier: 'Soldado',
 };
@@ -229,6 +262,63 @@ function parseTraitTable(desc: string): Record<string, string> {
   return rows;
 }
 
+/**
+ * Opções de um traço com escolha. O SRD usa três formatos: tabela (a 1ª coluna é o nome),
+ * parágrafo começando em negrito ("**Forest Gnome.** ...") e lista ("- **Cloud's Jaunt**. ...").
+ */
+function parseOptions(desc: string): ChoiceOption[] {
+  const rows = desc.split('\n').map((l) => l.trim()).filter((l) => l.startsWith('|'));
+  if (rows.length > 2) {
+    const cells = (l: string) => l.replace(/^\||\|$/g, '').split('|').map((c) => c.trim());
+    const head = cells(rows[0]);
+    return rows.slice(2).map(cells).map(([name, ...rest]) => ({
+      name,
+      label: optionLabel(name),
+      desc: rest.map((v, i) => `${head[i + 1]}: ${v}`).join('\n'),
+    }));
+  }
+  return [...desc.matchAll(/^(?:- )?\*\*(.+?)\.?\*\*\.?\s*(.*)$/gm)].map((m) => ({
+    name: m[1],
+    label: optionLabel(m[1]),
+    desc: m[2].replace(/\*/g, ''),
+  }));
+}
+
+function speciesChoices(traits: { name: string; desc: string; type: string | null }[]): SpeciesChoice[] {
+  const choices: SpeciesChoice[] = [];
+  for (const t of traits.filter((x) => x.type === null && /\bchoose\b/i.test(x.desc))) {
+    const options = parseOptions(t.desc);
+    if (options.length < 2) continue;
+    const label = CHOICE_PT[t.name] ? `${CHOICE_PT[t.name]} (${t.name})` : t.name;
+    choices.push({ key: t.name, kind: 'trait', trait: t.name, label, options });
+    if (/choose the ability/i.test(t.desc)) {
+      choices.push({
+        key: `${t.name}:ability`,
+        kind: 'ability',
+        trait: t.name,
+        label: 'Atributo de conjuração da espécie',
+        options: (['int', 'wis', 'cha'] as AbilityKey[]).map((k) => ({ name: k, label: abilityLabel(k), desc: '' })),
+      });
+    }
+  }
+  // "Medium (about 4–7 feet tall) or Small (about 2–4 feet tall), chosen when you select this species"
+  const size = traits.find((t) => t.type === 'SIZE')?.desc ?? '';
+  if (/ or /.test(size)) {
+    const options = size.replace(/,.*$/, '').split(/ or /).map((part) => {
+      const name = part.trim().split(' ')[0];
+      return { name, label: SIZE_PT[name] ?? name, desc: part.trim().slice(name.length).trim().replace(/^\(|\)$/g, '') };
+    });
+    choices.push({ key: 'size', kind: 'size', trait: '', label: 'Tamanho', options });
+  }
+  return choices;
+}
+
+// Níveis errados nos dados do Open5e, conferidos no PDF do SRD 5.2.1.
+const LEVEL_FIXES: Record<string, number[]> = {
+  'srd-2024_monk_deflect-attacks': [3], // vem sem nível e nunca aparecia na ficha
+  'srd-2024_monk_stunning-strike': [5], // vem como 3 e 5
+};
+
 function toFeatures(raw: Raw[]): Feature[] {
   return raw
     .filter((f) => f.feature_type === 'CLASS_LEVEL_FEATURE')
@@ -236,7 +326,7 @@ function toFeatures(raw: Raw[]): Feature[] {
       key: f.key,
       name: f.name,
       desc: f.desc,
-      levels: (f.gained_at as { level: number }[]).map((g) => g.level).sort((a, b) => a - b),
+      levels: LEVEL_FIXES[f.key] ?? (f.gained_at as { level: number }[]).map((g) => g.level).sort((a, b) => a - b),
     }))
     .sort((a, b) => (a.levels[0] ?? 0) - (b.levels[0] ?? 0) || a.name.localeCompare(b.name));
 }
@@ -327,7 +417,13 @@ export const CLASSES: ClassDef[] = (rawClasses as Raw[])
       c,
       subclassRaw
         .filter((s) => s.subclass_of.key === c.key)
-        .map((s) => ({ key: s.key, name: s.name, desc: s.desc, features: toFeatures(s.features) })),
+        .map((s) => ({
+          key: s.key,
+          name: s.name,
+          pt: translation(s.key)?.name ?? s.name,
+          desc: s.desc,
+          features: toFeatures(s.features),
+        })),
     ),
   )
   .sort((a, b) => a.pt.localeCompare(b.pt));
@@ -344,6 +440,7 @@ export const SPECIES: SpeciesDef[] = (rawSpecies as Raw[])
       size: traits.find((t) => t.type === 'SIZE')?.desc ?? '',
       speed: num(traits.find((t) => t.type === 'SPEED')?.desc.match(/\d+/)?.[0]),
       traits: traits.filter((t) => t.type === null).map((t) => ({ name: t.name, desc: t.desc })),
+      choices: speciesChoices(traits),
     };
   })
   .sort((a, b) => a.pt.localeCompare(b.pt));

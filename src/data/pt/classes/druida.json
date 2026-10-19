@@ -1,0 +1,76 @@
+{
+  "srd-2024_druid_spellcasting": {
+    "name": "Conjuração",
+    "desc": "Você aprendeu a conjurar magias estudando as forças místicas da natureza. As regras abaixo explicam como isso funciona com as magias de Druida.\n\n**Truques.** Você conhece dois truques à sua escolha da lista de magias de Druida. Druidcraft e Produce Flame são os recomendados.\n\nSempre que ganhar um nível de Druida, você pode trocar um dos seus truques por outro truque da lista de magias de Druida.\n\nNos níveis 4 e 10 de Druida você aprende mais um truque à sua escolha da lista de magias de Druida.\n\n**Espaços de Magia.** O número de espaços de magia que você tem para conjurar magias de nível 1+ aparece na página de magias da ficha. Você recupera todos os espaços gastos ao terminar um Descanso Longo.\n\n**Magias Preparadas de Nível 1+.** Você prepara a lista de magias de nível 1+ que pode conjurar com esta característica. Para começar, escolha quatro magias de nível 1 da lista de magias de Druida. Animal Friendship, Cure Wounds, Faerie Fire e Thunderwave são as recomendadas.\n\nO número de magias da sua lista aumenta com seus níveis de Druida (o valor atual aparece na página de magias da ficha). Sempre que esse número aumentar, escolha mais magias da lista de Druida até completar a quantidade. As magias escolhidas precisam ser de um nível para o qual você tenha espaços de magia. Por exemplo, um Druida de nível 3 pode ter na lista seis magias de nível 1 e 2, em qualquer combinação.\n\nSe outra característica de Druida der magias que você sempre tem preparadas, elas não contam no limite desta característica, mas contam como magias de Druida para você.\n\n**Trocando as Magias Preparadas.** Sempre que terminar um Descanso Longo, você pode mudar sua lista de magias preparadas, trocando qualquer uma delas por outras magias de Druida para as quais tenha espaços de magia.\n\n**Atributo de Conjuração.** Sabedoria é o seu atributo de conjuração para as magias de Druida.\n\n**Foco de Conjuração.** Você pode usar um Foco Druídico como Foco de Conjuração para as magias de Druida."
+  },
+  "srd-2024_druid_druidic": {
+    "name": "Druídico",
+    "desc": "Você conhece o Druídico, a língua secreta dos Druidas. Ao aprender esse idioma antigo, você também desvendou a magia de se comunicar com animais: você sempre tem a magia Speak with Animals preparada.\n\nVocê pode usar o Druídico para deixar mensagens ocultas. Você e quem mais souber Druídico percebem essas mensagens automaticamente. Os outros notam a presença da mensagem com um teste de Inteligência (Investigação) CD 15, mas não conseguem decifrá-la sem magia."
+  },
+  "srd-2024_druid_primal-order": {
+    "name": "Ordem Primitiva",
+    "desc": "Você se dedicou a um dos papéis sagrados a seguir, à sua escolha.\n\n**Mago.** Você conhece um truque extra da lista de magias de Druida. Além disso, sua ligação mística com a natureza dá um bônus nos seus testes de Inteligência (Arcanismo ou Natureza), igual ao seu modificador de Sabedoria (mínimo de +1).\n\n**Guardião.** Treinado para a batalha, você ganha proficiência com armas Marciais e treinamento com armadura Média."
+  },
+  "srd-2024_druid_wild-shape": {
+    "name": "Forma Selvagem",
+    "desc": "O poder da natureza permite que você assuma a forma de um animal. Com uma Ação Bônus, você se transforma numa forma de Fera que aprendeu para esta característica (veja \"Formas Conhecidas\" abaixo). Você fica nessa forma por um número de horas igual à metade do seu nível de Druida, ou até usar a Forma Selvagem de novo, ficar Incapacitado ou morrer. Também pode sair da forma antes, com uma Ação Bônus.\n\n**Número de Usos.** Você pode usar a Forma Selvagem duas vezes. Recupera um uso gasto ao terminar um Descanso Curto e todos os usos ao terminar um Descanso Longo.\n\nVocê ganha mais usos em certos níveis de Druida: 3 usos a partir do nível 6 e 4 a partir do nível 17.\n\n**Formas Conhecidas.** Você conhece quatro formas de Fera para esta característica, escolhidas entre fichas de Feras com Nível de Desafio máximo de 1/4 e sem Deslocamento de Voo (veja \"Animals\" em \"Monsters\"). Rat, Riding Horse, Spider e Wolf são as recomendadas. Sempre que terminar um Descanso Longo, você pode trocar uma das formas conhecidas por outra que se encaixe nas regras.\n\nEm certos níveis de Druida, o número de formas conhecidas e o Nível de Desafio máximo delas aumentam, como mostra a tabela abaixo. Além disso, a partir do nível 8 você pode adotar formas com Deslocamento de Voo.\n\nNa hora de escolher as formas conhecidas, você pode procurar Feras em outras fontes, se o Mestre permitir.\n\n|Nível de Druida|Formas Conhecidas|ND Máximo|Deslocamento de Voo|\n|---|---|---|---|\n|2|4|1/4|Não|\n|4|6|1/2|Não|\n|8|8|1|Sim|\n\n**Regras Enquanto Transformado.** Numa forma, você mantém sua personalidade, suas memórias e a capacidade de falar, e as regras a seguir se aplicam:\n- **Pontos de Vida Temporários.** Ao assumir uma forma de Forma Selvagem, você ganha Pontos de Vida Temporários iguais ao seu nível de Druida.\n- **Estatísticas de Jogo.** Suas estatísticas são substituídas pelas da ficha da Fera, mas você mantém seu tipo de criatura; Pontos de Vida; Dados de Vida; valores de Inteligência, Sabedoria e Carisma; características de classe; idiomas; e feats. Também mantém suas proficiências em perícias e salvaguardas e usa seu Bônus de Proficiência nelas, além de ganhar as proficiências da criatura. Se um modificador de perícia ou salvaguarda na ficha da Fera for maior que o seu, use o da ficha.\n- **Sem Conjuração.** Você não pode conjurar magias, mas a transformação não quebra sua Concentração nem atrapalha uma magia que você já tenha conjurado.\n- **Objetos.** Sua capacidade de manusear objetos depende dos membros da forma, não dos seus. Além disso, você escolhe se seu equipamento cai no seu espaço, se funde à nova forma ou é vestido por ela. Equipamento vestido funciona normalmente, mas o Mestre decide se faz sentido a nova forma usar cada peça, com base no tamanho e no formato da criatura. Seu equipamento não muda de tamanho nem de formato para caber na nova forma, e o que a forma não puder vestir precisa cair no chão ou se fundir a ela. Equipamento fundido não tem efeito enquanto você estiver nessa forma."
+  },
+  "srd-2024_druid_wild-companion": {
+    "name": "Companheiro Selvagem",
+    "desc": "Você pode invocar um espírito da natureza que assume forma animal para ajudar você. Com uma ação de Magia, você pode gastar um espaço de magia ou um uso de Forma Selvagem para conjurar a magia Find Familiar sem componentes Materiais.\n\nQuando você conjura a magia desse jeito, o familiar é uma Fada e desaparece quando você termina um Descanso Longo."
+  },
+  "srd-2024_druid_druid-subclass": {
+    "name": "Subclasse de Druida",
+    "desc": "Você ganha uma subclasse de Druida à sua escolha; este app traz o Círculo da Terra (Circle of the Land). Uma subclasse é uma especialização que dá características em certos níveis de Druida. Pelo resto da carreira, você ganha cada característica da subclasse cujo nível seja igual ou menor que o seu nível de Druida."
+  },
+  "srd-2024_druid_ability-score-improvement": {
+    "name": "Aumento no Valor de Atributo",
+    "desc": "Você ganha o feat Ability Score Improvement (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Você ganha esta característica de novo nos níveis 8, 12 e 16 de Druida."
+  },
+  "srd-2024_druid_wild-resurgence": {
+    "name": "Ressurgência Selvagem",
+    "desc": "Uma vez em cada um dos seus turnos, se não tiver mais usos de Forma Selvagem, você pode ganhar um uso gastando um espaço de magia (sem precisar de ação).\n\nAlém disso, você pode gastar um uso de Forma Selvagem (sem precisar de ação) para ganhar um espaço de magia de nível 1, mas só pode fazer isso de novo ao terminar um Descanso Longo."
+  },
+  "srd-2024_druid_elemental-fury": {
+    "name": "Fúria Elemental",
+    "desc": "O poder dos elementos flui por você. Você ganha uma das opções a seguir, à sua escolha.\n\n**Conjuração Potente.** Some seu modificador de Sabedoria ao dano que causar com qualquer truque de Druida.\n\n**Golpe Primitivo.** Uma vez em cada um dos seus turnos, quando acertar uma criatura com uma jogada de ataque usando uma arma ou um ataque de forma de Fera na Forma Selvagem, você pode fazer o alvo sofrer 1d8 de dano extra de Frio, Fogo, Elétrico ou Trovão (escolha ao acertar)."
+  },
+  "srd-2024_druid_improved-elemental-fury": {
+    "name": "Fúria Elemental Aprimorada",
+    "desc": "A opção que você escolheu em Fúria Elemental fica mais poderosa.\n\n**Conjuração Potente.** Quando conjurar um truque de Druida com alcance de 10 pés ou mais, o alcance da magia aumenta em 300 pés.\n\n**Golpe Primitivo.** O dano extra do seu Golpe Primitivo aumenta para 2d8."
+  },
+  "srd-2024_druid_beast-spells": {
+    "name": "Magias Bestiais",
+    "desc": "Enquanto estiver usando a Forma Selvagem, você pode conjurar magias na forma de Fera, exceto as que tenham um componente Material com custo especificado ou que consumam o componente Material."
+  },
+  "srd-2024_druid_epic-boon": {
+    "name": "Dádiva Épica",
+    "desc": "Você ganha um feat de Dádiva Épica (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Boon of Dimensional Travel é o recomendado."
+  },
+  "srd-2024_druid_archdruid": {
+    "name": "Arquidruida",
+    "desc": "A vitalidade da natureza floresce sem parar dentro de você e concede estes benefícios.\n\n**Forma Selvagem Perene.** Sempre que rolar Iniciativa sem ter usos de Forma Selvagem, você recupera um uso gasto.\n\n**Mago da Natureza.** Você pode converter usos de Forma Selvagem num espaço de magia (sem precisar de ação). Escolha quantos usos não gastos quiser e converta-os num único espaço de magia, com cada uso valendo 2 níveis de magia. Por exemplo, convertendo dois usos de Forma Selvagem, você cria um espaço de magia de nível 4. Depois de usar este benefício, só pode usá-lo de novo ao terminar um Descanso Longo.\n\n**Longevidade.** A magia primitiva que você empunha faz você envelhecer mais devagar. A cada dez anos que passam, seu corpo envelhece só um."
+  },
+
+  "srd-2024_circle-of-the-land": { "name": "Círculo da Terra" },
+  "srd-2024_druid_circle-of-the-land_spell-list": {
+    "name": "Magias do Círculo",
+    "desc": "Sempre que terminar um Descanso Longo, escolha um tipo de terra: árida, polar, temperada ou tropical. Consulte a tabela desse tipo: você tem preparadas as magias listadas para o seu nível de Druida e os anteriores.\n\n**Terra Árida**\n\n|Nível de Druida|Magias do Círculo|\n|---|---|\n|3|Blur, Burning Hands, Fire Bolt|\n|5|Fireball|\n|7|Blight|\n|9|Wall of Stone|\n\n**Terra Polar**\n\n|Nível de Druida|Magias do Círculo|\n|---|---|\n|3|Fog Cloud, Hold Person, Ray of Frost|\n|5|Sleet Storm|\n|7|Ice Storm|\n|9|Cone of Cold|\n\n**Terra Temperada**\n\n|Nível de Druida|Magias do Círculo|\n|---|---|\n|3|Misty Step, Shocking Grasp, Sleep|\n|5|Lightning Bolt|\n|7|Freedom of Movement|\n|9|Tree Stride|\n\n**Terra Tropical**\n\n|Nível de Druida|Magias do Círculo|\n|---|---|\n|3|Acid Splash, Ray of Sickness, Web|\n|5|Stinking Cloud|\n|7|Polymorph|\n|9|Insect Plague|"
+  },
+  "srd-2024_druid_circle-of-the-land_lands-aid": {
+    "name": "Auxílio da Terra",
+    "desc": "Com uma ação de Magia, você pode gastar um uso de Forma Selvagem e escolher um ponto a até 60 pés de você. Flores que dão vida e espinhos que a drenam surgem por um instante numa Esfera de 10 pés de raio centrada nesse ponto. Cada criatura à sua escolha na Esfera precisa fazer uma salvaguarda de Constituição contra a sua CD de salvaguarda de magia, sofrendo 2d6 de dano Necrótico se falhar, ou metade se passar. Uma criatura à sua escolha nessa área recupera 2d6 Pontos de Vida.\n\nO dano e a cura aumentam em 1d6 nos níveis 10 (3d6) e 14 (4d6) de Druida."
+  },
+  "srd-2024_druid_circle-of-the-land_natural-recovery": {
+    "name": "Recuperação Natural",
+    "desc": "Você pode conjurar uma das magias de nível 1+ que tem preparadas pela característica Magias do Círculo sem gastar espaço de magia, e precisa terminar um Descanso Longo antes de fazer isso de novo.\n\nAlém disso, ao terminar um Descanso Curto, você pode escolher espaços de magia gastos para recuperar. A soma dos níveis desses espaços pode ser no máximo metade do seu nível de Druida (arredondado para cima), e nenhum deles pode ser de nível 6+. Por exemplo, um Druida de nível 6 pode recuperar até três níveis de espaços: um espaço de nível 3, um de nível 2 e um de nível 1, ou três de nível 1. Depois de recuperar espaços com esta característica, você só pode fazer isso de novo ao terminar um Descanso Longo."
+  },
+  "srd-2024_druid_circle-of-the-land_natures-ward": {
+    "name": "Proteção da Natureza",
+    "desc": "Você é imune à condição Envenenado e tem Resistência a um tipo de dano ligado à terra que escolheu na característica Magias do Círculo, como mostra a tabela.\n\n|Tipo de Terra|Resistência|\n|---|---|\n|Árida|Fogo|\n|Polar|Frio|\n|Temperada|Elétrico|\n|Tropical|Veneno|"
+  },
+  "srd-2024_druid_circle-of-the-land_natures-sanctuary": {
+    "name": "Santuário da Natureza",
+    "desc": "Com uma ação de Magia, você pode gastar um uso de Forma Selvagem e fazer árvores e trepadeiras espectrais surgirem num Cubo de 15 pés sobre o chão, a até 120 pés de você. Elas duram 1 minuto ou até você ficar Incapacitado ou morrer. Você e seus aliados têm Meia Cobertura enquanto estiverem nessa área, e seus aliados também ganham a Resistência atual da sua Proteção da Natureza enquanto estiverem lá.\n\nCom uma Ação Bônus, você pode mover o Cubo até 60 pés, para um chão a até 120 pés de você."
+  }
+}

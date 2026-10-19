@@ -1,0 +1,91 @@
+{
+  "srd-2024_fighter/Second Wind": { "name": "Retomar o Fôlego" },
+  "srd-2024_fighter/Weapon Mastery": { "name": "Maestria em Armas" },
+
+  "srd-2024_fighter_fighting-style": {
+    "name": "Estilo de Luta",
+    "desc": "Você aprimorou suas habilidades de combate e ganha um feat de Estilo de Luta à sua escolha (veja \"Feats\"). Defense é o recomendado.\n\nSempre que ganhar um nível de Guerreiro, você pode trocar o feat escolhido por outro feat de Estilo de Luta."
+  },
+  "srd-2024_fighter_second-wind": {
+    "name": "Retomar o Fôlego",
+    "desc": "Você tem uma reserva limitada de vigor físico e mental. Com uma Ação Bônus, pode usá-la para recuperar Pontos de Vida iguais a 1d10 + seu nível de Guerreiro.\n\nVocê pode usar esta característica duas vezes. Recupera um uso gasto ao terminar um Descanso Curto e todos os usos ao terminar um Descanso Longo.\n\nEm certos níveis de Guerreiro você ganha mais usos. O número atual aparece em Recursos de classe, na primeira página da ficha."
+  },
+  "srd-2024_fighter_weapon-mastery": {
+    "name": "Maestria em Armas",
+    "desc": "Seu treinamento permite usar as propriedades de maestria de três tipos de armas Simples ou Marciais à sua escolha. Sempre que terminar um Descanso Longo, você pode praticar exercícios com armas e trocar uma dessas escolhas.\n\nEm certos níveis de Guerreiro você passa a usar a maestria de mais tipos de armas. O número atual aparece em Recursos de classe, na primeira página da ficha."
+  },
+  "srd-2024_fighter_action-surge": {
+    "name": "Surto de Ação",
+    "desc": "Você consegue ir além dos seus limites por um instante. No seu turno, pode realizar uma ação adicional, exceto a ação de Magia.\n\nDepois de usar esta característica, você só pode usá-la de novo ao terminar um Descanso Curto ou Longo. A partir do nível 17, pode usá-la duas vezes entre descansos, mas só uma vez por turno."
+  },
+  "srd-2024_fighter_tactical-mind": {
+    "name": "Mente Tática",
+    "desc": "Você tem cabeça para táticas, dentro e fora do campo de batalha. Quando falhar num teste de atributo, pode gastar um uso de Retomar o Fôlego para se esforçar rumo ao sucesso. Em vez de recuperar Pontos de Vida, role 1d10 e some o resultado ao teste, o que pode transformá-lo num sucesso. Se o teste ainda falhar, esse uso de Retomar o Fôlego não é gasto."
+  },
+  "srd-2024_fighter_fighter-subclass": {
+    "name": "Subclasse de Guerreiro",
+    "desc": "Você ganha uma subclasse de Guerreiro à sua escolha; este app traz o Campeão (Champion). Uma subclasse é uma especialização que dá características em certos níveis de Guerreiro. Pelo resto da carreira, você ganha cada característica da subclasse cujo nível seja igual ou menor que o seu nível de Guerreiro."
+  },
+  "srd-2024_fighter_ability-score-improvement": {
+    "name": "Aumento no Valor de Atributo",
+    "desc": "Você ganha o feat Ability Score Improvement (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Você ganha esta característica de novo nos níveis 6, 8, 12, 14 e 16 de Guerreiro."
+  },
+  "srd-2024_fighter_extra-attack": {
+    "name": "Ataque Extra",
+    "desc": "Você pode atacar duas vezes, em vez de uma, sempre que realizar a ação de Ataque no seu turno."
+  },
+  "srd-2024_fighter_tactical-shift": {
+    "name": "Mudança Tática",
+    "desc": "Sempre que ativar Retomar o Fôlego com uma Ação Bônus, você pode se mover até metade do seu Deslocamento sem provocar Ataques de Oportunidade."
+  },
+  "srd-2024_fighter_indomitable": {
+    "name": "Indomável",
+    "desc": "Se falhar numa salvaguarda, você pode rolá-la de novo com um bônus igual ao seu nível de Guerreiro. Você precisa usar o novo resultado e só pode usar esta característica de novo ao terminar um Descanso Longo.\n\nVocê pode usá-la duas vezes entre Descansos Longos a partir do nível 13, e três vezes a partir do nível 17."
+  },
+  "srd-2024_fighter_tactical-master": {
+    "name": "Mestre Tático",
+    "desc": "Quando atacar com uma arma cuja propriedade de maestria você possa usar, pode trocar essa propriedade por Push (Empurrar), Sap (Enfraquecer) ou Slow (Lentidão) nesse ataque."
+  },
+  "srd-2024_fighter_two-extra-attacks": {
+    "name": "Dois Ataques Extras",
+    "desc": "Você pode atacar três vezes, em vez de uma, sempre que realizar a ação de Ataque no seu turno."
+  },
+  "srd-2024_fighter_studied-attacks": {
+    "name": "Ataques Estudados",
+    "desc": "Você estuda seus oponentes e aprende com cada ataque. Se fizer uma jogada de ataque contra uma criatura e errar, você tem Vantagem na próxima jogada de ataque contra ela antes do fim do seu próximo turno."
+  },
+  "srd-2024_fighter_epic-boon": {
+    "name": "Dádiva Épica",
+    "desc": "Você ganha um feat de Dádiva Épica (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Boon of Combat Prowess é o recomendado."
+  },
+  "srd-2024_fighter_three-extra-attacks": {
+    "name": "Três Ataques Extras",
+    "desc": "Você pode atacar quatro vezes, em vez de uma, sempre que realizar a ação de Ataque no seu turno."
+  },
+
+  "srd-2024_champion": { "name": "Campeão" },
+  "srd-2024_fighter_champion_improved-critical": {
+    "name": "Crítico Aprimorado",
+    "desc": "Suas jogadas de ataque com armas e Ataques Desarmados conseguem um Acerto Crítico com 19 ou 20 no d20."
+  },
+  "srd-2024_fighter_champion_remarkable-athlete": {
+    "name": "Atleta Notável",
+    "desc": "Graças ao seu atletismo, você tem Vantagem nas jogadas de Iniciativa e nos testes de Força (Atletismo).\n\nAlém disso, logo depois de conseguir um Acerto Crítico, você pode se mover até metade do seu Deslocamento sem provocar Ataques de Oportunidade."
+  },
+  "srd-2024_fighter_champion_additional-fighting-style": {
+    "name": "Estilo de Luta Adicional",
+    "desc": "Você ganha outro feat de Estilo de Luta à sua escolha."
+  },
+  "srd-2024_fighter_champion_heroic-warrior": {
+    "name": "Guerreiro Heroico",
+    "desc": "A emoção do combate leva você à vitória. Durante um combate, você pode se dar Inspiração Heroica sempre que começar seu turno sem ela."
+  },
+  "srd-2024_fighter_champion_superior-critical": {
+    "name": "Crítico Superior",
+    "desc": "Suas jogadas de ataque com armas e Ataques Desarmados agora conseguem um Acerto Crítico com 18 a 20 no d20."
+  },
+  "srd-2024_fighter_champion_survivor": {
+    "name": "Sobrevivente",
+    "desc": "Você atinge o auge da resistência em combate e ganha estes benefícios.\n\n**Desafiar a Morte.** Você tem Vantagem nas salvaguardas contra a morte. Além disso, quando tirar 18 a 20 numa salvaguarda contra a morte, recebe o benefício de ter tirado 20.\n\n**Recuperação Heroica.** No início de cada um dos seus turnos, se estiver Sangrando e tiver pelo menos 1 Ponto de Vida, você recupera Pontos de Vida iguais a 5 + seu modificador de Constituição."
+  }
+}

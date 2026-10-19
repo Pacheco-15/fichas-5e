@@ -1,0 +1,70 @@
+{
+  "srd-2024_ability-score-improvement": {
+    "name": "Aumento no Valor de Atributo",
+    "desc": "- Aumente um valor de atributo à sua escolha em 2, ou dois valores de atributo à sua escolha em 1. Este feat não pode levar um atributo acima de 20.\n- Você pode pegar este feat mais de uma vez."
+  },
+  "srd-2024_alert": {
+    "name": "Alerta",
+    "desc": "Você ganha estes benefícios.\n\n- Quando rolar Iniciativa, você pode somar seu Bônus de Proficiência à rolagem. A ficha já soma esse bônus.\n- Logo depois de rolar Iniciativa, você pode trocar sua Iniciativa com a de um aliado voluntário no mesmo combate. Não pode fazer a troca se você ou o aliado estiver Incapacitado."
+  },
+  "srd-2024_archery": {
+    "name": "Arquearia",
+    "desc": "Você ganha +2 nas jogadas de ataque com armas à distância. A ficha já soma esse bônus."
+  },
+  "srd-2024_boon-of-combat-prowess": {
+    "name": "Dádiva da Proeza em Combate",
+    "desc": "Você ganha estes benefícios.\n\n- Aumente um valor de atributo à sua escolha em 1, até o máximo de 30.\n- Quando errar uma jogada de ataque, você pode acertar em vez disso. Depois de usar este benefício, só pode usá-lo de novo no início do seu próximo turno."
+  },
+  "srd-2024_boon-of-dimensional-travel": {
+    "name": "Dádiva da Viagem Dimensional",
+    "desc": "Você ganha estes benefícios.\n\n- Aumente um valor de atributo à sua escolha em 1, até o máximo de 30.\n- Logo depois de realizar a ação de Ataque ou a ação de Magia, você pode se teletransportar até 30 pés para um espaço livre que possa ver."
+  },
+  "srd-2024_boon-of-fate": {
+    "name": "Dádiva do Destino",
+    "desc": "Você ganha estes benefícios.\n\n- Aumente um valor de atributo à sua escolha em 1, até o máximo de 30.\n- Quando você ou outra criatura a até 60 pés de você passar ou falhar num Teste de D20, você pode rolar 2d4 e aplicar o total como bônus ou penalidade no d20. Depois de usar este benefício, só pode usá-lo de novo quando rolar Iniciativa ou terminar um Descanso Curto ou Longo."
+  },
+  "srd-2024_boon-of-irresistible-offense": {
+    "name": "Dádiva da Ofensiva Irresistível",
+    "desc": "Você ganha estes benefícios.\n\n- Aumente um valor de atributo à sua escolha em 1, até o máximo de 30.\n- O dano Contundente, Perfurante e Cortante que você causa sempre ignora Resistência.\n- Quando tirar 20 no d20 de uma jogada de ataque, você pode causar dano extra ao alvo igual ao valor do atributo aumentado por este feat. O dano extra é do mesmo tipo do ataque."
+  },
+  "srd-2024_boon-of-spell-recall": {
+    "name": "Dádiva da Recuperação de Magia",
+    "desc": "Você ganha estes benefícios.\n\n- Aumente um valor de atributo à sua escolha em 1, até o máximo de 30.\n- Sempre que conjurar uma magia com um espaço de nível 1 a 4, role 1d4. Se o resultado for igual ao nível do espaço, ele não é gasto."
+  },
+  "srd-2024_boon-of-the-night-spirit": {
+    "name": "Dádiva do Espírito da Noite",
+    "desc": "Você ganha estes benefícios.\n\n- Aumente um valor de atributo à sua escolha em 1, até o máximo de 30.\n- Enquanto estiver em Penumbra ou Escuridão, você pode ficar Invisível com uma Ação Bônus. A condição termina logo depois que você realizar uma ação, uma Ação Bônus ou uma Reação.\n- Enquanto estiver em Penumbra ou Escuridão, você tem Resistência a todo dano, exceto Psíquico e Radiante."
+  },
+  "srd-2024_boon-of-truesight": {
+    "name": "Dádiva da Visão Verdadeira",
+    "desc": "Você ganha estes benefícios.\n\n- Aumente um valor de atributo à sua escolha em 1, até o máximo de 30.\n- Você tem Visão Verdadeira com alcance de 60 pés."
+  },
+  "srd-2024_defense": {
+    "name": "Defesa",
+    "desc": "Enquanto estiver usando armadura Leve, Média ou Pesada, você ganha +1 na Classe de Armadura. A ficha já soma esse bônus."
+  },
+  "srd-2024_grappler": {
+    "name": "Agarrador",
+    "desc": "Você ganha estes benefícios.\n\n- Aumente seu valor de Força ou de Destreza em 1, até o máximo de 20.\n- Quando acertar uma criatura com um Ataque Desarmado como parte da ação de Ataque no seu turno, você pode usar tanto a opção de Dano quanto a de Agarrar. Só pode usar este benefício uma vez por turno.\n- Você tem Vantagem nas jogadas de ataque contra uma criatura que esteja Agarrada por você.\n- Você não precisa gastar movimento extra para mover uma criatura Agarrada por você, se ela for do seu tamanho ou menor."
+  },
+  "srd-2024_great-weapon-fighting": {
+    "name": "Combate com Armas Grandes",
+    "desc": "Quando rolar o dano de um ataque com uma arma corpo a corpo que esteja segurando com as duas mãos, você pode tratar qualquer 1 ou 2 num dado de dano como 3. A arma precisa ter a propriedade Two-Handed (Duas Mãos) ou Versatile (Versátil) para receber este benefício."
+  },
+  "srd-2024_magic-initiate": {
+    "name": "Iniciado em Magia",
+    "desc": "Você ganha estes benefícios.\n\n- Você aprende dois truques à sua escolha da lista de magias de Clérigo, Druida ou Mago. Inteligência, Sabedoria ou Carisma é o seu atributo de conjuração para as magias deste feat (escolha ao pegar o feat).\n- Escolha uma magia de nível 1 da mesma lista dos truques. Você sempre tem essa magia preparada. Pode conjurá-la uma vez sem espaço de magia e recupera essa capacidade ao terminar um Descanso Longo. Também pode conjurá-la usando qualquer espaço de magia que tiver.\n- Sempre que ganhar um nível, você pode trocar uma das magias escolhidas para este feat por outra do mesmo nível e da mesma lista.\n- Você pode pegar este feat mais de uma vez, mas precisa escolher uma lista de magias diferente a cada vez."
+  },
+  "srd-2024_savage-attacker": {
+    "name": "Atacante Selvagem",
+    "desc": "Você treinou para dar golpes especialmente devastadores. Uma vez por turno, quando acertar um alvo com uma arma, você pode rolar os dados de dano da arma duas vezes e usar qualquer um dos resultados."
+  },
+  "srd-2024_skilled": {
+    "name": "Talentoso",
+    "desc": "- Você ganha proficiência em qualquer combinação de três perícias ou ferramentas à sua escolha.\n- Você pode pegar este feat mais de uma vez."
+  },
+  "srd-2024_two-weapon-fighting": {
+    "name": "Combate com Duas Armas",
+    "desc": "Quando fizer um ataque extra por usar uma arma com a propriedade Light (Leve), você pode somar seu modificador de atributo ao dano desse ataque, se ainda não estiver somando."
+  }
+}

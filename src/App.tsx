@@ -41,12 +41,8 @@ export default function App() {
 
       <main className="layout">
         <aside className="editor-pane">
-          {sheet.warnings.length > 0 && (
-            <ul className="warnings">
-              {sheet.warnings.map((w) => <li key={w}>{w}</li>)}
-            </ul>
-          )}
-          <Editor c={c} sheet={sheet} update={store.update} />
+          {/* key: trocar de ficha volta ao primeiro passo */}
+          <Editor key={c.id} c={c} sheet={sheet} update={store.update} />
         </aside>
         <section className="sheet-pane">
           <Sheet c={c} s={sheet} />

@@ -1,0 +1,94 @@
+{
+  "srd-2024_ranger/Favored Enemy": { "name": "Inimigo Favorito" },
+
+  "srd-2024_ranger_favored-enemy": {
+    "name": "Inimigo Favorito",
+    "desc": "Você sempre tem a magia Hunter's Mark preparada. Pode conjurá-la duas vezes sem gastar espaço de magia e recupera todos os usos dessa capacidade ao terminar um Descanso Longo.\n\nO número de vezes que você pode conjurar a magia sem espaço aumenta em certos níveis de Patrulheiro; o número atual aparece em Recursos de classe, na primeira página da ficha."
+  },
+  "srd-2024_ranger_spellcasting": {
+    "name": "Conjuração",
+    "desc": "Você aprendeu a canalizar a essência mágica da natureza para conjurar magias. As regras abaixo explicam como isso funciona com as magias de Patrulheiro.\n\n**Espaços de Magia.** O número de espaços de magia que você tem para conjurar magias de nível 1+ aparece na página de magias da ficha. Você recupera todos os espaços gastos ao terminar um Descanso Longo.\n\n**Magias Preparadas de Nível 1+.** Você prepara a lista de magias de nível 1+ que pode conjurar com esta característica. Para começar, escolha duas magias de Patrulheiro de nível 1. Cure Wounds e Ensnaring Strike são as recomendadas.\n\nO número de magias da sua lista aumenta com seus níveis de Patrulheiro (o valor atual aparece na página de magias da ficha). Sempre que esse número aumentar, escolha mais magias de Patrulheiro até completar a quantidade. As magias escolhidas precisam ser de um nível para o qual você tenha espaços de magia. Por exemplo, um Patrulheiro de nível 5 pode ter na lista seis magias de Patrulheiro de nível 1 ou 2, em qualquer combinação.\n\nSe outra característica de Patrulheiro der magias que você sempre tem preparadas, elas não contam no limite desta característica, mas contam como magias de Patrulheiro para você.\n\n**Trocando as Magias Preparadas.** Sempre que terminar um Descanso Longo, você pode trocar uma magia da sua lista por outra magia de Patrulheiro para a qual tenha espaços de magia.\n\n**Atributo de Conjuração.** Sabedoria é o seu atributo de conjuração para as magias de Patrulheiro.\n\n**Foco de Conjuração.** Você pode usar um Foco Druídico como Foco de Conjuração para as magias de Patrulheiro."
+  },
+  "srd-2024_ranger_weapon-mastery": {
+    "name": "Maestria em Armas",
+    "desc": "Seu treinamento permite usar as propriedades de maestria de dois tipos de armas à sua escolha em que você seja proficiente, como Longbow e Shortsword.\n\nSempre que terminar um Descanso Longo, você pode trocar os tipos de armas escolhidos. Por exemplo, pode passar a usar a maestria de Scimitar e Longsword."
+  },
+  "srd-2024_ranger_deft-explorer": {
+    "name": "Explorador Hábil",
+    "desc": "Graças às suas viagens, você ganha estes benefícios.\n\n**Especialização.** Escolha uma perícia em que seja proficiente e ainda não tenha Especialização. Você ganha Especialização nela.\n\n**Idiomas.** Você conhece dois idiomas à sua escolha."
+  },
+  "srd-2024_ranger_fighting-style": {
+    "name": "Estilo de Luta",
+    "desc": "Você ganha um feat de Estilo de Luta à sua escolha (veja \"Feats\"). Em vez de escolher um desses feats, pode ficar com a opção abaixo.\n\n**Guerreiro Druídico.** Você aprende dois truques de Druida à sua escolha. Guidance e Starry Wisp são os recomendados. Os truques escolhidos contam como magias de Patrulheiro para você, e Sabedoria é o atributo de conjuração deles. Sempre que ganhar um nível de Patrulheiro, você pode trocar um desses truques por outro truque de Druida."
+  },
+  "srd-2024_ranger_ranger-subclass": {
+    "name": "Subclasse de Patrulheiro",
+    "desc": "Você ganha uma subclasse de Patrulheiro à sua escolha; este app traz o Caçador (Hunter). Uma subclasse é uma especialização que dá características em certos níveis de Patrulheiro. Pelo resto da carreira, você ganha cada característica da subclasse cujo nível seja igual ou menor que o seu nível de Patrulheiro."
+  },
+  "srd-2024_ranger_ability-score-improvement": {
+    "name": "Aumento no Valor de Atributo",
+    "desc": "Você ganha o feat Ability Score Improvement (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Você ganha esta característica de novo nos níveis 8, 12 e 16 de Patrulheiro."
+  },
+  "srd-2024_ranger_extra-attack": {
+    "name": "Ataque Extra",
+    "desc": "Você pode atacar duas vezes, em vez de uma, sempre que realizar a ação de Ataque no seu turno."
+  },
+  "srd-2024_ranger_roving": {
+    "name": "Andarilho",
+    "desc": "Seu Deslocamento aumenta em 10 pés enquanto você não estiver usando armadura Pesada. Você também tem Deslocamento de Escalada e de Natação iguais ao seu Deslocamento."
+  },
+  "srd-2024_ranger_expertise": {
+    "name": "Especialização",
+    "desc": "Escolha duas perícias em que seja proficiente e ainda não tenha Especialização. Você ganha Especialização nelas."
+  },
+  "srd-2024_ranger_tireless": {
+    "name": "Incansável",
+    "desc": "Forças primitivas agora alimentam você nas suas jornadas e concedem estes benefícios.\n\n**Pontos de Vida Temporários.** Com uma ação de Magia, você pode ganhar Pontos de Vida Temporários iguais a 1d8 + seu modificador de Sabedoria (mínimo de 1). Pode usar essa ação um número de vezes igual ao seu modificador de Sabedoria (mínimo de uma vez) e recupera todos os usos gastos ao terminar um Descanso Longo.\n\n**Reduzir Exaustão.** Sempre que terminar um Descanso Curto, seu nível de Exaustão, se houver, diminui em 1."
+  },
+  "srd-2024_ranger_relentless-hunter": {
+    "name": "Caçador Implacável",
+    "desc": "Sofrer dano não quebra sua Concentração na magia Hunter's Mark."
+  },
+  "srd-2024_ranger_natures-veil": {
+    "name": "Véu da Natureza",
+    "desc": "Você invoca espíritos da natureza para se esconder com magia. Com uma Ação Bônus, você pode ficar Invisível até o fim do seu próximo turno.\n\nVocê pode usar esta característica um número de vezes igual ao seu modificador de Sabedoria (mínimo de uma vez) e recupera todos os usos gastos ao terminar um Descanso Longo."
+  },
+  "srd-2024_ranger_precise-hunter": {
+    "name": "Caçador Preciso",
+    "desc": "Você tem Vantagem nas jogadas de ataque contra a criatura marcada no momento pela sua Hunter's Mark."
+  },
+  "srd-2024_ranger_feral-senses": {
+    "name": "Sentidos Selvagens",
+    "desc": "Sua ligação com as forças da natureza dá Percepção às Cegas com alcance de 30 pés."
+  },
+  "srd-2024_ranger_epic-boon": {
+    "name": "Dádiva Épica",
+    "desc": "Você ganha um feat de Dádiva Épica (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Boon of Dimensional Travel é o recomendado."
+  },
+  "srd-2024_ranger_foe-slayer": {
+    "name": "Exterminador de Inimigos",
+    "desc": "O dado de dano da sua Hunter's Mark passa a ser d10 em vez de d6."
+  },
+
+  "srd-2024_hunter": { "name": "Caçador" },
+  "srd-2024_ranger_hunter_hunters-lore": {
+    "name": "Saber do Caçador",
+    "desc": "Você pode pedir às forças da natureza que revelem pontos fortes e fracos da sua presa. Enquanto uma criatura estiver marcada pela sua Hunter's Mark, você sabe se ela tem Imunidades, Resistências ou Vulnerabilidades e, se tiver, quais são."
+  },
+  "srd-2024_ranger_hunter_hunters-prey": {
+    "name": "Presa do Caçador",
+    "desc": "Você ganha uma das opções a seguir, à sua escolha. Sempre que terminar um Descanso Curto ou Longo, pode trocá-la pela outra.\n\n**Matador de Colossos.** Sua tenacidade desgasta até os inimigos mais resistentes. Quando acertar uma criatura com uma arma, a arma causa 1d8 de dano extra se o alvo não estiver com todos os Pontos de Vida. Você só pode causar esse dano extra uma vez por turno.\n\n**Quebra-Hordas.** Uma vez em cada um dos seus turnos, quando atacar com uma arma, você pode fazer outro ataque com a mesma arma contra uma criatura diferente que esteja a até 5 pés do alvo original, dentro do alcance da arma, e que você ainda não tenha atacado neste turno."
+  },
+  "srd-2024_ranger_hunter_defensive-tactics": {
+    "name": "Táticas Defensivas",
+    "desc": "Você ganha uma das opções a seguir, à sua escolha. Sempre que terminar um Descanso Curto ou Longo, pode trocá-la pela outra.\n\n**Escapar da Horda.** Ataques de Oportunidade contra você têm Desvantagem.\n\n**Defesa contra Ataques Múltiplos.** Quando uma criatura acertar você com uma jogada de ataque, ela tem Desvantagem em todas as outras jogadas de ataque contra você neste turno."
+  },
+  "srd-2024_ranger_hunter_superior-hunters-prey": {
+    "name": "Presa Superior do Caçador",
+    "desc": "Uma vez por turno, quando causar dano a uma criatura marcada pela sua Hunter's Mark, você também pode causar o dano extra dessa magia a outra criatura que possa ver a até 30 pés da primeira."
+  },
+  "srd-2024_ranger_hunter_superior-hunters-defense": {
+    "name": "Defesa Superior do Caçador",
+    "desc": "Quando sofrer dano, você pode usar uma Reação para ganhar Resistência a esse dano e a qualquer outro dano do mesmo tipo até o fim do turno atual."
+  }
+}

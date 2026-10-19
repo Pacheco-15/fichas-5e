@@ -40,17 +40,25 @@ Abra http://localhost:5173 no navegador.
   - 12 classes, cada uma com 1 subclasse;
   - 9 espécies e 4 antecedentes;
   - 17 feats e 339 magias.
-- Escolhas de espécie (linhagem do Elfo, ancestral do Draconato) e efeitos de muitos traços ficam como texto. Nesses casos o valor não é aplicado automaticamente.
+- As escolhas de espécie (linhagem do Elfo, ancestral do Draconato, tamanho etc.) são feitas por seletor e aparecem na ficha, mas o efeito delas, como de muitos traços, fica só como texto. A exceção é o deslocamento do Elfo da Floresta, que é calculado.
 
 ## Dados
 
 `src/data/srd/` vem do SRD 5.2 via API do Open5e (`npm run fetch-srd` baixa de novo).
 Inclui material do System Reference Document 5.2 ("SRD 5.2") da Wizards of the Coast LLC, licenciado sob CC-BY-4.0.
 
+## Tradução
+
+Não existe SRD 5.2 oficial em português, então os textos das características são traduzidos pelo próprio projeto, em `src/data/pt/`.
+Estão traduzidas todas as características de classe e subclasse, os traços de espécie e os feats; as descrições de magias ainda aparecem em inglês. O texto é um rascunho feito por máquina a partir do PDF oficial e precisa de revisão de quem joga.
+
+Para ajudar, veja [src/data/pt/GLOSSARIO.md](src/data/pt/GLOSSARIO.md): ele explica as chaves, o estilo e os termos já definidos.
+A tradução é uma modificação do SRD 5.2 e segue a mesma licença CC-BY-4.0.
+
 ## Licença
 
 - **Código:** [MIT](LICENSE).
-- **Dados de jogo** (`src/data/srd/`): CC-BY-4.0, conforme o SRD 5.2. Veja [src/data/srd/LICENSE.md](src/data/srd/LICENSE.md).
+- **Dados de jogo** (`src/data/srd/`) e **traduções** (`src/data/pt/`): CC-BY-4.0, conforme o SRD 5.2. Veja [src/data/srd/LICENSE.md](src/data/srd/LICENSE.md).
 
 Este é um projeto de fã, independente. Não é afiliado, endossado nem patrocinado pela Wizards of the Coast. Dungeons & Dragons e D&D são marcas registradas da Wizards of the Coast LLC.
 

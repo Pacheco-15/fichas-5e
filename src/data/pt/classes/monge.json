@@ -1,0 +1,111 @@
+{
+  "srd-2024_monk/Focus Points": { "name": "Pontos de Foco" },
+  "srd-2024_monk/Martial Arts": { "name": "Artes Marciais" },
+
+  "srd-2024_monk_martial-arts": {
+    "name": "Artes Marciais",
+    "desc": "Sua prática de artes marciais dá domínio de estilos de combate que usam o Ataque Desarmado e as armas de Monge, que são estas:\n\n- Armas Simples corpo a corpo\n- Armas Marciais corpo a corpo com a propriedade Light (Leve)\n\nVocê ganha os benefícios a seguir enquanto estiver desarmado ou empunhando só armas de Monge, sem usar armadura nem empunhar Escudo.\n\n**Ataque Desarmado Bônus.** Você pode fazer um Ataque Desarmado com uma Ação Bônus.\n\n**Dado de Artes Marciais.** Você pode rolar 1d6 no lugar do dano normal do seu Ataque Desarmado ou das armas de Monge. Esse dado muda com seus níveis de Monge; o dado atual aparece em Recursos de classe, na primeira página da ficha.\n\n**Ataques Destros.** Você pode usar seu modificador de Destreza em vez do de Força nas jogadas de ataque e de dano dos Ataques Desarmados e das armas de Monge. Além disso, ao usar a opção Agarrar ou Empurrar do Ataque Desarmado, pode usar seu modificador de Destreza em vez do de Força para definir a CD da salvaguarda."
+  },
+  "srd-2024_monk_unarmored-defense": {
+    "name": "Defesa sem Armadura",
+    "desc": "Enquanto não estiver usando armadura nem empunhando Escudo, sua Classe de Armadura base é igual a 10 + seus modificadores de Destreza e Sabedoria."
+  },
+  "srd-2024_monk_monks-focus": {
+    "name": "Foco do Monge",
+    "desc": "Seu foco e seu treinamento marcial permitem acessar uma fonte de energia extraordinária dentro de você. Essa energia é representada pelos Pontos de Foco. Seu nível de Monge define quantos pontos você tem; o número atual aparece em Recursos de classe, na primeira página da ficha.\n\nVocê pode gastar esses pontos para reforçar ou ativar certas características de Monge. Você começa conhecendo três delas: Rajada de Golpes, Defesa Paciente e Passo do Vento, descritas abaixo.\n\nUm Ponto de Foco gasto fica indisponível até você terminar um Descanso Curto ou Longo; no fim do descanso, você recupera todos os pontos gastos.\n\nAlgumas características que usam Pontos de Foco pedem uma salvaguarda do alvo. A CD é 8 + seu modificador de Sabedoria + seu Bônus de Proficiência.\n\n**Rajada de Golpes.** Você pode gastar 1 Ponto de Foco para fazer dois Ataques Desarmados com uma Ação Bônus.\n\n**Defesa Paciente.** Você pode realizar a ação Desengajar com uma Ação Bônus. Ou pode gastar 1 Ponto de Foco para realizar as ações Desengajar e Esquivar com uma única Ação Bônus.\n\n**Passo do Vento.** Você pode realizar a ação Disparada com uma Ação Bônus. Ou pode gastar 1 Ponto de Foco para realizar as ações Desengajar e Disparada com uma única Ação Bônus, e a distância dos seus saltos dobra nesse turno."
+  },
+  "srd-2024_monk_unarmored-movement": {
+    "name": "Movimento sem Armadura",
+    "desc": "Seu Deslocamento aumenta em 10 pés enquanto você não estiver usando armadura nem empunhando Escudo. Esse bônus cresce com o nível de Monge: +15 pés no nível 6, +20 no 10, +25 no 14 e +30 no 18. A ficha já soma esse bônus ao Deslocamento."
+  },
+  "srd-2024_monk_uncanny-metabolism": {
+    "name": "Metabolismo Extraordinário",
+    "desc": "Quando rolar Iniciativa, você pode recuperar todos os Pontos de Foco gastos. Quando fizer isso, role seu dado de Artes Marciais e recupere Pontos de Vida iguais ao seu nível de Monge + o resultado.\n\nDepois de usar esta característica, você só pode usá-la de novo ao terminar um Descanso Longo."
+  },
+  "srd-2024_monk_deflect-attacks": {
+    "name": "Desviar Ataques",
+    "desc": "Quando uma jogada de ataque acertar você e o dano incluir dano Contundente, Perfurante ou Cortante, você pode usar uma Reação para reduzir o dano total do ataque. A redução é igual a 1d10 + seu modificador de Destreza + seu nível de Monge.\n\nSe reduzir o dano a 0, você pode gastar 1 Ponto de Foco para redirecionar parte da força do ataque. Se fizer isso, escolha uma criatura que possa ver a até 5 pés de você, se o ataque foi corpo a corpo, ou uma criatura que possa ver a até 60 pés de você e que não esteja atrás de Cobertura Total, se o ataque foi à distância. Essa criatura precisa passar numa salvaguarda de Destreza ou sofrer dano igual a duas rolagens do seu dado de Artes Marciais + seu modificador de Destreza. O dano é do mesmo tipo do ataque."
+  },
+  "srd-2024_monk_monk-subclass": {
+    "name": "Subclasse de Monge",
+    "desc": "Você ganha uma subclasse de Monge à sua escolha; este app traz o Guerreiro da Mão Aberta (Warrior of the Open Hand). Uma subclasse é uma especialização que dá características em certos níveis de Monge. Pelo resto da carreira, você ganha cada característica da subclasse cujo nível seja igual ou menor que o seu nível de Monge."
+  },
+  "srd-2024_monk_ability-score-improvement": {
+    "name": "Aumento no Valor de Atributo",
+    "desc": "Você ganha o feat Ability Score Improvement (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Você ganha esta característica de novo nos níveis 8, 12 e 16 de Monge."
+  },
+  "srd-2024_monk_slow-fall": {
+    "name": "Queda Lenta",
+    "desc": "Quando cair, você pode usar uma Reação para reduzir o dano da queda em um valor igual a cinco vezes o seu nível de Monge."
+  },
+  "srd-2024_monk_extra-attack": {
+    "name": "Ataque Extra",
+    "desc": "Você pode atacar duas vezes, em vez de uma, sempre que realizar a ação de Ataque no seu turno."
+  },
+  "srd-2024_monk_stunning-strike": {
+    "name": "Golpe Atordoante",
+    "desc": "Uma vez por turno, quando acertar uma criatura com uma arma de Monge ou um Ataque Desarmado, você pode gastar 1 Ponto de Foco para tentar um golpe atordoante. O alvo precisa fazer uma salvaguarda de Constituição. Se falhar, fica Atordoado até o início do seu próximo turno. Se passar, o Deslocamento dele cai pela metade até o início do seu próximo turno, e a próxima jogada de ataque feita contra ele antes disso tem Vantagem."
+  },
+  "srd-2024_monk_empowered-strikes": {
+    "name": "Golpes Fortalecidos",
+    "desc": "Sempre que causar dano com seu Ataque Desarmado, ele pode causar dano de Energia ou do tipo normal, à sua escolha."
+  },
+  "srd-2024_monk_evasion": {
+    "name": "Evasão",
+    "desc": "Quando for alvo de um efeito que permite uma salvaguarda de Destreza para sofrer só metade do dano, você não sofre dano nenhum se passar na salvaguarda e sofre só metade se falhar.\n\nVocê não recebe este benefício se estiver Incapacitado."
+  },
+  "srd-2024_monk_acrobatic-movement": {
+    "name": "Movimento Acrobático",
+    "desc": "Enquanto não estiver usando armadura nem empunhando Escudo, você pode se mover por superfícies verticais e sobre líquidos no seu turno sem cair durante o movimento."
+  },
+  "srd-2024_monk_heightened-focus": {
+    "name": "Foco Elevado",
+    "desc": "Sua Rajada de Golpes, sua Defesa Paciente e seu Passo do Vento ganham os benefícios a seguir.\n\n**Rajada de Golpes.** Você pode gastar 1 Ponto de Foco para usar a Rajada de Golpes e fazer três Ataques Desarmados em vez de dois.\n\n**Defesa Paciente.** Quando gastar um Ponto de Foco para usar a Defesa Paciente, você ganha Pontos de Vida Temporários iguais a duas rolagens do seu dado de Artes Marciais.\n\n**Passo do Vento.** Quando gastar um Ponto de Foco para usar o Passo do Vento, você pode escolher uma criatura voluntária a até 5 pés de você, de tamanho Grande ou menor. Você move a criatura junto com você até o fim do seu turno, e o movimento dela não provoca Ataques de Oportunidade."
+  },
+  "srd-2024_monk_self-restoration": {
+    "name": "Autorrestauração",
+    "desc": "Pela pura força de vontade, você pode remover uma das condições a seguir de si mesmo no fim de cada um dos seus turnos: Enfeitiçado, Amedrontado ou Envenenado.\n\nAlém disso, ficar sem comida e bebida não causa níveis de Exaustão em você."
+  },
+  "srd-2024_monk_deflect-energy": {
+    "name": "Desviar Energia",
+    "desc": "Agora você pode usar Desviar Ataques contra ataques que causem qualquer tipo de dano, não só Contundente, Perfurante ou Cortante."
+  },
+  "srd-2024_monk_disciplined-survivor": {
+    "name": "Sobrevivente Disciplinado",
+    "desc": "Sua disciplina física e mental dá proficiência em todas as salvaguardas.\n\nAlém disso, sempre que fizer uma salvaguarda e falhar, você pode gastar 1 Ponto de Foco para rolá-la de novo, e precisa usar o novo resultado."
+  },
+  "srd-2024_monk_perfect-focus": {
+    "name": "Foco Perfeito",
+    "desc": "Quando rolar Iniciativa sem usar o Metabolismo Extraordinário, se tiver 3 Pontos de Foco ou menos, você recupera pontos gastos até ficar com 4."
+  },
+  "srd-2024_monk_superior-defense": {
+    "name": "Defesa Superior",
+    "desc": "No início do seu turno, você pode gastar 3 Pontos de Foco para se proteger contra danos por 1 minuto ou até ficar Incapacitado. Durante esse tempo, você tem Resistência a todo dano, exceto dano de Energia."
+  },
+  "srd-2024_monk_epic-boon": {
+    "name": "Dádiva Épica",
+    "desc": "Você ganha um feat de Dádiva Épica (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Boon of Irresistible Offense é o recomendado."
+  },
+  "srd-2024_monk_body-and-mind": {
+    "name": "Corpo e Mente",
+    "desc": "Você levou corpo e mente a novos patamares. Seus valores de Destreza e Sabedoria aumentam em 4, até o máximo de 25."
+  },
+
+  "srd-2024_warrior-of-the-open-hand": { "name": "Guerreiro da Mão Aberta" },
+  "srd-2024_monk_warrior-of-the-open-hand_open-hand-technique": {
+    "name": "Técnica da Mão Aberta",
+    "desc": "Sempre que acertar uma criatura com um ataque da Rajada de Golpes, você pode impor um dos efeitos a seguir ao alvo.\n\n**Atordoar.** O alvo não pode fazer Ataques de Oportunidade até o início do próximo turno dele.\n\n**Empurrar.** O alvo precisa passar numa salvaguarda de Força ou é empurrado até 15 pés para longe de você.\n\n**Derrubar.** O alvo precisa passar numa salvaguarda de Destreza ou fica Caído."
+  },
+  "srd-2024_monk_warrior-of-the-open-hand_wholeness-of-body": {
+    "name": "Integridade do Corpo",
+    "desc": "Você ganha a capacidade de curar a si mesmo. Com uma Ação Bônus, você pode rolar seu dado de Artes Marciais e recuperar Pontos de Vida iguais ao resultado + seu modificador de Sabedoria (mínimo de 1 Ponto de Vida).\n\nVocê pode usar esta característica um número de vezes igual ao seu modificador de Sabedoria (mínimo de uma vez) e recupera todos os usos gastos ao terminar um Descanso Longo."
+  },
+  "srd-2024_monk_warrior-of-the-open-hand_fleet-step": {
+    "name": "Passo Ligeiro",
+    "desc": "Quando usar uma Ação Bônus que não seja o Passo do Vento, você também pode usar o Passo do Vento logo depois dela."
+  },
+  "srd-2024_monk_warrior-of-the-open-hand_quivering-palm": {
+    "name": "Palma Vibrante",
+    "desc": "Você ganha a capacidade de criar vibrações letais no corpo de alguém. Quando acertar uma criatura com um Ataque Desarmado, você pode gastar 4 Pontos de Foco para iniciar essas vibrações imperceptíveis, que duram um número de dias igual ao seu nível de Monge. Elas são inofensivas até você usar uma ação para encerrá-las. Ou, quando realizar a ação de Ataque no seu turno, você pode abrir mão de um dos ataques para encerrá-las. Para isso, você e o alvo precisam estar no mesmo plano de existência. Quando você as encerra, o alvo precisa fazer uma salvaguarda de Constituição, sofrendo 10d12 de dano de Energia se falhar, ou metade se passar.\n\nSó uma criatura pode estar sob o efeito desta característica por vez. Você pode encerrar as vibrações sem causar dano (sem precisar de ação)."
+  }
+}

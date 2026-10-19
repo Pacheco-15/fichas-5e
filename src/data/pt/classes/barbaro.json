@@ -1,0 +1,104 @@
+{
+  "srd-2024_barbarian/Rage Damage": { "name": "Dano de Fúria" },
+  "srd-2024_barbarian/Rages": { "name": "Fúrias" },
+  "srd-2024_barbarian/Weapon Mastery": { "name": "Maestria em Armas" },
+
+  "srd-2024_barbarian_rage": {
+    "name": "Fúria",
+    "desc": "Você pode se imbuir de um poder primitivo chamado Fúria, uma força que concede vigor e resistência extraordinários. Você pode entrar em Fúria com uma Ação Bônus se não estiver usando armadura Pesada.\n\nVocê pode entrar em Fúria o número de vezes indicado para o seu nível de Bárbaro (aparece em Recursos de classe, na primeira página da ficha). Recupera um uso gasto ao terminar um Descanso Curto e todos os usos ao terminar um Descanso Longo.\n\nEnquanto estiver ativa, sua Fúria segue as regras abaixo.\n\n**Resistência a Dano.** Você tem Resistência a dano Contundente, Perfurante e Cortante.\n\n**Dano de Fúria.** Quando fizer um ataque usando Força (com uma arma ou um Ataque Desarmado) e causar dano ao alvo, você ganha um bônus no dano que aumenta com seus níveis de Bárbaro, como mostra o Dano de Fúria em Recursos de classe.\n\n**Vantagem de Força.** Você tem Vantagem em testes de Força e salvaguardas de Força.\n\n**Sem Concentração nem Magias.** Você não consegue manter Concentração e não pode conjurar magias.\n\n**Duração.** A Fúria dura até o fim do seu próximo turno e termina antes se você vestir armadura Pesada ou ficar Incapacitado. Se a Fúria ainda estiver ativa no seu próximo turno, você pode estendê-la por mais uma rodada fazendo uma das opções abaixo:\n- Fazer uma jogada de ataque contra um inimigo.\n- Forçar um inimigo a fazer uma salvaguarda.\n- Usar uma Ação Bônus para estender a Fúria.\n\nCada vez que a Fúria é estendida, ela dura até o fim do seu próximo turno. Você pode manter uma Fúria por até 10 minutos."
+  },
+  "srd-2024_barbarian_unarmored-defense": {
+    "name": "Defesa sem Armadura",
+    "desc": "Enquanto não estiver usando armadura, sua Classe de Armadura base é igual a 10 + seus modificadores de Destreza e Constituição. Você pode usar um Escudo e ainda ganhar este benefício."
+  },
+  "srd-2024_barbarian_weapon-mastery": {
+    "name": "Maestria em Armas",
+    "desc": "Seu treinamento permite usar as propriedades de maestria de dois tipos de armas Simples ou Marciais corpo a corpo à sua escolha, como Greataxe e Handaxe. Sempre que terminar um Descanso Longo, você pode praticar exercícios com armas e trocar uma dessas escolhas.\n\nEm certos níveis de Bárbaro você passa a usar a maestria de mais tipos de armas. O número atual aparece em Recursos de classe, na primeira página da ficha."
+  },
+  "srd-2024_barbarian_danger-sense": {
+    "name": "Sentido de Perigo",
+    "desc": "Você ganha um sexto sentido para quando as coisas não estão como deveriam, o que ajuda a escapar de perigos. Você tem Vantagem em salvaguardas de Destreza, a menos que esteja Incapacitado."
+  },
+  "srd-2024_barbarian_reckless-attack": {
+    "name": "Ataque Imprudente",
+    "desc": "Você pode deixar de lado qualquer preocupação com defesa para atacar com mais ferocidade. Ao fazer sua primeira jogada de ataque no turno, você pode decidir atacar de forma imprudente. Isso dá Vantagem nas jogadas de ataque usando Força até o início do seu próximo turno, mas as jogadas de ataque contra você também têm Vantagem durante esse tempo."
+  },
+  "srd-2024_barbarian_barbarian-subclass": {
+    "name": "Subclasse de Bárbaro",
+    "desc": "Você ganha uma subclasse de Bárbaro à sua escolha; este app traz o Caminho do Berserker (Path of the Berserker). Uma subclasse é uma especialização que dá características em certos níveis de Bárbaro. Pelo resto da carreira, você ganha cada característica da subclasse cujo nível seja igual ou menor que o seu nível de Bárbaro."
+  },
+  "srd-2024_barbarian_primal-knowledge": {
+    "name": "Conhecimento Primitivo",
+    "desc": "Você ganha proficiência em mais uma perícia à sua escolha, da lista de perícias disponíveis para Bárbaros no nível 1.\n\nAlém disso, enquanto sua Fúria estiver ativa, você pode canalizar poder primitivo em certas tarefas: sempre que fizer um teste de atributo com uma das perícias a seguir, pode fazê-lo como um teste de Força, mesmo que normalmente use outro atributo: Acrobacia, Intimidação, Percepção, Furtividade ou Sobrevivência. Quando usa esta habilidade, sua Força representa o poder primitivo correndo por você e afiando sua agilidade, sua postura e seus sentidos."
+  },
+  "srd-2024_barbarian_ability-score-improvement": {
+    "name": "Aumento no Valor de Atributo",
+    "desc": "Você ganha o feat Ability Score Improvement (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Você ganha esta característica de novo nos níveis 8, 12 e 16 de Bárbaro."
+  },
+  "srd-2024_barbarian_extra-attack": {
+    "name": "Ataque Extra",
+    "desc": "Você pode atacar duas vezes, em vez de uma, sempre que realizar a ação de Ataque no seu turno."
+  },
+  "srd-2024_barbarian_fast-movement": {
+    "name": "Movimento Rápido",
+    "desc": "Seu Deslocamento aumenta em 10 pés enquanto você não estiver usando armadura Pesada."
+  },
+  "srd-2024_barbarian_feral-instinct": {
+    "name": "Instinto Selvagem",
+    "desc": "Seus instintos são tão afiados que você tem Vantagem nas jogadas de Iniciativa."
+  },
+  "srd-2024_barbarian_instinctive-pounce": {
+    "name": "Bote Instintivo",
+    "desc": "Como parte da Ação Bônus que usa para entrar em Fúria, você pode se mover até metade do seu Deslocamento."
+  },
+  "srd-2024_barbarian_brutal-strike": {
+    "name": "Golpe Brutal",
+    "desc": "Se usar o Ataque Imprudente, você pode abrir mão de qualquer Vantagem em uma jogada de ataque baseada em Força à sua escolha no seu turno. Essa jogada não pode ter Desvantagem. Se ela acertar, o alvo sofre 1d10 de dano extra do mesmo tipo causado pela arma ou pelo Ataque Desarmado, e você pode causar um efeito de Golpe Brutal à sua escolha. As opções são estas:\n\n**Golpe Vigoroso.** O alvo é empurrado 15 pés em linha reta para longe de você. Depois, você pode se mover até metade do seu Deslocamento em linha reta na direção do alvo sem provocar Ataques de Oportunidade.\n\n**Golpe no Jarrete.** O Deslocamento do alvo diminui em 15 pés até o início do seu próximo turno. Um alvo só pode ser afetado por um Golpe no Jarrete por vez: o mais recente."
+  },
+  "srd-2024_barbarian_relentless-rage": {
+    "name": "Fúria Implacável",
+    "desc": "Sua Fúria pode manter você lutando apesar de ferimentos graves. Se cair a 0 Pontos de Vida com a Fúria ativa e não morrer na hora, você pode fazer uma salvaguarda de Constituição CD 10. Se passar, seus Pontos de Vida passam a ser iguais ao dobro do seu nível de Bárbaro.\n\nCada vez que usar esta característica depois da primeira, a CD aumenta em 5. Quando você termina um Descanso Curto ou Longo, a CD volta a 10."
+  },
+  "srd-2024_barbarian_improved-brutal-strike": {
+    "name": "Golpe Brutal Aprimorado",
+    "desc": "Você aprendeu novas formas de atacar com fúria. Os efeitos a seguir passam a fazer parte das suas opções de Golpe Brutal.\n\n**Golpe Desnorteante.** O alvo tem Desvantagem na próxima salvaguarda que fizer e não pode fazer Ataques de Oportunidade até o início do seu próximo turno.\n\n**Golpe Demolidor.** Antes do início do seu próximo turno, a próxima jogada de ataque feita por outra criatura contra o alvo ganha +5. Uma jogada de ataque só pode receber um bônus de Golpe Demolidor."
+  },
+  "srd-2024_barbarian_persistent-rage": {
+    "name": "Fúria Persistente",
+    "desc": "Quando rolar Iniciativa, você pode recuperar todos os usos gastos de Fúria. Depois de recuperá-los dessa forma, só pode fazer isso de novo ao terminar um Descanso Longo.\n\nAlém disso, sua Fúria é tão feroz que agora dura 10 minutos sem que você precise fazer nada para estendê-la a cada rodada. Ela termina antes se você ficar Inconsciente (não basta ficar Incapacitado) ou vestir armadura Pesada."
+  },
+  "srd-2024_barbarian_improved-brutal-strike-enhanced": {
+    "name": "Golpe Brutal Aprimorado (nível 17)",
+    "desc": "O dano extra do seu Golpe Brutal aumenta para 2d10. Além disso, você pode usar dois efeitos diferentes de Golpe Brutal sempre que usar a característica Golpe Brutal."
+  },
+  "srd-2024_barbarian_indomitable-might": {
+    "name": "Poder Indomável",
+    "desc": "Se o total de um teste de Força ou de uma salvaguarda de Força for menor que o seu valor de Força, você pode usar esse valor no lugar do total."
+  },
+  "srd-2024_barbarian_epic-boon": {
+    "name": "Dádiva Épica",
+    "desc": "Você ganha um feat de Dádiva Épica (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Boon of Irresistible Offense é o recomendado."
+  },
+  "srd-2024_barbarian_primal-champion": {
+    "name": "Campeão Primitivo",
+    "desc": "Você personifica o poder primitivo. Seus valores de Força e Constituição aumentam em 4, até o máximo de 25."
+  },
+
+  "srd-2024_path-of-the-berserker": { "name": "Caminho do Berserker" },
+  "srd-2024_path-of-the-berserker_frenzy": {
+    "name": "Frenesi",
+    "desc": "Se usar o Ataque Imprudente com a Fúria ativa, você causa dano extra ao primeiro alvo que acertar no seu turno com um ataque baseado em Força. Para saber o dano extra, role um número de d6 igual ao seu bônus de Dano de Fúria e some os resultados. O dano é do mesmo tipo da arma ou do Ataque Desarmado usado no ataque."
+  },
+  "srd-2024_path-of-the-berserker_mindless-rage": {
+    "name": "Fúria Irracional",
+    "desc": "Você tem Imunidade às condições Enfeitiçado e Amedrontado enquanto sua Fúria estiver ativa. Se estiver Enfeitiçado ou Amedrontado quando entrar em Fúria, a condição termina."
+  },
+  "srd-2024_path-of-the-berserker_retaliation": {
+    "name": "Retaliação",
+    "desc": "Quando sofrer dano de uma criatura a até 5 pés de você, você pode usar uma Reação para fazer um ataque corpo a corpo contra ela, com uma arma ou um Ataque Desarmado."
+  },
+  "srd-2024_path-of-the-berserker_intimidating-presence": {
+    "name": "Presença Intimidadora",
+    "desc": "Com uma Ação Bônus, você pode aterrorizar os outros com sua presença ameaçadora e seu poder primitivo. Quando faz isso, cada criatura à sua escolha numa Emanação de 30 pés a partir de você precisa fazer uma salvaguarda de Sabedoria (CD 8 + seu modificador de Força + seu Bônus de Proficiência). Se falhar, a criatura fica Amedrontada por 1 minuto. No fim de cada turno dela, a criatura Amedrontada repete a salvaguarda e, se passar, o efeito termina para ela.\n\nDepois de usar esta característica, você só pode usá-la de novo ao terminar um Descanso Longo, a menos que gaste um uso de Fúria (sem precisar de ação) para recuperá-la."
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "srd-2024_warlock/Eldritch Invocations": { "name": "Invocações Místicas" },
+
+  "srd-2024_warlock_eldritch-invocations": {
+    "name": "Invocações Místicas",
+    "desc": "Você desenterrou Invocações Místicas, fragmentos de conhecimento proibido que dão uma habilidade mágica permanente ou outros ensinamentos. Você ganha uma invocação à sua escolha, como Pact of the Tome (Pacto do Tomo). As invocações estão descritas no SRD, na seção do Bruxo.\n\n**Pré-requisitos.** Se uma invocação tiver pré-requisito, você precisa cumpri-lo para aprendê-la. Por exemplo, se ela exigir Bruxo de nível 5+, você pode escolhê-la quando chegar ao nível 5 de Bruxo.\n\n**Trocando e Ganhando Invocações.** Sempre que ganhar um nível de Bruxo, você pode trocar uma das suas invocações por outra cujos pré-requisitos cumpra. Não pode trocar uma invocação que seja pré-requisito de outra que você tenha.\n\nEm certos níveis de Bruxo você ganha mais invocações à sua escolha; o número atual aparece em Recursos de classe, na primeira página da ficha.\n\nVocê não pode escolher a mesma invocação mais de uma vez, a menos que a descrição dela diga o contrário."
+  },
+  "srd-2024_warlock_pact-magic": {
+    "name": "Magia de Pacto",
+    "desc": "Por meio de uma cerimônia oculta, você fez um pacto com uma entidade misteriosa para ganhar poderes mágicos. A entidade é uma voz nas sombras, de identidade incerta, mas a dádiva que deu a você é concreta: a capacidade de conjurar magias. As regras abaixo explicam como isso funciona com as magias de Bruxo.\n\n**Truques.** Você conhece dois truques de Bruxo à sua escolha. Eldritch Blast e Prestidigitation são os recomendados. Sempre que ganhar um nível de Bruxo, você pode trocar um dos truques desta característica por outro truque de Bruxo.\n\nNos níveis 4 e 10 de Bruxo você aprende mais um truque de Bruxo à sua escolha.\n\n**Espaços de Magia.** A página de magias da ficha mostra quantos espaços de magia você tem para conjurar magias de Bruxo de nível 1 a 5 e o nível desses espaços, que é sempre o mesmo para todos. Você recupera todos os espaços de Magia de Pacto gastos ao terminar um Descanso Curto ou Longo.\n\nPor exemplo, um Bruxo de nível 5 tem dois espaços de magia de nível 3. Para conjurar a magia de nível 1 Charm Person, ele gasta um desses espaços e a conjura como magia de nível 3.\n\n**Magias Preparadas de Nível 1+.** Você prepara a lista de magias de nível 1+ que pode conjurar com esta característica. Para começar, escolha duas magias de Bruxo de nível 1. Charm Person e Hex são as recomendadas.\n\nO número de magias da sua lista aumenta com seus níveis de Bruxo (o valor atual aparece na página de magias da ficha). Sempre que esse número aumentar, escolha mais magias de Bruxo até completar a quantidade. As magias escolhidas não podem ser de nível maior que o dos seus espaços de Magia de Pacto. No nível 6, por exemplo, você aprende uma nova magia de Bruxo, que pode ser de nível 1 a 3.\n\nSe outra característica de Bruxo der magias que você sempre tem preparadas, elas não contam no limite desta característica, mas contam como magias de Bruxo para você.\n\n**Trocando as Magias Preparadas.** Sempre que ganhar um nível de Bruxo, você pode trocar uma magia da sua lista por outra magia de Bruxo de um nível permitido.\n\n**Atributo de Conjuração.** Carisma é o atributo de conjuração das suas magias de Bruxo.\n\n**Foco de Conjuração.** Você pode usar um Foco Arcano como Foco de Conjuração para as magias de Bruxo."
+  },
+  "srd-2024_warlock_magical-cunning": {
+    "name": "Astúcia Mágica",
+    "desc": "Você pode realizar um rito esotérico de 1 minuto. No fim dele, recupera espaços de Magia de Pacto gastos, no máximo metade do seu total (arredondado para cima). Depois de usar esta característica, você só pode usá-la de novo ao terminar um Descanso Longo."
+  },
+  "srd-2024_warlock_warlock-subclass": {
+    "name": "Subclasse de Bruxo",
+    "desc": "Você ganha uma subclasse de Bruxo à sua escolha; este app traz o Patrono Corruptor (Fiend Patron). Uma subclasse é uma especialização que dá características em certos níveis de Bruxo. Pelo resto da carreira, você ganha cada característica da subclasse cujo nível seja igual ou menor que o seu nível de Bruxo."
+  },
+  "srd-2024_warlock_ability-score-improvement": {
+    "name": "Aumento no Valor de Atributo",
+    "desc": "Você ganha o feat Ability Score Improvement (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Você ganha esta característica de novo nos níveis 8, 12 e 16 de Bruxo."
+  },
+  "srd-2024_warlock_contact-patron": {
+    "name": "Contatar o Patrono",
+    "desc": "No passado, você costumava falar com seu patrono por intermediários. Agora pode se comunicar diretamente: você sempre tem a magia Contact Other Plane preparada. Com esta característica, pode conjurá-la sem gastar espaço de magia para falar com seu patrono, e passa automaticamente na salvaguarda da magia.\n\nDepois de conjurar a magia com esta característica, você só pode fazer isso de novo ao terminar um Descanso Longo."
+  },
+  "srd-2024_warlock_mystic-arcanum": {
+    "name": "Arcano Místico",
+    "desc": "Seu patrono concede um segredo mágico chamado arcano. Escolha uma magia de Bruxo de nível 6 como esse arcano.\n\nVocê pode conjurar a magia do arcano uma vez sem gastar espaço de magia e precisa terminar um Descanso Longo antes de conjurá-la assim de novo.\n\nNos níveis 13, 15 e 17 de Bruxo, você ganha outra magia de Bruxo à sua escolha que pode ser conjurada desse jeito: de nível 7, 8 e 9, respectivamente. Você recupera todos os usos do Arcano Místico ao terminar um Descanso Longo.\n\nSempre que ganhar um nível de Bruxo, você pode trocar uma das magias de arcano por outra magia de Bruxo do mesmo nível."
+  },
+  "srd-2024_warlock_epic-boon": {
+    "name": "Dádiva Épica",
+    "desc": "Você ganha um feat de Dádiva Épica (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Boon of Fate é o recomendado."
+  },
+  "srd-2024_warlock_eldritch-master": {
+    "name": "Mestre Místico",
+    "desc": "Quando usar a característica Astúcia Mágica, você recupera todos os espaços de Magia de Pacto gastos."
+  },
+
+  "srd-2024_fiend-patron": { "name": "Patrono Corruptor" },
+  "srd-2024_warlock_fiend-patron_dark-ones-blessing": {
+    "name": "Bênção do Obscuro",
+    "desc": "Quando reduzir um inimigo a 0 Pontos de Vida, você ganha Pontos de Vida Temporários iguais ao seu modificador de Carisma + seu nível de Bruxo (mínimo de 1). Você também ganha esse benefício se outra pessoa reduzir a 0 Pontos de Vida um inimigo que esteja a até 10 pés de você."
+  },
+  "srd-2024_warlock_fiend-patron_fiend-spells": {
+    "name": "Magias do Corruptor",
+    "desc": "A magia do seu patrono garante que você sempre tenha certas magias à mão: ao alcançar um nível de Bruxo indicado na tabela abaixo, você passa a ter sempre as magias listadas preparadas.\n\n|Nível de Bruxo|Magias|\n|---|---|\n|3|Burning Hands, Command, Scorching Ray, Suggestion|\n|5|Fireball, Stinking Cloud|\n|7|Fire Shield, Wall of Fire|\n|9|Geas, Insect Plague|"
+  },
+  "srd-2024_warlock_fiend-patron_dark-ones-own-luck": {
+    "name": "Sorte do Obscuro",
+    "desc": "Você pode pedir ao seu patrono corruptor que mude o destino a seu favor. Quando fizer um teste de atributo ou uma salvaguarda, pode usar esta característica para somar 1d10 ao resultado. Pode fazer isso depois de ver a rolagem, mas antes que os efeitos dela aconteçam.\n\nVocê pode usar esta característica um número de vezes igual ao seu modificador de Carisma (mínimo de uma vez), mas no máximo uma vez por rolagem. Recupera todos os usos gastos ao terminar um Descanso Longo."
+  },
+  "srd-2024_warlock_fiend-patron_fiendish-resilience": {
+    "name": "Resiliência Infernal",
+    "desc": "Sempre que terminar um Descanso Curto ou Longo, escolha um tipo de dano que não seja Energia. Você tem Resistência a esse tipo de dano até escolher outro com esta característica."
+  },
+  "srd-2024_warlock_fiend-patron_hurl-through-hell": {
+    "name": "Arremessar pelo Inferno",
+    "desc": "Uma vez por turno, quando acertar uma criatura com uma jogada de ataque, você pode tentar transportar o alvo na hora pelos Planos Inferiores. O alvo precisa passar numa salvaguarda de Carisma contra a sua CD de salvaguarda de magia ou desaparece e atravessa uma paisagem de pesadelo. Se não for um Corruptor, ele sofre 8d10 de dano Psíquico, e fica Incapacitado até o fim do seu próximo turno, quando volta ao espaço que ocupava ou ao espaço livre mais próximo.\n\nDepois de usar esta característica, você só pode usá-la de novo ao terminar um Descanso Longo, a menos que gaste um espaço de Magia de Pacto (sem precisar de ação) para recuperá-la."
+  }
+}

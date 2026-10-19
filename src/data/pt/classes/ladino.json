@@ -1,0 +1,98 @@
+{
+  "srd-2024_rogue/Sneak Attack": { "name": "Ataque Furtivo" },
+
+  "srd-2024_rogue_expertise": {
+    "name": "Especialização",
+    "desc": "Você ganha Especialização em duas perícias à sua escolha em que já seja proficiente. Prestidigitação e Furtividade são as recomendadas, se você for proficiente nelas.\n\nNo nível 6 de Ladino, você ganha Especialização em mais duas perícias à sua escolha em que seja proficiente."
+  },
+  "srd-2024_rogue_sneak-attack": {
+    "name": "Ataque Furtivo",
+    "desc": "Você sabe golpear de forma sutil e aproveitar a distração de um inimigo. Uma vez por turno, você pode causar 1d6 de dano extra a uma criatura que acertar com uma jogada de ataque, se tiver Vantagem nela e o ataque usar uma arma Finesse (Acuidade) ou à distância. O dano extra é do mesmo tipo do dano da arma.\n\nVocê não precisa de Vantagem na jogada de ataque se pelo menos um aliado seu estiver a até 5 pés do alvo, esse aliado não estiver Incapacitado e você não tiver Desvantagem na jogada.\n\nO dano extra aumenta com seus níveis de Ladino; o valor atual aparece em Recursos de classe, na primeira página da ficha."
+  },
+  "srd-2024_rogue_thieves-cant": {
+    "name": "Gíria de Ladrão",
+    "desc": "Você aprendeu vários idiomas nas comunidades onde exerceu seus talentos de ladino. Você conhece a Gíria de Ladrão e mais um idioma à sua escolha."
+  },
+  "srd-2024_rogue_weapon-mastery": {
+    "name": "Maestria em Armas",
+    "desc": "Seu treinamento permite usar as propriedades de maestria de dois tipos de armas à sua escolha em que você seja proficiente, como Dagger e Shortbow.\n\nSempre que terminar um Descanso Longo, você pode trocar os tipos de armas escolhidos. Por exemplo, pode passar a usar a maestria de Scimitar e Shortsword."
+  },
+  "srd-2024_rogue_cunning-action": {
+    "name": "Ação Ardilosa",
+    "desc": "Seu raciocínio rápido e sua agilidade permitem se mover e agir depressa. No seu turno, você pode realizar uma destas ações com uma Ação Bônus: Disparada, Desengajar ou Esconder."
+  },
+  "srd-2024_rogue_rogue-subclass": {
+    "name": "Subclasse de Ladino",
+    "desc": "Você ganha uma subclasse de Ladino à sua escolha; este app traz o Ladrão (Thief). Uma subclasse é uma especialização que dá características em certos níveis de Ladino. Pelo resto da carreira, você ganha cada característica da subclasse cujo nível seja igual ou menor que o seu nível de Ladino."
+  },
+  "srd-2024_rogue_steady-aim": {
+    "name": "Mira Firme",
+    "desc": "Com uma Ação Bônus, você ganha Vantagem na sua próxima jogada de ataque no turno atual. Só pode usar esta característica se não tiver se movido neste turno e, depois de usá-la, seu Deslocamento fica 0 até o fim do turno atual."
+  },
+  "srd-2024_rogue_ability-score-improvement": {
+    "name": "Aumento no Valor de Atributo",
+    "desc": "Você ganha o feat Ability Score Improvement (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Você ganha esta característica de novo nos níveis 8, 10, 12 e 16 de Ladino."
+  },
+  "srd-2024_rogue_cunning-strike": {
+    "name": "Golpe Ardiloso",
+    "desc": "Você desenvolveu formas astutas de usar seu Ataque Furtivo. Quando causar dano de Ataque Furtivo, pode acrescentar um dos efeitos de Golpe Ardiloso abaixo. Cada efeito tem um custo em dados: o número de dados de dano do Ataque Furtivo de que você abre mão para usá-lo. Você tira os dados antes de rolar, e o efeito acontece logo depois que o dano do ataque é causado. Por exemplo, para usar o efeito Veneno, tire 1d6 do dano do Ataque Furtivo antes de rolar.\n\nSe um efeito de Golpe Ardiloso pedir uma salvaguarda, a CD é 8 + seu modificador de Destreza + seu Bônus de Proficiência.\n\n**Veneno (Custo: 1d6).** Você acrescenta uma toxina ao golpe, forçando o alvo a fazer uma salvaguarda de Constituição. Se falhar, ele fica Envenenado por 1 minuto. No fim de cada turno dele, o alvo Envenenado repete a salvaguarda e, se passar, o efeito termina para ele.\n\nPara usar este efeito, você precisa ter um Poisoner's Kit (Kit de Envenenador) com você.\n\n**Rasteira (Custo: 1d6).** Se o alvo for Grande ou menor, precisa passar numa salvaguarda de Destreza ou fica Caído.\n\n**Recuar (Custo: 1d6).** Logo depois do ataque, você se move até metade do seu Deslocamento sem provocar Ataques de Oportunidade."
+  },
+  "srd-2024_rogue_uncanny-dodge": {
+    "name": "Esquiva Sobrenatural",
+    "desc": "Quando um atacante que você possa ver acertar você com uma jogada de ataque, você pode usar uma Reação para reduzir à metade o dano do ataque (arredondado para baixo)."
+  },
+  "srd-2024_rogue_evasion": {
+    "name": "Evasão",
+    "desc": "Você consegue se esquivar com agilidade de certos perigos. Quando for alvo de um efeito que permite uma salvaguarda de Destreza para sofrer só metade do dano, você não sofre dano nenhum se passar na salvaguarda e sofre só metade se falhar. Você não pode usar esta característica se estiver Incapacitado."
+  },
+  "srd-2024_rogue_reliable-talent": {
+    "name": "Talento Confiável",
+    "desc": "Sempre que fizer um teste de atributo que use uma perícia ou ferramenta em que seja proficiente, você pode tratar um resultado de 9 ou menos no d20 como 10."
+  },
+  "srd-2024_rogue_improved-cunning-strike": {
+    "name": "Golpe Ardiloso Aprimorado",
+    "desc": "Você pode usar até dois efeitos de Golpe Ardiloso quando causar dano de Ataque Furtivo, pagando o custo em dados de cada um."
+  },
+  "srd-2024_rogue_devious-strikes": {
+    "name": "Golpes Traiçoeiros",
+    "desc": "Você treinou novas formas traiçoeiras de usar seu Ataque Furtivo. Os efeitos a seguir passam a fazer parte das suas opções de Golpe Ardiloso.\n\n**Atordoar (Custo: 2d6).** O alvo precisa passar numa salvaguarda de Constituição ou, no próximo turno dele, só pode fazer uma destas coisas: se mover, realizar uma ação ou realizar uma Ação Bônus.\n\n**Nocautear (Custo: 6d6).** O alvo precisa passar numa salvaguarda de Constituição ou fica Inconsciente por 1 minuto, ou até sofrer qualquer dano. O alvo Inconsciente repete a salvaguarda no fim de cada turno dele e, se passar, o efeito termina para ele.\n\n**Ofuscar (Custo: 3d6).** O alvo precisa passar numa salvaguarda de Destreza ou fica Cego até o fim do próximo turno dele."
+  },
+  "srd-2024_rogue_slippery-mind": {
+    "name": "Mente Escorregadia",
+    "desc": "Sua mente astuta é muito difícil de controlar. Você ganha proficiência em salvaguardas de Sabedoria e de Carisma."
+  },
+  "srd-2024_rogue_elusive": {
+    "name": "Elusivo",
+    "desc": "Você é tão esquivo que os atacantes quase nunca levam vantagem contra você. Nenhuma jogada de ataque contra você pode ter Vantagem, a menos que você esteja Incapacitado."
+  },
+  "srd-2024_rogue_epic-boon": {
+    "name": "Dádiva Épica",
+    "desc": "Você ganha um feat de Dádiva Épica (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Boon of the Night Spirit é o recomendado."
+  },
+  "srd-2024_rogue_stroke-of-luck": {
+    "name": "Golpe de Sorte",
+    "desc": "Você tem um talento incrível para se dar bem quando precisa. Se falhar num Teste de D20, pode transformar o resultado em 20.\n\nDepois de usar esta característica, você só pode usá-la de novo ao terminar um Descanso Curto ou Longo."
+  },
+
+  "srd-2024_thief": { "name": "Ladrão" },
+  "srd-2024_rogue_thief_fast-hands": {
+    "name": "Mãos Rápidas",
+    "desc": "Com uma Ação Bônus, você pode fazer uma destas coisas.\n\n**Prestidigitação.** Fazer um teste de Destreza (Prestidigitação) para abrir uma fechadura ou desarmar uma armadilha com Thieves' Tools (Ferramentas de Ladrão), ou para bater uma carteira.\n\n**Usar um Objeto.** Realizar a ação Usar, ou a ação de Magia para usar um item mágico que exija essa ação."
+  },
+  "srd-2024_rogue_thief_second-story-work": {
+    "name": "Trabalho nas Alturas",
+    "desc": "Você treinou para entrar em lugares especialmente difíceis de alcançar e ganha estes benefícios.\n\n**Escalador.** Você ganha Deslocamento de Escalada igual ao seu Deslocamento.\n\n**Saltador.** Você pode calcular a distância dos seus saltos usando Destreza em vez de Força."
+  },
+  "srd-2024_rogue_thief_supreme-sneak": {
+    "name": "Furtividade Suprema",
+    "desc": "Você ganha esta opção de Golpe Ardiloso.\n\n**Ataque Furtivo Oculto (Custo: 1d6).** Se você estiver Invisível pela ação Esconder, este ataque não encerra essa condição se você terminar o turno atrás de Cobertura de Três Quartos ou Cobertura Total."
+  },
+  "srd-2024_rogue_thief_use-magic-device": {
+    "name": "Usar Dispositivo Mágico",
+    "desc": "Você aprendeu a aproveitar ao máximo os itens mágicos e ganha estes benefícios.\n\n**Sintonização.** Você pode se sintonizar com até quatro itens mágicos ao mesmo tempo.\n\n**Cargas.** Sempre que usar uma propriedade de item mágico que gaste cargas, role 1d6. Num 6, você usa a propriedade sem gastar as cargas.\n\n**Pergaminhos.** Você pode usar qualquer Spell Scroll (Pergaminho de Magia), com Inteligência como atributo de conjuração da magia. Se for um truque ou uma magia de nível 1, você conjura sem risco. Se o pergaminho tiver uma magia de nível mais alto, primeiro você precisa passar num teste de Inteligência (Arcanismo) com CD 10 + o nível da magia. Se passar, conjura a magia do pergaminho; se falhar, o pergaminho se desfaz."
+  },
+  "srd-2024_rogue_thief_thiefs-reflexes": {
+    "name": "Reflexos de Ladrão",
+    "desc": "Você é hábil em armar emboscadas e escapar rápido do perigo. Você pode ter dois turnos na primeira rodada de qualquer combate: o primeiro na sua Iniciativa normal e o segundo na sua Iniciativa menos 10."
+  }
+}

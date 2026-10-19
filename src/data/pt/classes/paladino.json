@@ -1,0 +1,94 @@
+{
+  "srd-2024_paladin/Channel Divinity": { "name": "Canalizar Divindade" },
+
+  "srd-2024_paladin_lay-on-hands": {
+    "name": "Cura pelas Mãos",
+    "desc": "Seu toque abençoado cura ferimentos. Você tem uma reserva de poder de cura que se renova ao terminar um Descanso Longo. Com ela, pode restaurar no total um número de Pontos de Vida igual a cinco vezes o seu nível de Paladino.\n\nCom uma Ação Bônus, você pode tocar uma criatura (inclusive você) e tirar poder da reserva para restaurar Pontos de Vida dela, até o total que ainda restar na reserva.\n\nVocê também pode gastar 5 Pontos de Vida da reserva para remover a condição Envenenado da criatura; esses pontos não restauram Pontos de Vida."
+  },
+  "srd-2024_paladin_spellcasting": {
+    "name": "Conjuração",
+    "desc": "Você aprendeu a conjurar magias por meio de oração e meditação. As regras abaixo explicam como isso funciona com as magias de Paladino.\n\n**Espaços de Magia.** O número de espaços de magia que você tem para conjurar magias de nível 1+ aparece na página de magias da ficha. Você recupera todos os espaços gastos ao terminar um Descanso Longo.\n\n**Magias Preparadas de Nível 1+.** Você prepara a lista de magias de nível 1+ que pode conjurar com esta característica. Para começar, escolha duas magias de Paladino de nível 1. Heroism e Searing Smite são as recomendadas.\n\nO número de magias da sua lista aumenta com seus níveis de Paladino (o valor atual aparece na página de magias da ficha). Sempre que esse número aumentar, escolha mais magias de Paladino até completar a quantidade. As magias escolhidas precisam ser de um nível para o qual você tenha espaços de magia. Por exemplo, um Paladino de nível 5 pode ter na lista seis magias de Paladino de nível 1 ou 2, em qualquer combinação.\n\nSe outra característica de Paladino der magias que você sempre tem preparadas, elas não contam no limite desta característica, mas contam como magias de Paladino para você.\n\n**Trocando as Magias Preparadas.** Sempre que terminar um Descanso Longo, você pode trocar uma magia da sua lista por outra magia de Paladino para a qual tenha espaços de magia.\n\n**Atributo de Conjuração.** Carisma é o seu atributo de conjuração para as magias de Paladino.\n\n**Foco de Conjuração.** Você pode usar um Símbolo Sagrado como Foco de Conjuração para as magias de Paladino."
+  },
+  "srd-2024_paladin_weapon-mastery": {
+    "name": "Maestria em Armas",
+    "desc": "Seu treinamento permite usar as propriedades de maestria de dois tipos de armas à sua escolha em que você seja proficiente, como Longsword e Javelin.\n\nSempre que terminar um Descanso Longo, você pode trocar os tipos de armas escolhidos. Por exemplo, pode passar a usar a maestria de Halberd e Flail."
+  },
+  "srd-2024_paladin_fighting-style": {
+    "name": "Estilo de Luta",
+    "desc": "Você ganha um feat de Estilo de Luta à sua escolha (veja \"Feats\"). Em vez de escolher um desses feats, pode ficar com a opção abaixo.\n\n**Guerreiro Abençoado.** Você aprende dois truques de Clérigo à sua escolha. Guidance e Sacred Flame são os recomendados. Os truques escolhidos contam como magias de Paladino para você, e Carisma é o atributo de conjuração deles. Sempre que ganhar um nível de Paladino, você pode trocar um desses truques por outro truque de Clérigo."
+  },
+  "srd-2024_paladin_paladins-smite": {
+    "name": "Golpe do Paladino",
+    "desc": "Você sempre tem a magia Divine Smite preparada. Além disso, pode conjurá-la sem gastar espaço de magia, mas precisa terminar um Descanso Longo antes de conjurá-la assim de novo."
+  },
+  "srd-2024_paladin_channel-divinity": {
+    "name": "Canalizar Divindade",
+    "desc": "Você consegue canalizar energia divina diretamente dos Planos Exteriores para criar efeitos mágicos. Você começa com um desses efeitos, Sentido Divino, descrito abaixo. Outras características de Paladino dão mais opções de efeito. Cada vez que usar o Canalizar Divindade desta classe, escolha qual dos efeitos dela criar.\n\nVocê pode usar o Canalizar Divindade desta classe duas vezes. Recupera um uso gasto ao terminar um Descanso Curto e todos os usos ao terminar um Descanso Longo. Você ganha mais um uso no nível 11 de Paladino.\n\nSe um efeito de Canalizar Divindade pedir uma salvaguarda, a CD é igual à CD de salvaguarda de magia da característica Conjuração desta classe.\n\n**Sentido Divino.** Com uma Ação Bônus, você abre sua percepção para detectar Celestiais, Corruptores e Mortos-Vivos. Pelos próximos 10 minutos, ou até ficar Incapacitado, você sabe onde está qualquer criatura desses tipos a até 60 pés de você e sabe o tipo dela. No mesmo raio, também percebe qualquer lugar ou objeto consagrado ou profanado, como na magia Hallow."
+  },
+  "srd-2024_paladin_paladin-subclass": {
+    "name": "Subclasse de Paladino",
+    "desc": "Você ganha uma subclasse de Paladino à sua escolha; este app traz o Juramento de Devoção (Oath of Devotion). Uma subclasse é uma especialização que dá características em certos níveis de Paladino. Pelo resto da carreira, você ganha cada característica da subclasse cujo nível seja igual ou menor que o seu nível de Paladino."
+  },
+  "srd-2024_paladin_ability-score-improvement": {
+    "name": "Aumento no Valor de Atributo",
+    "desc": "Você ganha o feat Ability Score Improvement (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Você ganha esta característica de novo nos níveis 8, 12 e 16 de Paladino."
+  },
+  "srd-2024_paladin_extra-attack": {
+    "name": "Ataque Extra",
+    "desc": "Você pode atacar duas vezes, em vez de uma, sempre que realizar a ação de Ataque no seu turno."
+  },
+  "srd-2024_paladin_faithful-steed": {
+    "name": "Montaria Fiel",
+    "desc": "Você pode pedir a ajuda de uma montaria de outro mundo. Você sempre tem a magia Find Steed preparada.\n\nTambém pode conjurar essa magia uma vez sem gastar espaço de magia, e recupera essa capacidade ao terminar um Descanso Longo."
+  },
+  "srd-2024_paladin_aura-of-protection": {
+    "name": "Aura de Proteção",
+    "desc": "Você irradia uma aura protetora e invisível numa Emanação de 10 pés a partir de você. A aura fica inativa enquanto você estiver Incapacitado.\n\nVocê e seus aliados na aura ganham um bônus nas salvaguardas igual ao seu modificador de Carisma (mínimo de +1).\n\nSe houver outro Paladino por perto, uma criatura só recebe o benefício de uma Aura de Proteção por vez; ela escolhe qual enquanto estiver nas duas."
+  },
+  "srd-2024_paladin_abjure-foes": {
+    "name": "Repelir Inimigos",
+    "desc": "Com uma ação de Magia, você pode gastar um uso do Canalizar Divindade desta classe para esmagar os inimigos de assombro. Ao erguer seu Símbolo Sagrado ou sua arma, você escolhe como alvo um número de criaturas igual ao seu modificador de Carisma (mínimo de uma) que possa ver a até 60 pés de você. Cada alvo precisa passar numa salvaguarda de Sabedoria ou fica Amedrontado por 1 minuto, ou até sofrer qualquer dano. Amedrontado desse jeito, o alvo só pode fazer uma destas coisas nos turnos dele: se mover, realizar uma ação ou realizar uma Ação Bônus."
+  },
+  "srd-2024_paladin_aura-of-courage": {
+    "name": "Aura de Coragem",
+    "desc": "Você e seus aliados têm Imunidade à condição Amedrontado enquanto estiverem na sua Aura de Proteção. Se um aliado Amedrontado entrar na aura, a condição não tem efeito nele enquanto estiver lá."
+  },
+  "srd-2024_paladin_radiant-strikes": {
+    "name": "Golpes Radiantes",
+    "desc": "Seus golpes agora carregam poder sobrenatural. Quando acertar um alvo com uma jogada de ataque usando uma arma corpo a corpo ou um Ataque Desarmado, o alvo sofre 1d8 de dano Radiante extra."
+  },
+  "srd-2024_paladin_restoring-touch": {
+    "name": "Toque Restaurador",
+    "desc": "Quando usar Cura pelas Mãos numa criatura, você também pode remover dela uma ou mais destas condições: Cego, Enfeitiçado, Surdo, Amedrontado, Paralisado ou Atordoado. Para cada condição removida, gaste 5 Pontos de Vida da reserva de Cura pelas Mãos; esses pontos não restauram Pontos de Vida."
+  },
+  "srd-2024_paladin_aura-expansion": {
+    "name": "Expansão da Aura",
+    "desc": "Sua Aura de Proteção agora é uma Emanação de 30 pés."
+  },
+  "srd-2024_paladin_epic-boon": {
+    "name": "Dádiva Épica",
+    "desc": "Você ganha um feat de Dádiva Épica (veja \"Feats\") ou outro feat à sua escolha cujos pré-requisitos você cumpra. Boon of Truesight é o recomendado."
+  },
+
+  "srd-2024_oath-of-devotion": { "name": "Juramento de Devoção" },
+  "srd-2024_paladin_oath-of-devotion_sacred-weapon": {
+    "name": "Arma Sagrada",
+    "desc": "Quando realizar a ação de Ataque, você pode gastar um uso de Canalizar Divindade para imbuir de energia positiva uma arma corpo a corpo que esteja segurando. Por 10 minutos, ou até usar esta característica de novo, você soma seu modificador de Carisma às jogadas de ataque com essa arma (mínimo de +1) e, a cada acerto, ela pode causar o tipo de dano normal ou dano Radiante.\n\nA arma também emite Luz Plena num raio de 20 pés e Penumbra por mais 20 pés.\n\nVocê pode encerrar o efeito antes (sem precisar de ação). Ele também termina se você não estiver carregando a arma."
+  },
+  "srd-2024_paladin_oath-of-devotion_spells": {
+    "name": "Magias do Juramento de Devoção",
+    "desc": "A magia do seu juramento garante que você sempre tenha certas magias à mão: ao alcançar um nível de Paladino indicado na tabela abaixo, você passa a ter sempre as magias listadas preparadas.\n\n|Nível de Paladino|Magias|\n|---|---|\n|3|Protection from Evil and Good, Shield of Faith|\n|5|Aid, Zone of Truth|\n|9|Beacon of Hope, Dispel Magic|\n|13|Freedom of Movement, Guardian of Faith|\n|17|Commune, Flame Strike|"
+  },
+  "srd-2024_paladin_oath-of-devotion_aura-of-devotion": {
+    "name": "Aura de Devoção",
+    "desc": "Você e seus aliados têm Imunidade à condição Enfeitiçado enquanto estiverem na sua Aura de Proteção. Se um aliado Enfeitiçado entrar na aura, a condição não tem efeito nele enquanto estiver lá."
+  },
+  "srd-2024_paladin_oath-of-devotion_smite-of-protection": {
+    "name": "Golpe de Proteção",
+    "desc": "Seu golpe mágico agora irradia energia protetora. Sempre que conjurar Divine Smite, você e seus aliados têm Meia Cobertura enquanto estiverem na sua Aura de Proteção. A aura mantém esse benefício até o início do seu próximo turno."
+  },
+  "srd-2024_paladin_oath-of-devotion_holy-nimbus": {
+    "name": "Auréola Sagrada",
+    "desc": "Com uma Ação Bônus, você pode imbuir sua Aura de Proteção de poder sagrado, ganhando os benefícios abaixo por 10 minutos ou até encerrá-los (sem precisar de ação). Depois de usar esta característica, você só pode usá-la de novo ao terminar um Descanso Longo. Também pode recuperar o uso gastando um espaço de magia de nível 5 (sem precisar de ação).\n\n**Proteção Sagrada.** Você tem Vantagem em qualquer salvaguarda que um Corruptor ou um Morto-Vivo force você a fazer.\n\n**Dano Radiante.** Sempre que um inimigo começar o turno dentro da aura, ele sofre dano Radiante igual ao seu modificador de Carisma + seu Bônus de Proficiência.\n\n**Luz do Sol.** A aura fica cheia de Luz Plena, que conta como luz do sol."
+  }
+}

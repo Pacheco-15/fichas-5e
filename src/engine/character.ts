@@ -5,6 +5,7 @@ import {
   type AbilityKey, type ArmorDef, type BackgroundDef, type ClassDef, type FeatDef, type FeatType,
   type Feature, type SkillKey, type SpeciesDef, type SpellDef, type SubclassDef, type WeaponDef,
 } from '../data/rules';
+import { translation } from '../data/translations';
 
 export type Scores = Record<AbilityKey, number>;
 
@@ -22,6 +23,8 @@ export interface Character {
   classKey: string;
   subclassKey: string | null;
   speciesKey: string;
+  /** Opção escolhida em cada escolha da espécie (chave de SpeciesChoice → nome da opção). */
+  speciesChoices: Record<string, string>;
   backgroundKey: string;
   baseScores: Scores;
   /** Bônus do antecedente: +2/+1 ou +1/+1/+1 entre os 3 atributos do antecedente. */
@@ -42,7 +45,6 @@ export interface Character {
   languages: string;
   tools: string;
   equipment: string;
-  speciesNotes: string;
   personality: string;
   notes: string;
 }
@@ -58,6 +60,7 @@ export function newCharacter(): Character {
     classKey: CLASSES.find((c) => c.name === 'Fighter')!.key,
     subclassKey: null,
     speciesKey: SPECIES.find((s) => s.name === 'Human')!.key,
+    speciesChoices: {},
     backgroundKey: BACKGROUNDS.find((b) => b.name === 'Soldier')!.key,
     baseScores: { str: 15, dex: 14, con: 13, int: 12, wis: 10, cha: 8 },
     backgroundBonus: {},
@@ -75,7 +78,6 @@ export function newCharacter(): Character {
     languages: 'Common',
     tools: '',
     equipment: '',
-    speciesNotes: '',
     personality: '',
     notes: '',
   };
@@ -83,7 +85,11 @@ export function newCharacter(): Character {
 
 /** Garante campos novos em fichas salvas por versões antigas do app. */
 export function normalizeCharacter(raw: Partial<Character>): Character {
-  return { ...newCharacter(), ...raw, id: raw.id ?? uid() };
+  const c: Character & { speciesNotes?: string } = { ...newCharacter(), ...raw, id: raw.id ?? uid() };
+  // Versões antigas guardavam as escolhas da espécie como texto livre: vai para as notas.
+  if (c.speciesNotes) c.notes = [`Espécie: ${c.speciesNotes}`, c.notes].filter(Boolean).join('\n\n');
+  delete c.speciesNotes;
+  return c;
 }
 
 /* ---------- Espaços de feat ---------- */
@@ -142,15 +148,27 @@ export interface AttackRow {
 
 export interface SheetFeature {
   name: string;
+  /** Nome em inglês, quando o item foi traduzido. */
+  original?: string;
   source: string;
   level: number;
   desc: string;
+}
+
+/** Parte da criação onde o aviso se resolve. */
+export type WarningArea = 'basic' | 'abilities' | 'skills' | 'equipment' | 'spells';
+
+export interface Warning {
+  area: WarningArea;
+  text: string;
 }
 
 export interface Sheet {
   cls: ClassDef;
   subclass?: SubclassDef;
   species?: SpeciesDef;
+  /** Espécie com as escolhas principais, ex.: "Elfo (Drow)". */
+  speciesLabel: string;
   background?: BackgroundDef;
   armor?: ArmorDef;
   pb: number;
@@ -180,7 +198,7 @@ export interface Sheet {
     maxSpellLevel: number;
     spells: SpellDef[];
   };
-  warnings: string[];
+  warnings: Warning[];
 }
 
 const column = (cls: ClassDef, name: string, level: number) => cls.columns.find((c) => c.name === name)?.values[level];
@@ -212,7 +230,21 @@ export function computeSheet(c: Character): Sheet {
   const background = byKey(BACKGROUNDS, c.backgroundKey);
   const level = Math.min(20, Math.max(1, c.level));
   const pb = proficiencyBonus(level);
-  const warnings: string[] = [];
+  const warnings: Warning[] = [];
+  const warn = (area: WarningArea, text: string) => warnings.push({ area, text });
+
+  /* Escolhas da espécie */
+  const speciesPicks = (species?.choices ?? []).map((choice) => ({
+    choice,
+    option: choice.options.find((o) => o.name === c.speciesChoices[choice.key]),
+  }));
+  for (const { choice, option } of speciesPicks) if (!option) warn('basic', `Escolha da espécie: ${choice.label}.`);
+  const picked = (key: string) => speciesPicks.find((p) => p.choice.key === key)?.option;
+  const labelParts = speciesPicks
+    .filter((p) => p.option && p.choice.kind !== 'ability')
+    // "Elfo da Floresta (Wood Elf)" → "Elfo da Floresta"
+    .map((p) => p.option!.label.replace(/ \(.*\)$/, ''));
+  const speciesLabel = species ? `${species.pt}${labelParts.length ? ` (${labelParts.join(', ')})` : ''}` : '';
 
   /* Feats e atributos */
   const slots = featSlots(c, cls, background, species);
@@ -233,7 +265,7 @@ export function computeSheet(c: Character): Sheet {
   const mods = Object.fromEntries(ABILITIES.map((a) => [a.key, modifier(scores[a.key])])) as Scores;
 
   const bonusTotal = Object.values(c.backgroundBonus).reduce((s, n) => s + (n ?? 0), 0);
-  if (background && bonusTotal !== 3) warnings.push(`Distribua 3 pontos do antecedente (+2/+1 ou +1/+1/+1). Atual: ${bonusTotal}.`);
+  if (background && bonusTotal !== 3) warn('abilities', `Distribua 3 pontos do antecedente (+2/+1 ou +1/+1/+1). Atual: ${bonusTotal}.`);
 
   /* Salvaguardas e perícias */
   const saves = ABILITIES.map((a) => {
@@ -250,7 +282,7 @@ export function computeSheet(c: Character): Sheet {
     return { key: s.key, label: s.pt, ability: s.ability, proficient, expertise, bonus: mods[s.ability] + profPart };
   });
   if (c.classSkills.length !== cls.skillChoice.count) {
-    warnings.push(`Escolha ${cls.skillChoice.count} perícias da classe (escolhidas: ${c.classSkills.length}).`);
+    warn('skills', `Escolha ${cls.skillChoice.count} perícias da classe (escolhidas: ${c.classSkills.length}).`);
   }
   const perception = skills.find((s) => s.key === 'perception')!.bonus;
 
@@ -267,8 +299,8 @@ export function computeSheet(c: Character): Sheet {
     ac = armor.acBase + dex;
     acNote = armor.name;
     if (hasFeat('Defense')) { ac += 1; acNote += ' + Defense'; }
-    if (!cls.armor[armor.category as 'light' | 'medium' | 'heavy']) warnings.push(`A classe não tem treinamento em armadura ${armor.category}.`);
-    if (armor.strRequired && scores.str < armor.strRequired) warnings.push(`${armor.name} pede Força ${armor.strRequired}: −10 pés de deslocamento.`);
+    if (!cls.armor[armor.category as 'light' | 'medium' | 'heavy']) warn('equipment', `A classe não tem treinamento em armadura ${armor.category}.`);
+    if (armor.strRequired && scores.str < armor.strRequired) warn('equipment', `${armor.name} pede Força ${armor.strRequired}: −10 pés de deslocamento.`);
   } else {
     const best = unarmored.reduce((a, b) => (b.ac > a.ac ? b : a));
     ac = best.ac;
@@ -277,11 +309,16 @@ export function computeSheet(c: Character): Sheet {
   if (c.shield) {
     ac += 2;
     acNote += ' + Escudo';
-    if (!cls.armor.shield) warnings.push('A classe não tem treinamento com Escudo.');
+    if (!cls.armor.shield) warn('equipment', 'A classe não tem treinamento com Escudo.');
   }
 
   /* Deslocamento */
   let speed = species?.speed ?? 30;
+  // Ex.: Elfo da Floresta: "Your Speed increases to 35 feet".
+  for (const { option } of speciesPicks) {
+    const fromChoice = Number(option?.desc.match(/Speed increases to (\d+) feet/)?.[1]);
+    if (fromChoice > speed) speed = fromChoice;
+  }
   if (cls.name === 'Monk' && !armor && !c.shield) {
     speed += level >= 18 ? 30 : level >= 14 ? 25 : level >= 10 ? 20 : level >= 6 ? 15 : level >= 2 ? 10 : 0;
   }
@@ -337,7 +374,7 @@ export function computeSheet(c: Character): Sheet {
   /* Recursos de classe (colunas da tabela) */
   const resources = cls.columns
     .filter((col) => !SPELL_COLUMNS.has(col.name))
-    .map((col) => ({ name: col.name, value: col.values[level] ?? '—' }))
+    .map((col) => ({ name: translation(`${cls.key}/${col.name}`)?.name ?? col.name, value: col.values[level] ?? '—' }))
     .filter((r) => r.value && r.value !== '—' && r.value !== '0');
 
   /* Características */
@@ -345,14 +382,31 @@ export function computeSheet(c: Character): Sheet {
   const pushFeatures = (list: Feature[], source: string) => {
     for (const f of list) {
       const reached = f.levels.filter((l) => l <= level);
-      if (reached.length) features.push({ name: f.name, source, level: reached[0], desc: f.desc });
+      if (!reached.length) continue;
+      const pt = translation(f.key);
+      features.push({ name: pt?.name ?? f.name, original: pt && f.name, source, level: reached[0], desc: pt?.desc ?? f.desc });
     }
   };
   pushFeatures(cls.features, cls.pt);
-  if (subclass) pushFeatures(subclass.features, subclass.name);
+  if (subclass) pushFeatures(subclass.features, subclass.pt);
   features.sort((a, b) => a.level - b.level);
-  for (const t of species?.traits ?? []) features.push({ name: t.name, source: species!.pt, level: 1, desc: t.desc });
-  if (level >= 3 && !subclass && cls.subclasses.length) warnings.push('Escolha uma subclasse (nível 3+).');
+  for (const t of species?.traits ?? []) {
+    const option = picked(t.name);
+    const ability = picked(`${t.name}:ability`);
+    const pt = translation(`${species!.key}/${t.name}`);
+    const name = pt?.name ?? t.name;
+    const optionDesc = option && (translation(`${species!.key}/${t.name}/${option.name}`)?.desc ?? option.desc);
+    features.push({
+      name: option ? `${name}: ${option.label}` : name,
+      original: pt && t.name,
+      source: species!.pt,
+      level: 1,
+      desc: option
+        ? [optionDesc, ability && `Atributo de conjuração: ${ability.label}.`].filter(Boolean).join('\n')
+        : pt?.desc ?? t.desc,
+    });
+  }
+  if (level >= 3 && !subclass && cls.subclasses.length) warn('basic', 'Escolha uma subclasse (nível 3+).');
 
   /* Magias */
   let spellcasting: Sheet['spellcasting'];
@@ -373,8 +427,8 @@ export function computeSheet(c: Character): Sheet {
     };
     const chosenCantrips = spellcasting.spells.filter((s) => s.level === 0 && s.classes.includes(cls.key)).length;
     const chosenLeveled = spellcasting.spells.filter((s) => s.level > 0 && s.classes.includes(cls.key)).length;
-    if (chosenCantrips > spellcasting.cantrips) warnings.push(`Truques da classe: ${chosenCantrips} de ${spellcasting.cantrips}.`);
-    if (chosenLeveled > spellcasting.prepared) warnings.push(`Magias preparadas da classe: ${chosenLeveled} de ${spellcasting.prepared}.`);
+    if (chosenCantrips > spellcasting.cantrips) warn('spells', `Truques da classe: ${chosenCantrips} de ${spellcasting.cantrips}.`);
+    if (chosenLeveled > spellcasting.prepared) warn('spells', `Magias preparadas da classe: ${chosenLeveled} de ${spellcasting.prepared}.`);
   } else if (c.spellKeys.length) {
     // Magias de feats (Magic Initiate) sem a classe ser conjuradora.
     const spells = c.spellKeys.map((k) => byKey(SPELLS, k)).filter((s): s is SpellDef => !!s);
@@ -383,7 +437,7 @@ export function computeSheet(c: Character): Sheet {
   }
 
   return {
-    cls, subclass, species, background, armor, pb, scores, mods, saves, skills,
+    cls, subclass, species, speciesLabel, background, armor, pb, scores, mods, saves, skills,
     passivePerception: 10 + perception,
     initiative: mods.dex + (hasFeat('Alert') ? pb : 0),
     ac, acNote, speed, hpMax,

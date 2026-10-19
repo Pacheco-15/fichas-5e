@@ -1,7 +1,9 @@
 // Ficha pronta, com layout para tela e para impressão (A4).
 import type { ReactNode } from 'react';
 import { ABILITIES, abilityShort, signed, type AbilityKey } from '../data/rules';
+import { translation } from '../data/translations';
 import type { Character, Sheet as SheetData } from '../engine/character';
+import { Markdown } from './Markdown';
 
 const ORDINAL = ['1º', '2º', '3º', '4º', '5º', '6º', '7º', '8º', '9º'];
 
@@ -17,7 +19,7 @@ function Box({ label, value, sub }: { label: string; value: ReactNode; sub?: str
 
 export function Sheet({ c, s }: { c: Character; s: SheetData }) {
   const sc = s.spellcasting;
-  const classLine = `${s.cls.pt} ${c.level}${s.subclass ? ` · ${s.subclass.name}` : ''}`;
+  const classLine = `${s.cls.pt} ${c.level}${s.subclass ? ` · ${s.subclass.pt}` : ''}`;
   const featsTaken = s.feats.filter((f) => f.feat);
 
   return (
@@ -30,7 +32,7 @@ export function Sheet({ c, s }: { c: Character; s: SheetData }) {
             <div className="muted">{classLine}</div>
           </div>
           <dl className="header-meta">
-            <div><dt>Espécie</dt><dd>{s.species?.pt}{c.speciesNotes ? ` (${c.speciesNotes})` : ''}</dd></div>
+            <div><dt>Espécie</dt><dd>{s.speciesLabel}</dd></div>
             <div><dt>Antecedente</dt><dd>{s.background?.pt}</dd></div>
             <div><dt>Alinhamento</dt><dd>{c.alignment || '—'}</dd></div>
             <div><dt>Jogador</dt><dd>{c.player || '—'}</dd></div>
@@ -118,7 +120,7 @@ export function Sheet({ c, s }: { c: Character; s: SheetData }) {
             <p className="tiny"><strong>Ferramentas:</strong> {c.tools || '—'}</p>
             <p className="tiny"><strong>Idiomas:</strong> {c.languages || '—'}</p>
             {featsTaken.length > 0 && (
-              <p className="tiny"><strong>Feats:</strong> {featsTaken.map((f) => f.feat!.name).join(', ')}</p>
+              <p className="tiny"><strong>Feats:</strong> {featsTaken.map((f) => translation(f.feat!.key)?.name ?? f.feat!.name).join(', ')}</p>
             )}
           </div>
         </div>
@@ -141,16 +143,27 @@ export function Sheet({ c, s }: { c: Character; s: SheetData }) {
         <div className="features">
           {s.features.map((f) => (
             <article key={`${f.source}-${f.name}`} className="feature">
-              <h4>{f.name} <span className="muted">· {f.source}{f.level > 1 ? `, nível ${f.level}` : ''}</span></h4>
-              <p className="pre">{f.desc}</p>
+              <h4>
+                {f.name}
+                {f.original && <span className="original"> ({f.original})</span>}
+                <span className="muted"> · {f.source}{f.level > 1 ? `, nível ${f.level}` : ''}</span>
+              </h4>
+              <Markdown text={f.desc} />
             </article>
           ))}
-          {featsTaken.map(({ slot, feat, abilities }) => (
-            <article key={slot.id} className="feature">
-              <h4>{feat!.name} <span className="muted">· Feat ({slot.label}){abilities.length ? ` · +1 ${abilities.map(abilityShort).join(', +1 ')}` : ''}</span></h4>
-              <p className="pre">{feat!.benefits.join('\n') || feat!.desc}</p>
-            </article>
-          ))}
+          {featsTaken.map(({ slot, feat, abilities }) => {
+            const pt = translation(feat!.key);
+            return (
+              <article key={slot.id} className="feature">
+                <h4>
+                  {pt?.name ?? feat!.name}
+                  {pt && <span className="original"> ({feat!.name})</span>}
+                  <span className="muted"> · Feat ({slot.label}){abilities.length ? ` · +1 ${abilities.map(abilityShort).join(', +1 ')}` : ''}</span>
+                </h4>
+                <Markdown text={pt?.desc ?? (feat!.benefits.join('\n\n') || feat!.desc)} />
+              </article>
+            );
+          })}
         </div>
         {c.notes && (
           <>
@@ -202,7 +215,7 @@ export function Sheet({ c, s }: { c: Character; s: SheetData }) {
             {sc.spells.map((sp) => (
               <article key={sp.key} className="feature">
                 <h4>{sp.name} <span className="muted">· {sp.level === 0 ? 'Truque' : `${sp.level}º círculo`}</span></h4>
-                <p className="pre">{sp.desc}{sp.higherLevel ? `\n\nEm níveis superiores: ${sp.higherLevel}` : ''}</p>
+                <Markdown text={sp.higherLevel ? `${sp.desc}\n\n**Em níveis superiores.** ${sp.higherLevel}` : sp.desc} />
               </article>
             ))}
           </div>
@@ -211,6 +224,7 @@ export function Sheet({ c, s }: { c: Character; s: SheetData }) {
 
       <footer className="attribution tiny muted">
         Inclui material do System Reference Document 5.2 ("SRD 5.2") da Wizards of the Coast LLC, licenciado sob CC-BY-4.0.
+        Parte dos textos foi traduzida para o português pelo projeto Fichas 5.5e (tradução não oficial).
       </footer>
     </div>
   );
