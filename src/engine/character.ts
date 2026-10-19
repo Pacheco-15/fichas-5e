@@ -33,6 +33,9 @@ export interface Character {
   /** Perícias de espécie (Humano, Elfo), do feat Skilled etc. */
   extraSkills: SkillKey[];
   expertise: SkillKey[];
+  /** Perícias e Especializações a mais dadas fora das regras de criação (mestre, item mágico). */
+  extraSkillBonus: number;
+  expertiseBonus: number;
   feats: Record<string, FeatChoice>;
   hpMethod: 'average' | 'rolled';
   /** Resultado do dado de vida para os níveis 2..20 (índice 0 = nível 2). */
@@ -67,6 +70,8 @@ export function newCharacter(): Character {
     classSkills: [],
     extraSkills: [],
     expertise: [],
+    extraSkillBonus: 0,
+    expertiseBonus: 0,
     feats: {},
     hpMethod: 'average',
     hpRolls: [],
@@ -141,6 +146,19 @@ export function featSlots(c: Character, cls: ClassDef, bg: BackgroundDef | undef
   return slots;
 }
 
+/* ---------- Limites de escolha ---------- */
+
+/** Quantas escolhas o personagem pode fazer e de onde cada uma vem. */
+export interface PickBudget {
+  total: number;
+  sources: { label: string; count: number }[];
+}
+
+function budget(sources: [string, number][]): PickBudget {
+  const list = sources.filter(([, n]) => n > 0).map(([label, count]) => ({ label, count }));
+  return { total: list.reduce((s, x) => s + x.count, 0), sources: list };
+}
+
 /* ---------- Ficha calculada ---------- */
 
 export interface SkillRow {
@@ -203,6 +221,9 @@ export interface Sheet {
   resources: { name: string; value: string }[];
   features: SheetFeature[];
   feats: { slot: FeatSlot; feat?: FeatDef; abilities: AbilityKey[] }[];
+  /** Perícias além das da classe e do antecedente (espécie, feats, subclasse). */
+  extraSkillBudget: PickBudget;
+  expertiseBudget: PickBudget;
   spellcasting?: {
     ability: AbilityKey;
     dc: number;
@@ -213,6 +234,9 @@ export interface Sheet {
     pact?: { count: number; level: number };
     maxSpellLevel: number;
     spells: SpellDef[];
+    /** Quantas das magias escolhidas são truques / magias de nível 1+ da lista da classe. */
+    chosenCantrips: number;
+    chosenPrepared: number;
   };
   warnings: Warning[];
 }
@@ -302,11 +326,38 @@ export function computeSheet(c: Character): Sheet {
     return { key: a.key, proficient, bonus: mods[a.key] + (proficient ? pb : 0) };
   });
 
-  const profSkills = new Set<SkillKey>([...c.classSkills, ...(background?.skills ?? []), ...c.extraSkills]);
+  // Perícias extras e Especialização: só o que as regras do SRD dão; o excesso não entra na ficha.
+  const skilledFeats = feats.filter((f) => f.feat?.name === 'Skilled').length;
+  const extraSkillBudget = budget([
+    ['Humano (Habilidoso)', species?.name === 'Human' ? 1 : 0],
+    ['Elfo (Sentidos Aguçados)', species?.name === 'Elf' ? 1 : 0],
+    ['Talentoso (perícias ou ferramentas)', skilledFeats * 3],
+    ['Bárbaro (Conhecimento Primitivo)', cls.name === 'Barbarian' && level >= 3 ? 1 : 0],
+    ['Colégio do Conhecimento (Proficiências Adicionais)', subclass?.name === 'College of Lore' ? 3 : 0],
+    ['Outras fontes', Math.max(0, c.extraSkillBonus)],
+  ]);
+  const expertiseBudget = budget([
+    ['Ladino (Especialização)', cls.name === 'Rogue' ? (level >= 6 ? 4 : 2) : 0],
+    ['Bardo (Especialização)', cls.name === 'Bard' && level >= 2 ? (level >= 9 ? 4 : 2) : 0],
+    ['Patrulheiro (Explorador Hábil)', cls.name === 'Ranger' && level >= 2 ? 1 : 0],
+    ['Patrulheiro (Especialização)', cls.name === 'Ranger' && level >= 9 ? 2 : 0],
+    ['Mago (Erudito)', cls.name === 'Wizard' && level >= 2 ? 1 : 0],
+    ['Outras fontes', Math.max(0, c.expertiseBonus)],
+  ]);
+  const extraSkills = c.extraSkills.slice(0, extraSkillBudget.total);
+  const expertiseSkills = c.expertise.slice(0, expertiseBudget.total);
+  if (c.extraSkills.length > extraSkillBudget.total) {
+    warn('skills', `Outras perícias: ${c.extraSkills.length} escolhidas, mas o limite é ${extraSkillBudget.total}. As que passam do limite não entram na ficha.`);
+  }
+  if (c.expertise.length > expertiseBudget.total) {
+    warn('skills', `Especialização: ${c.expertise.length} escolhidas, mas o limite é ${expertiseBudget.total}. As que passam do limite não entram na ficha.`);
+  }
+
+  const profSkills = new Set<SkillKey>([...c.classSkills, ...(background?.skills ?? []), ...extraSkills]);
   const jackOfAllTrades = cls.name === 'Bard' && level >= 2;
   const skills: SkillRow[] = SKILLS.map((s) => {
     const proficient = profSkills.has(s.key);
-    const expertise = proficient && c.expertise.includes(s.key);
+    const expertise = proficient && expertiseSkills.includes(s.key);
     const profPart = expertise ? pb * 2 : proficient ? pb : jackOfAllTrades ? Math.floor(pb / 2) : 0;
     return { key: s.key, label: s.pt, ability: s.ability, proficient, expertise, bonus: mods[s.ability] + profPart };
   });
@@ -453,16 +504,20 @@ export function computeSheet(c: Character): Sheet {
       pact: cls.casterType === 'PACT' ? { count: pactCount, level: max } : undefined,
       maxSpellLevel: max,
       spells: c.spellKeys.map((k) => byKey(SPELLS, k)).filter((s): s is SpellDef => !!s),
+      chosenCantrips: 0,
+      chosenPrepared: 0,
     };
     const chosenCantrips = spellcasting.spells.filter((s) => s.level === 0 && s.classes.includes(cls.key)).length;
     const chosenLeveled = spellcasting.spells.filter((s) => s.level > 0 && s.classes.includes(cls.key)).length;
+    spellcasting.chosenCantrips = chosenCantrips;
+    spellcasting.chosenPrepared = chosenLeveled;
     if (chosenCantrips > spellcasting.cantrips) warn('spells', `Truques da classe: ${chosenCantrips} de ${spellcasting.cantrips}.`);
     if (chosenLeveled > spellcasting.prepared) warn('spells', `Magias preparadas da classe: ${chosenLeveled} de ${spellcasting.prepared}.`);
   } else if (c.spellKeys.length) {
     // Magias de feats (Magic Initiate) sem a classe ser conjuradora.
     const spells = c.spellKeys.map((k) => byKey(SPELLS, k)).filter((s): s is SpellDef => !!s);
     const ab: AbilityKey = (['int', 'wis', 'cha'] as AbilityKey[]).reduce((a, b) => (mods[b] > mods[a] ? b : a));
-    spellcasting = { ability: ab, dc: 8 + pb + mods[ab], attack: pb + mods[ab], cantrips: 0, prepared: 0, slots: [], maxSpellLevel: 1, spells };
+    spellcasting = { ability: ab, dc: 8 + pb + mods[ab], attack: pb + mods[ab], cantrips: 0, prepared: 0, slots: [], maxSpellLevel: 1, spells, chosenCantrips: 0, chosenPrepared: 0 };
   }
 
   return {
@@ -471,7 +526,7 @@ export function computeSheet(c: Character): Sheet {
     initiative: mods.dex + (hasFeat('Alert') ? pb : 0),
     ac, acNote, speed, hpMax,
     hitDice: `${level}d${cls.hitDie}`,
-    attacks, resources, features, feats, spellcasting, warnings,
+    attacks, resources, features, feats, extraSkillBudget, expertiseBudget, spellcasting, warnings,
   };
 }
 

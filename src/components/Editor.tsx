@@ -10,9 +10,10 @@ import {
 } from '../data/rules';
 import {
   backgroundBonusProblem, featSlots, isWeaponProficient, maxSpellLevel,
-  type Character, type Sheet, type WarningArea,
+  type Character, type PickBudget, type Sheet, type WarningArea,
 } from '../engine/character';
 import { labelPt, translation } from '../data/translations';
+import { Counter } from './Counter';
 import { Markdown } from './Markdown';
 import { ALIGNMENTS, FEAT_HELP, HELP, SPECIES_CHOICE_HELP } from './help';
 
@@ -279,6 +280,16 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
             principal do {cls.pt}. Depois some os pontos do antecedente{bg ? ` (${bg.abilities.map(abilityLabel).join(', ')})` : ''}:
             +2 num e +1 noutro, ou +1 em três.
           </Intro>
+          {bg && (
+            <div className="counters">
+              <Counter
+                label={`Pontos do antecedente (${bg.pt})`}
+                used={Object.values(c.backgroundBonus).reduce((s, n) => s + (n ?? 0), 0)}
+                total={3}
+                invalid={backgroundBonusProblem(c.backgroundBonus, bg.abilities) !== null}
+              />
+            </div>
+          )}
           <table className="table ability-table">
             <thead>
               <tr><th>Atributo</th><th>Base</th><th>Antecedente</th><th>Feats</th><th>Total</th><th>Mod</th></tr>
@@ -350,6 +361,10 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
             help={HELP.extraSkills}
             options={SKILLS.map((s) => s.key)}
             selected={c.extraSkills}
+            budget={sheet.extraSkillBudget}
+            empty="Este personagem não ganha perícias extras pelas regras de criação. Elas vêm do Humano, do Elfo, do feat Talentoso, do Bárbaro no nível 3 e do Colégio do Conhecimento."
+            other={c.extraSkillBonus}
+            onOther={(extraSkillBonus) => update({ extraSkillBonus })}
             locked={[...(bg?.skills ?? []), ...c.classSkills]}
             bonus={bonus}
             grid
@@ -360,13 +375,14 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
             help={HELP.expertise}
             options={sheet.skills.filter((s) => s.proficient).map((s) => s.key)}
             selected={c.expertise}
+            budget={sheet.expertiseBudget}
+            empty="Só Ladino (nível 1), Bardo, Patrulheiro e Mago (nível 2) ganham Especialização."
+            other={c.expertiseBonus}
+            onOther={(expertiseBonus) => update({ expertiseBonus })}
             bonus={bonus}
             expertise
             onChange={(expertise) => update({ expertise })}
           />
-          <p className="hint">
-            Ladino: 2 no nível 1 e 2 no 6 · Bardo: 2 no nível 2 e 2 no 9 · Patrulheiro: 1 no nível 2 e 2 no 9 · Mago (Scholar): 1 no nível 2.
-          </p>
         </>
       );
 
@@ -512,8 +528,17 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
 }
 
 /** Perícias como fichas clicáveis, com o bônus atual de cada uma. */
-function SkillPicker({ title, help, options, selected, onChange, bonus, max, locked = [], lockedBy, grid, expertise }: {
+function SkillPicker({
+  title, help, options, selected, onChange, bonus, max: fixedMax, budget, empty, other, onOther, locked = [], lockedBy, grid, expertise,
+}: {
   title: string;
+  /** Limite calculado pelas regras e de onde vem cada escolha; substitui `max`. */
+  budget?: PickBudget;
+  /** Texto quando o personagem não tem nenhuma escolha deste tipo pelas regras. */
+  empty?: string;
+  /** Escolhas a mais dadas pelo mestre ou por item mágico. */
+  other?: number;
+  onOther?: (n: number) => void;
   help?: ReactNode;
   options: SkillKey[];
   selected: SkillKey[];
@@ -526,12 +551,33 @@ function SkillPicker({ title, help, options, selected, onChange, bonus, max, loc
   grid?: boolean;
   expertise?: boolean;
 }) {
+  const max = budget ? budget.total : fixedMax;
+  const otherId = useId();
+  const ruleSources = budget?.sources.filter((s) => s.label !== 'Outras fontes') ?? [];
   return (
     <div className="picker">
       <div className="picker-head">
         <FieldHead label={title} help={help} />
-        {max !== undefined && <span className="tag tag-outline">{selected.length}/{max}</span>}
+        {max !== undefined && (max > 0 || selected.length > 0) && <Counter used={selected.length} total={max} compact />}
       </div>
+      {budget && (
+        <div className="picker-sources">
+          <p className="hint">
+            {ruleSources.length > 0
+              ? <>Vem de: {ruleSources.map((s) => `${s.label}: ${s.count}`).join(' · ')}</>
+              : empty}
+          </p>
+          {onOther && (
+            <label className="other-sources" htmlFor={otherId}>
+              Outras fontes (mestre, item mágico)
+              <input
+                id={otherId} type="number" min={0} max={18} value={other ?? 0}
+                onChange={(e) => onOther(Math.min(18, Math.max(0, Number(e.target.value) || 0)))}
+              />
+            </label>
+          )}
+        </div>
+      )}
       <div className={`chips${grid ? ' grid' : ''}`}>
         {options.map((k) => {
           const isSelected = selected.includes(k);
@@ -600,6 +646,7 @@ function FeatSection({ c, update }: { c: Character; update: (p: Partial<Characte
                     {ABILITIES.map((a) => <option key={a.key} value={a.key}>+1 {a.pt}</option>)}
                   </select>
                 ))}
+                <Counter label="Pontos de atributo" used={choice.abilities.length} total={feat.abilityPicks} compact />
                 <span className="hint">Máx. {feat.maxScore}{feat.name === 'Ability Score Improvement' ? '. Repita o atributo para +2.' : ''}</span>
               </div>
             )}
@@ -637,10 +684,16 @@ function SpellSection({ c, sheet, update }: Props) {
   const sc = sheet.spellcasting;
   return (
     <div className="step-body">
-      {cls.casterType !== 'NONE' && (
-        <p className="hint">
-          Truques: {sc?.cantrips ?? 0} · Magias preparadas: {sc?.prepared ?? 0} · Nível máx. de magia: {max}
-        </p>
+      {cls.casterType !== 'NONE' && sc && (
+        <>
+          <div className="counters">
+            {sc.cantrips > 0 && <Counter label="Truques" used={sc.chosenCantrips} total={sc.cantrips} />}
+            <Counter label="Magias preparadas" used={sc.chosenPrepared} total={sc.prepared} />
+          </div>
+          <p className="hint">
+            Contam só as magias da lista do {cls.pt}. Nível máximo de magia: {max}.
+          </p>
+        </>
       )}
       <div className="row">
         <label><input type="checkbox" checked={onlyClass} onChange={(e) => setOnlyClass(e.target.checked)} /> Só a lista do {cls.pt}</label>

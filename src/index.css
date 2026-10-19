@@ -267,10 +267,35 @@ button.icon { width: 34px; padding: 0; }
     color-mix(in srgb, var(--color-text) 8%, transparent) calc(100% - 48px), transparent) no-repeat bottom / 100% 1px;
 }
 
+/* Contador de pontos/escolhas para gastar */
+.counters { display: flex; flex-wrap: wrap; gap: 8px; }
+.counter {
+  display: inline-flex; align-items: center; gap: 10px; padding: 7px 12px; font-size: 13px;
+  border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-sm);
+}
+.counter-label { color: var(--color-neutral-300); }
+.counter-pips { display: inline-flex; gap: 4px; }
+.counter-pip { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--color-neutral-600); background: transparent; }
+.counter-pip.on { background: var(--color-accent); border-color: var(--color-accent); }
+.counter-pip.extra { background: var(--color-warn); border-color: var(--color-warn); }
+.counter-num { font-variant-numeric: tabular-nums; color: var(--color-neutral-500); }
+.counter-num strong { color: var(--color-text); font-weight: 600; }
+.counter-text { display: inline-flex; align-items: center; gap: 4px; color: var(--color-accent-300); }
+.counter.done .counter-text { color: var(--color-neutral-400); }
+.counter.done .counter-pip.on { background: var(--color-accent-600); border-color: var(--color-accent-600); }
+.counter.over .counter-text, .counter.invalid .counter-text { color: var(--color-warn); }
+.counter.invalid .counter-pip.on { background: var(--color-warn); border-color: var(--color-warn); }
+.counter.compact { gap: 7px; padding: 2px 9px; font-size: 12px; box-shadow: none; background: var(--color-accent-900); }
+.counter.compact .counter-pip { width: 8px; height: 8px; }
+
 /* Seletor de perícias em fichas clicáveis */
 .picker { display: flex; flex-direction: column; gap: 10px; }
 .picker-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .picker-head .field-head { margin: 0; }
+.picker-sources { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; margin-top: -4px; }
+.picker-sources .hint { margin: 0; flex: 1 1 280px; }
+.other-sources { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--color-neutral-400); white-space: nowrap; }
+.other-sources input { width: 64px; padding-block: 3px; }
 .picker-head .field-label { font-size: 15px; font-weight: 500; color: var(--color-text); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
