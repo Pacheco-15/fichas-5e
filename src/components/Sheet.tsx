@@ -17,6 +17,11 @@ function Box({ label, value, sub }: { label: string; value: ReactNode; sub?: str
   );
 }
 
+/** Quadradinhos para marcar os espaços de magia gastos. */
+function Pips({ n }: { n: number }) {
+  return <span className="slot-pips" aria-label={`${n} espaços`}>{Array.from({ length: n }, (_, i) => <span key={i} />)}</span>;
+}
+
 export function Sheet({ c, s }: { c: Character; s: SheetData }) {
   const sc = s.spellcasting;
   const classLine = `${s.cls.pt} ${c.level}${s.subclass ? ` · ${s.subclass.pt}` : ''}`;
@@ -29,7 +34,7 @@ export function Sheet({ c, s }: { c: Character; s: SheetData }) {
         <header className="sheet-header">
           <div>
             <h1>{c.name || 'Sem nome'}</h1>
-            <div className="muted">{classLine}</div>
+            <div className="class-line">{classLine}</div>
           </div>
           <dl className="header-meta">
             <div><dt>Espécie</dt><dd>{s.speciesLabel}</dd></div>
@@ -92,7 +97,7 @@ export function Sheet({ c, s }: { c: Character; s: SheetData }) {
             </div>
 
             <h3>Ataques</h3>
-            <table className="attacks">
+            <table className="table attacks">
               <thead><tr><th>Nome</th><th>Bônus</th><th>Dano</th></tr></thead>
               <tbody>
                 {s.attacks.map((a) => (
@@ -115,13 +120,15 @@ export function Sheet({ c, s }: { c: Character; s: SheetData }) {
             )}
 
             <h3>Proficiências</h3>
-            <p className="tiny"><strong>Armaduras:</strong> {s.cls.armorText}</p>
-            <p className="tiny"><strong>Armas:</strong> {s.cls.weaponText}</p>
-            <p className="tiny"><strong>Ferramentas:</strong> {c.tools || '—'}</p>
-            <p className="tiny"><strong>Idiomas:</strong> {c.languages || '—'}</p>
-            {featsTaken.length > 0 && (
-              <p className="tiny"><strong>Feats:</strong> {featsTaken.map((f) => translation(f.feat!.key)?.name ?? f.feat!.name).join(', ')}</p>
-            )}
+            <div className="proficiencies">
+              <p><strong>Armaduras:</strong> {s.cls.armorText}</p>
+              <p><strong>Armas:</strong> {s.cls.weaponText}</p>
+              <p><strong>Ferramentas:</strong> {c.tools || '—'}</p>
+              <p><strong>Idiomas:</strong> {c.languages || '—'}</p>
+              {featsTaken.length > 0 && (
+                <p><strong>Feats:</strong> {featsTaken.map((f) => translation(f.feat!.key)?.name ?? f.feat!.name).join(', ')}</p>
+              )}
+            </div>
           </div>
         </div>
 
@@ -185,13 +192,14 @@ export function Sheet({ c, s }: { c: Character; s: SheetData }) {
             {sc.prepared > 0 && <Box label="Preparadas" value={sc.prepared} />}
           </div>
           <div className="slots">
+            <span className="kicker">Espaços</span>
             {sc.pact
-              ? <span>Pact Magic: <strong>{sc.pact.count}</strong> espaços de {ORDINAL[sc.pact.level - 1]} círculo</span>
+              ? <span className="slot">Pact Magic, {ORDINAL[sc.pact.level - 1]} círculo<Pips n={sc.pact.count} /></span>
               : sc.slots.map((n, i) => n > 0 && (
-                <span key={i} className="slot">{ORDINAL[i]}: <strong>{n}</strong> {'☐'.repeat(n)}</span>
+                <span key={i} className="slot">{ORDINAL[i]}<Pips n={n} /></span>
               ))}
           </div>
-          <table className="spells">
+          <table className="table spells">
             <thead>
               <tr><th>Nv</th><th>Magia</th><th>Tempo</th><th>Alcance</th><th>Duração</th><th>Comp.</th></tr>
             </thead>

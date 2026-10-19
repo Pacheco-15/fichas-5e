@@ -13,10 +13,11 @@ Abra http://localhost:5173 no navegador.
 
 ## Como usar
 
-1. Na coluna da esquerda, preencha as seções em ordem: básico, atributos (valores digitados à mão), perícias, feats, PV, equipamento e magias.
-2. Os avisos amarelos no topo mostram o que ainda falta escolher, como os pontos do antecedente ou as perícias da classe.
-3. A ficha à direita atualiza na hora. **Imprimir / PDF** gera de 2 a 3 páginas em A4: ficha, características e magias.
-4. As fichas ficam salvas no navegador. Use **Exportar JSON** para fazer backup ou para levar a ficha a outro navegador.
+1. Siga os passos da lista à esquerda: básico, atributos (valores digitados à mão), perícias, feats, PV, equipamento e magias. Os números ao lado de um passo mostram quantas escolhas ainda faltam nele.
+2. O resumo à direita atualiza na hora. **Ver ficha** abre a ficha completa.
+3. **Imprimir / PDF** gera de 2 a 3 páginas em A4: ficha, características e magias.
+4. As fichas ficam salvas no navegador. No menu **⋯** você pode duplicar, excluir e usar **Exportar JSON** para fazer backup ou levar a ficha a outro navegador.
+5. O tema claro ou escuro segue a configuração do sistema.
 
 ## O que é calculado
 
