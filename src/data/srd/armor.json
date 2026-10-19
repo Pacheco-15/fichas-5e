@@ -1,0 +1,145 @@
+[
+ {
+  "key": "srd-2024_breastplate",
+  "ac_display": "14 + Dex modifier (max 2)",
+  "category": "medium",
+  "name": "Breastplate",
+  "grants_stealth_disadvantage": false,
+  "strength_score_required": null,
+  "ac_base": 14,
+  "ac_add_dexmod": true,
+  "ac_cap_dexmod": 2
+ },
+ {
+  "key": "srd-2024_chain-mail",
+  "ac_display": "16",
+  "category": "heavy",
+  "name": "Chain Mail",
+  "grants_stealth_disadvantage": true,
+  "strength_score_required": 13,
+  "ac_base": 16,
+  "ac_add_dexmod": false,
+  "ac_cap_dexmod": null
+ },
+ {
+  "key": "srd-2024_chain-shirt",
+  "ac_display": "13 + Dex modifier (max 2)",
+  "category": "medium",
+  "name": "Chain Shirt",
+  "grants_stealth_disadvantage": false,
+  "strength_score_required": null,
+  "ac_base": 13,
+  "ac_add_dexmod": true,
+  "ac_cap_dexmod": 2
+ },
+ {
+  "key": "srd-2024_half-plate-armor",
+  "ac_display": "15 + Dex modifier (max 2)",
+  "category": "medium",
+  "name": "Half Plate Armor",
+  "grants_stealth_disadvantage": true,
+  "strength_score_required": null,
+  "ac_base": 15,
+  "ac_add_dexmod": true,
+  "ac_cap_dexmod": 2
+ },
+ {
+  "key": "srd-2024_hide-armor",
+  "ac_display": "12 + Dex modifier (max 2)",
+  "category": "medium",
+  "name": "Hide Armor",
+  "grants_stealth_disadvantage": false,
+  "strength_score_required": null,
+  "ac_base": 12,
+  "ac_add_dexmod": true,
+  "ac_cap_dexmod": 2
+ },
+ {
+  "key": "srd-2024_leather-armor",
+  "ac_display": "11 + Dex modifier",
+  "category": "light",
+  "name": "Leather Armor",
+  "grants_stealth_disadvantage": false,
+  "strength_score_required": null,
+  "ac_base": 11,
+  "ac_add_dexmod": true,
+  "ac_cap_dexmod": null
+ },
+ {
+  "key": "srd-2024_padded-armor",
+  "ac_display": "11 + Dex modifier",
+  "category": "light",
+  "name": "Padded Armor",
+  "grants_stealth_disadvantage": true,
+  "strength_score_required": null,
+  "ac_base": 11,
+  "ac_add_dexmod": true,
+  "ac_cap_dexmod": null
+ },
+ {
+  "key": "srd-2024_plate-armor",
+  "ac_display": "18",
+  "category": "heavy",
+  "name": "Plate Armor",
+  "grants_stealth_disadvantage": true,
+  "strength_score_required": 15,
+  "ac_base": 18,
+  "ac_add_dexmod": false,
+  "ac_cap_dexmod": null
+ },
+ {
+  "key": "srd-2024_ring-mail",
+  "ac_display": "14",
+  "category": "heavy",
+  "name": "Ring Mail",
+  "grants_stealth_disadvantage": true,
+  "strength_score_required": null,
+  "ac_base": 14,
+  "ac_add_dexmod": false,
+  "ac_cap_dexmod": null
+ },
+ {
+  "key": "srd-2024_scale-mail",
+  "ac_display": "14 + Dex modifier (max 2)",
+  "category": "medium",
+  "name": "Scale Mail",
+  "grants_stealth_disadvantage": true,
+  "strength_score_required": null,
+  "ac_base": 14,
+  "ac_add_dexmod": true,
+  "ac_cap_dexmod": 2
+ },
+ {
+  "key": "srd-2024_shield",
+  "ac_display": "2",
+  "category": "heavy",
+  "name": "Shield",
+  "grants_stealth_disadvantage": false,
+  "strength_score_required": null,
+  "ac_base": 2,
+  "ac_add_dexmod": false,
+  "ac_cap_dexmod": null
+ },
+ {
+  "key": "srd-2024_splint-armor",
+  "ac_display": "17",
+  "category": "heavy",
+  "name": "Splint Armor",
+  "grants_stealth_disadvantage": true,
+  "strength_score_required": 15,
+  "ac_base": 17,
+  "ac_add_dexmod": false,
+  "ac_cap_dexmod": null
+ },
+ {
+  "key": "srd-2024_studded-leather-armor",
+  "ac_display": "12 + Dex modifier",
+  "category": "light",
+  "name": "Studded Leather Armor",
+  "grants_stealth_disadvantage": false,
+  "strength_score_required": null,
+  "ac_base": 12,
+  "ac_add_dexmod": true,
+  "ac_cap_dexmod": null
+ }
+]
