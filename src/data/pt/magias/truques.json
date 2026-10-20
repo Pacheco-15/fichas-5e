@@ -1,0 +1,132 @@
+{
+  "srd-2024_acid-splash": {
+    "name": "Respingo Ácido",
+    "desc": "Você cria uma bolha ácida num ponto dentro do alcance, onde ela explode numa Esfera de 5 pés de raio. Cada criatura na Esfera precisa ser bem-sucedida numa salvaguarda de Destreza ou sofre 1d6 de dano de Ácido.",
+    "higherLevel": "O dano aumenta em 1d6 quando você chega aos níveis 5 (2d6), 11 (3d6) e 17 (4d6)."
+  },
+  "srd-2024_chill-touch": {
+    "name": "Toque Gélido",
+    "desc": "Canalizando o frio da sepultura, faça um ataque mágico corpo a corpo contra um alvo ao seu alcance. Num acerto, o alvo sofre 1d10 de dano Necrótico e não pode recuperar Pontos de Vida até o fim do seu próximo turno.",
+    "higherLevel": "O dano aumenta em 1d10 quando você chega aos níveis 5 (2d10), 11 (3d10) e 17 (4d10)."
+  },
+  "srd-2024_dancing-lights": {
+    "name": "Luzes Dançantes",
+    "material": "um pouco de fósforo",
+    "desc": "Você cria até quatro luzes do tamanho de tochas dentro do alcance, com a aparência de tochas, lanternas ou esferas brilhantes que flutuam pela duração. Se preferir, junta as quatro luzes numa só forma brilhante Média, vagamente humana. Em qualquer forma, cada luz dá Penumbra num raio de 10 pés. Com uma Ação Bônus, você move as luzes até 60 pés para um espaço dentro do alcance. Cada luz precisa ficar a até 20 pés de outra luz criada por esta magia, e some se sair do alcance."
+  },
+  "srd-2024_druidcraft": {
+    "name": "Arte Druídica",
+    "desc": "Sussurrando aos espíritos da natureza, você cria um dos efeitos abaixo dentro do alcance.\n\n- ***Previsão do Tempo.*** Você cria um efeito sensorial Minúsculo e inofensivo que prevê o tempo no seu local nas próximas 24 horas. Pode ser uma esfera dourada para céu limpo, uma nuvem para chuva, flocos de neve caindo para neve e assim por diante. O efeito dura 1 rodada.\n- ***Florescer.*** Você faz na hora uma flor desabrochar, uma vagem se abrir ou um broto de folha brotar.\n- ***Efeito Sensorial.*** Você cria um efeito sensorial inofensivo, como folhas caindo, fadas espectrais dançando, uma brisa suave, o som de um animal ou um leve cheiro de gambá. O efeito precisa caber num Cubo de 5 pés.\n- ***Brincar com Fogo.*** Você acende ou apaga uma vela, uma tocha ou uma fogueira."
+  },
+  "srd-2024_eldritch-blast": {
+    "name": "Rajada Mística",
+    "desc": "Você dispara um feixe de energia crepitante. Faça um ataque mágico à distância contra uma criatura ou objeto no alcance. Num acerto, o alvo sofre 1d10 de dano de Energia.",
+    "higherLevel": "A magia cria dois feixes no nível 5, três no nível 11 e quatro no nível 17. Você pode mirar os feixes no mesmo alvo ou em alvos diferentes. Faça uma jogada de ataque para cada feixe."
+  },
+  "srd-2024_elementalism": {
+    "name": "Elementalismo",
+    "desc": "Você exerce controle sobre os elementos, criando um dos efeitos abaixo dentro do alcance.\n\n***Chamar o Ar.*** Você cria uma brisa forte o bastante para balançar tecido, levantar poeira, agitar folhas e fechar portas e janelas abertas, tudo num Cubo de 5 pés. Portas e janelas seguradas por alguém ou algo não são afetadas.\n\n***Chamar a Terra.*** Você cria uma camada fina de poeira ou areia que cobre as superfícies numa área de 5 pés de lado, ou faz uma única palavra aparecer, com a sua letra, num trecho de terra ou areia.\n\n***Chamar o Fogo.*** Você cria uma nuvem fina de brasas inofensivas e fumaça colorida e perfumada num Cubo de 5 pés. Você escolhe a cor e o cheiro, e as brasas podem acender velas, tochas ou lamparinas na área. O cheiro da fumaça fica por 1 minuto.\n\n***Chamar a Água.*** Você cria um jato de névoa fresca que molha de leve as criaturas e objetos num Cubo de 5 pés. Ou cria 1 copo de água limpa num recipiente aberto ou numa superfície; a água evapora em 1 minuto.\n\n***Moldar Elemento.*** Você faz terra, areia, fogo, fumaça, névoa ou água que caiba num Cubo de 1 pé assumir uma forma simples (como a de uma criatura) por 1 hora."
+  },
+  "srd-2024_fire-bolt": {
+    "name": "Raio de Fogo",
+    "desc": "Você arremessa uma faísca de fogo numa criatura ou objeto dentro do alcance. Faça um ataque mágico à distância contra o alvo. Num acerto, o alvo sofre 1d10 de dano de Fogo. Um objeto inflamável atingido começa a queimar, se ninguém o estiver vestindo ou carregando.",
+    "higherLevel": "O dano aumenta em 1d10 quando você chega aos níveis 5 (2d10), 11 (3d10) e 17 (4d10)."
+  },
+  "srd-2024_guidance": {
+    "name": "Orientação",
+    "desc": "Você toca uma criatura voluntária e escolhe uma perícia. Até a magia acabar, a criatura soma 1d4 a qualquer teste de atributo que use a perícia escolhida."
+  },
+  "srd-2024_light": {
+    "name": "Luz",
+    "material": "um vaga-lume ou musgo fosforescente",
+    "desc": "Você toca um objeto Grande ou menor que ninguém mais esteja vestindo ou carregando. Até a magia acabar, o objeto dá Luz Plena num raio de 20 pés e Penumbra por mais 20 pés. A luz pode ter a cor que você quiser. Cobrir o objeto com algo opaco bloqueia a luz. A magia acaba se você conjurá-la de novo."
+  },
+  "srd-2024_mage-hand": {
+    "name": "Mão Mágica",
+    "desc": "Uma mão espectral flutuante aparece num ponto à sua escolha dentro do alcance e dura pela duração. Ela some se ficar a mais de 30 pés de você ou se você conjurar esta magia de novo.\n\nAo conjurar a magia, você pode usar a mão para manipular um objeto, abrir uma porta ou recipiente destrancado, guardar ou pegar um item de um recipiente aberto, ou derramar o conteúdo de um frasco. Nos turnos seguintes, você pode controlar a mão do mesmo jeito com uma ação de Magia e, como parte dela, movê-la até 30 pés.\n\nA mão não pode atacar, ativar itens mágicos nem carregar mais de 10 libras."
+  },
+  "srd-2024_mending": {
+    "name": "Consertar",
+    "material": "duas magnetitas",
+    "desc": "Esta magia conserta uma única quebra ou rasgo num objeto que você toca, como um elo de corrente partido, as duas metades de uma chave quebrada, uma capa rasgada ou um odre vazando. Se a quebra ou rasgo não passar de 1 pé em nenhuma dimensão, você o conserta sem deixar marca. A magia pode consertar fisicamente um item mágico, mas não devolve a magia dele."
+  },
+  "srd-2024_message": {
+    "name": "Mensagem",
+    "material": "um fio de cobre",
+    "desc": "Você aponta para uma criatura dentro do alcance e sussurra uma mensagem. O alvo (e só ele) ouve a mensagem e pode responder num sussurro que só você ouve.\n\nVocê pode conjurar esta magia através de objetos sólidos se conhecer o alvo e souber que ele está do outro lado da barreira. Silêncio mágico, 1 pé de pedra, metal ou madeira, ou uma folha fina de chumbo bloqueiam a magia."
+  },
+  "srd-2024_minor-illusion": {
+    "name": "Ilusão Menor",
+    "material": "um pouco de lã",
+    "desc": "Você cria um som ou a imagem de um objeto dentro do alcance, que dura pela duração. Veja abaixo os efeitos de cada um. A ilusão acaba se você conjurar esta magia de novo.\n\nSe uma criatura usar a ação de Estudar para examinar o som ou a imagem, ela percebe que é uma ilusão com um teste de Inteligência (Investigação) bem-sucedido contra a CD de salvaguarda da sua magia. Para uma criatura que percebe a ilusão, ela fica apagada.\n\n**_Som._** O volume vai de um sussurro a um grito. Pode ser a sua voz, a de outra pessoa, o rugido de um leão, batidas de tambor ou qualquer outro som que você escolher. O som pode continuar sem parar durante toda a duração, ou você pode fazer sons separados em momentos diferentes antes de a magia acabar.\n\n**_Imagem._** A imagem de um objeto (como uma cadeira, pegadas de lama ou um pequeno baú) não pode passar de um Cubo de 5 pés. Ela não cria som, luz, cheiro nem nenhum outro efeito sensorial. Interagir fisicamente com a imagem revela que é uma ilusão, porque as coisas a atravessam."
+  },
+  "srd-2024_poison-spray": {
+    "name": "Borrifo Venenoso",
+    "desc": "Você borrifa uma névoa tóxica numa criatura dentro do alcance. Faça um ataque mágico à distância contra o alvo. Num acerto, o alvo sofre 1d12 de dano de Veneno.",
+    "higherLevel": "O dano aumenta em 1d12 quando você chega aos níveis 5 (2d12), 11 (3d12) e 17 (4d12)."
+  },
+  "srd-2024_prestidigitation": {
+    "name": "Prestidigitação",
+    "desc": "Você cria um efeito mágico dentro do alcance, escolhido entre as opções abaixo. Se conjurar esta magia várias vezes, pode ter até três dos efeitos não instantâneos ativos ao mesmo tempo.\n\n**_Efeito Sensorial._** Você cria na hora um efeito sensorial inofensivo, como uma chuva de faíscas, uma lufada de vento, notas musicais suaves ou um cheiro estranho.\n\n**_Brincar com Fogo._** Você acende ou apaga na hora uma vela, uma tocha ou uma pequena fogueira.\n\n**_Limpar ou Sujar._** Você limpa ou suja na hora um objeto de até 1 pé cúbico.\n\n**_Pequena Sensação._** Você esfria, esquenta ou dá sabor a até 1 pé cúbico de material sem vida por 1 hora.\n\n**_Marca Mágica._** Você faz uma cor, uma pequena marca ou um símbolo aparecer num objeto ou superfície por 1 hora.\n\n**_Pequena Criação._** Você cria uma bugiganga não mágica ou uma imagem ilusória que caiba na sua mão. Ela dura até o fim do seu próximo turno. A bugiganga não causa dano e não tem valor em dinheiro."
+  },
+  "srd-2024_produce-flame": {
+    "name": "Produzir Chama",
+    "desc": "Uma chama tremulante aparece na sua mão e fica lá pela duração. Ela não esquenta nem acende nada, e dá Luz Plena num raio de 20 pés e Penumbra por mais 20 pés. A magia acaba se você conjurá-la de novo.\n\nAté a magia acabar, você pode usar uma ação de Magia para arremessar fogo numa criatura ou objeto a até 60 pés. Faça um ataque mágico à distância. Num acerto, o alvo sofre 1d8 de dano de Fogo.",
+    "higherLevel": "O dano aumenta em 1d8 quando você chega aos níveis 5 (2d8), 11 (3d8) e 17 (4d8)."
+  },
+  "srd-2024_ray-of-frost": {
+    "name": "Raio de Gelo",
+    "desc": "Um feixe gelado de luz branco-azulada dispara contra uma criatura dentro do alcance. Faça um ataque mágico à distância contra o alvo. Num acerto, ele sofre 1d8 de dano de Frio e tem o Deslocamento reduzido em 10 pés até o início do seu próximo turno.",
+    "higherLevel": "O dano aumenta em 1d8 quando você chega aos níveis 5 (2d8), 11 (3d8) e 17 (4d8)."
+  },
+  "srd-2024_resistance": {
+    "name": "Resistência",
+    "desc": "Você toca uma criatura voluntária e escolhe um tipo de dano: Ácido, Contundente, Frio, Fogo, Elétrico, Necrótico, Perfurante, Veneno, Radiante, Cortante ou Trovão. Quando a criatura sofre dano do tipo escolhido antes de a magia acabar, ela reduz o dano total em 1d4. Uma criatura só se beneficia desta magia uma vez por turno."
+  },
+  "srd-2024_sacred-flame": {
+    "name": "Chama Sagrada",
+    "desc": "Um brilho parecido com chamas desce sobre uma criatura que você veja dentro do alcance. O alvo precisa ser bem-sucedido numa salvaguarda de Destreza ou sofre 1d8 de dano Radiante. Nesta salvaguarda, o alvo não ganha nada com Meia Cobertura ou Cobertura de Três Quartos.",
+    "higherLevel": "O dano aumenta em 1d8 quando você chega aos níveis 5 (2d8), 11 (3d8) e 17 (4d8)."
+  },
+  "srd-2024_shillelagh": {
+    "name": "Shillelagh",
+    "material": "visco",
+    "desc": "Uma Clava ou Bordão que você está segurando se enche do poder da natureza. Pela duração, você pode usar seu atributo de conjuração em vez da Força nas jogadas de ataque e de dano dos ataques corpo a corpo com essa arma, e o dado de dano dela vira d8. Se o ataque causar dano, ele pode ser de Energia ou do tipo normal da arma (à sua escolha). A magia acaba antes se você conjurá-la de novo ou soltar a arma.",
+    "higherLevel": "O dado de dano muda quando você chega aos níveis 5 (d10), 11 (d12) e 17 (2d6)."
+  },
+  "srd-2024_shocking-grasp": {
+    "name": "Toque Chocante",
+    "desc": "Um raio salta de você para uma criatura que você tenta tocar. Faça um ataque mágico corpo a corpo contra o alvo. Num acerto, o alvo sofre 1d8 de dano Elétrico e não pode fazer Ataques de Oportunidade até o início do próximo turno dele.",
+    "higherLevel": "O dano aumenta em 1d8 quando você chega aos níveis 5 (2d8), 11 (3d8) e 17 (4d8)."
+  },
+  "srd-2024_sorcerous-burst": {
+    "name": "Explosão Feiticeira",
+    "desc": "Você lança energia de feitiçaria numa criatura ou objeto dentro do alcance. Faça um ataque mágico à distância contra o alvo. Num acerto, o alvo sofre 1d8 de dano de um tipo à sua escolha: Ácido, Frio, Fogo, Elétrico, Veneno, Psíquico ou Trovão.\n\nSe tirar 8 num d8 desta magia, você pode rolar outro d8 e somá-lo ao dano. Numa conjuração, o máximo de d8s extras que você pode somar é igual ao seu modificador de atributo de conjuração.",
+    "higherLevel": "O dano aumenta em 1d8 quando você chega aos níveis 5 (2d8), 11 (3d8) e 17 (4d8)."
+  },
+  "srd-2024_spare-the-dying": {
+    "name": "Poupar os Moribundos",
+    "desc": "Escolha uma criatura dentro do alcance que esteja com 0 Pontos de Vida e não esteja morta. A criatura fica Estável.",
+    "higherLevel": "O alcance dobra quando você chega aos níveis 5 (30 pés), 11 (60 pés) e 17 (120 pés)."
+  },
+  "srd-2024_starry-wisp": {
+    "name": "Faísca Estelar",
+    "desc": "Você lança uma faísca de luz numa criatura ou objeto dentro do alcance. Faça um ataque mágico à distância contra o alvo. Num acerto, o alvo sofre 1d8 de dano Radiante e, até o fim do seu próximo turno, emite Penumbra num raio de 10 pés e não se beneficia da condição Invisível.",
+    "higherLevel": "O dano aumenta em 1d8 quando você chega aos níveis 5 (2d8), 11 (3d8) e 17 (4d8)."
+  },
+  "srd-2024_thaumaturgy": {
+    "name": "Taumaturgia",
+    "desc": "Você manifesta uma pequena maravilha, criando um dos efeitos abaixo dentro do alcance. Se conjurar esta magia várias vezes, pode ter até três dos efeitos de 1 minuto ativos ao mesmo tempo.\n\n**_Olhos Alterados._** Você muda a aparência dos seus olhos por 1 minuto.\n\n**_Voz Trovejante._** Sua voz soa até três vezes mais alta que o normal por 1 minuto. Durante esse tempo, você tem Vantagem nos testes de Carisma (Intimidação).\n\n**_Brincar com Fogo._** Você faz chamas tremularem, aumentarem, diminuírem ou mudarem de cor por 1 minuto.\n\n**_Mão Invisível._** Você faz na hora uma porta ou janela destrancada se abrir ou bater.\n\n**_Som Fantasma._** Você cria na hora um som que sai de um ponto à sua escolha dentro do alcance, como um trovão, o grito de um corvo ou sussurros ameaçadores.\n\n**_Tremores._** Você faz o chão tremer de forma inofensiva por 1 minuto."
+  },
+  "srd-2024_true-strike": {
+    "name": "Golpe Certeiro",
+    "material": "uma arma em que você tem proficiência e que vale 1+ PC",
+    "desc": "Guiado por um lampejo de intuição mágica, você faz um ataque com a arma usada na conjuração. O ataque usa seu atributo de conjuração nas jogadas de ataque e de dano, em vez de Força ou Destreza. Se o ataque causar dano, ele pode ser Radiante ou do tipo normal da arma (à sua escolha).",
+    "higherLevel": "Seja Radiante ou do tipo normal da arma, o ataque causa dano Radiante extra quando você chega aos níveis 5 (1d6), 11 (2d6) e 17 (3d6)."
+  },
+  "srd-2024_vicious-mockery": {
+    "name": "Zombaria Cruel",
+    "desc": "Você solta uma série de insultos cheios de encantamentos sutis numa criatura que você veja ou ouça dentro do alcance. O alvo precisa ser bem-sucedido numa salvaguarda de Sabedoria ou sofre 1d6 de dano Psíquico e tem Desvantagem na próxima jogada de ataque que fizer antes do fim do próximo turno dele.",
+    "higherLevel": "O dano aumenta em 1d6 quando você chega aos níveis 5 (2d6), 11 (3d6) e 17 (4d6)."
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "srd-2024_animal-shapes": {
+    "name": "Formas Animais",
+    "desc": "Escolha qualquer número de criaturas voluntárias que você veja dentro do alcance. Cada alvo muda de forma para uma Fera Grande ou menor à sua escolha, com Nível de Desafio 4 ou menos. Você pode escolher uma forma diferente para cada alvo. Nos turnos seguintes, pode usar uma ação de Magia para transformá-los de novo.\n\nAs estatísticas do alvo são trocadas pelas da Fera escolhida, mas ele mantém o tipo de criatura, os Pontos de Vida, os Dados de Vida, o alinhamento, a capacidade de se comunicar e os valores de Inteligência, Sabedoria e Carisma. As ações do alvo ficam limitadas pela anatomia da forma de Fera, e ele não pode conjurar magias. O equipamento dele se funde à nova forma, e ele não pode usar nada desse equipamento nessa forma.\n\nO alvo ganha Pontos de Vida Temporários iguais aos Pontos de Vida da primeira forma que assumir. Os que sobrarem somem quando a magia acaba. A transformação dura pela duração ou até o alvo encerrá-la com uma Ação Bônus."
+  },
+  "srd-2024_antimagic-field": {
+    "name": "Campo Antimagia",
+    "material": "limalha de ferro",
+    "desc": "Uma aura antimagia envolve você numa Emanação de 10 pés. Ninguém consegue conjurar magias, usar ações de Magia nem criar outros efeitos mágicos dentro da aura, e essas coisas não miram nem afetam de outro jeito nada lá dentro. As propriedades mágicas dos itens mágicos não funcionam na aura nem em nada dentro dela. Áreas de efeito de magias ou de outra magia não entram na aura, e ninguém se teletransporta para dentro ou para fora dela nem usa viagem entre planos ali. Portais se fecham temporariamente enquanto estão na aura.\n\nMagias ativas, menos as conjuradas por um Artefato ou por uma divindade, ficam suspensas na área. Um efeito suspenso não funciona, mas o tempo suspenso conta na duração dele."
+  },
+  "srd-2024_antipathysympathy": {
+    "name": "Antipatia/Simpatia",
+    "material": "uma mistura de vinagre e mel",
+    "desc": "Ao conjurar a magia, escolha se ela cria antipatia ou simpatia e mire uma criatura ou objeto Enorme ou menor. Depois, indique um tipo de criatura, como dragões vermelhos, goblins ou vampiros. Uma criatura do tipo escolhido faz uma salvaguarda de Sabedoria quando chega a até 120 pés do alvo. Sua escolha define o que acontece se ela falhar:\n\n**Antipatia.** A criatura fica Amedrontada. Ela precisa usar o movimento nos turnos dela para ficar o mais longe possível do alvo, pelo caminho mais seguro.\n\n**Simpatia.** A criatura fica Enfeitiçada. Ela precisa usar o movimento nos turnos dela para chegar o mais perto possível do alvo, pelo caminho mais seguro. Se estiver a até 5 pés do alvo, não se afasta por vontade própria. Se o alvo causar dano a ela, ela pode fazer uma salvaguarda de Sabedoria para encerrar o efeito, como abaixo.\n\n**Fim do Efeito.** Se a criatura Amedrontada ou Enfeitiçada terminar o turno a mais de 120 pés do alvo, faz uma salvaguarda de Sabedoria. Se passar, deixa de ser afetada pelo alvo. Uma criatura que passa nessa salvaguarda fica imune ao efeito por 1 minuto e depois pode ser afetada de novo."
+  },
+  "srd-2024_befuddlement": {
+    "name": "Desnorteamento",
+    "material": "um chaveiro sem chaves",
+    "desc": "Você atinge a mente de uma criatura que você veja dentro do alcance. O alvo faz uma salvaguarda de Inteligência. Se falhar, sofre 10d12 de dano Psíquico e não pode conjurar magias nem usar a ação de Magia. A cada 30 dias, o alvo repete a salvaguarda, e o efeito acaba se passar. O efeito também acaba com as magias Restauração Maior, Cura Completa ou Desejo. Se passar na primeira salvaguarda, o alvo sofre só metade do dano."
+  },
+  "srd-2024_clone": {
+    "name": "Clone",
+    "material": "um diamante que vale 1.000+ PO, consumido pela magia, e um recipiente selável que vale 2.000+ PO, grande o bastante para conter a criatura clonada",
+    "desc": "Você toca uma criatura ou pelo menos 1 polegada cúbica da carne dela. Uma cópia inerte da criatura se forma dentro do recipiente usado na conjuração e termina de crescer depois de 120 dias; você escolhe se o clone pronto terá a mesma idade da criatura ou menos. O clone fica inerte e dura indefinidamente enquanto ninguém mexer no recipiente.\n\nSe a criatura original morrer depois de o clone estar pronto, a alma dela passa para o clone, se estiver livre e quiser voltar. O clone é fisicamente idêntico ao original e tem a mesma personalidade, memórias e capacidades, mas nada do equipamento do original. Os restos da criatura original, se houver, ficam inertes e não podem ser revividos, porque a alma está em outro lugar."
+  },
+  "srd-2024_control-weather": {
+    "name": "Controlar o Clima",
+    "material": "incenso aceso",
+    "desc": "Você assume o controle do clima a até 5 milhas de você pela duração. Precisa estar ao ar livre para conjurar a magia, e ela acaba antes se você entrar num lugar fechado.\n\nAo conjurar, você muda as condições atuais do clima, definidas pelo Mestre: precipitação, temperatura e vento. As novas condições levam 1d4 × 10 minutos para fazer efeito. Depois disso, você pode mudá-las de novo. Quando a magia acaba, o clima volta aos poucos ao normal.\n\nPara mudar o clima, ache a condição atual nas tabelas abaixo e suba ou desça um estágio. Ao mudar o vento, você também pode mudar a direção dele.\n\n| Estágio | Precipitação |\n|---|---|\n| 1 | Céu limpo |\n| 2 | Poucas nuvens |\n| 3 | Nublado ou neblina |\n| 4 | Chuva, granizo ou neve |\n| 5 | Chuva torrencial, granizo forte ou nevasca |\n\n| Estágio | Temperatura |\n|---|---|\n| 1 | Onda de calor |\n| 2 | Quente |\n| 3 | Morno |\n| 4 | Fresco |\n| 5 | Frio |\n| 6 | Congelante |\n\n| Estágio | Vento |\n|---|---|\n| 1 | Calmo |\n| 2 | Vento moderado |\n| 3 | Vento forte |\n| 4 | Ventania |\n| 5 | Tempestade |"
+  },
+  "srd-2024_demiplane": {
+    "name": "Semiplano",
+    "desc": "Você cria uma porta sombria Média numa superfície sólida e plana que você veja dentro do alcance. A porta abre e fecha e leva a um semiplano: uma sala vazia de 30 pés em cada dimensão, de madeira ou pedra (à sua escolha). Quando a magia acaba, a porta some, e os objetos dentro do semiplano ficam lá. As criaturas lá dentro também ficam, a não ser que escolham ser empurradas pela porta quando ela some, caindo Caídas nos espaços vazios mais próximos de onde a porta estava.\n\nCada vez que conjura esta magia, você pode criar um semiplano novo ou ligar a porta sombria a um semiplano que criou numa conjuração anterior. Além disso, se conhecer a natureza e o conteúdo de um semiplano criado por outra criatura com esta magia, pode ligar a porta a ele."
+  },
+  "srd-2024_dominate-monster": {
+    "name": "Dominar Monstro",
+    "desc": "Uma criatura que você veja dentro do alcance precisa ser bem-sucedida numa salvaguarda de Sabedoria ou fica Enfeitiçada pela duração. O alvo tem Vantagem na salvaguarda se você ou seus aliados estiverem lutando com ele. Sempre que o alvo sofrer dano, repete a salvaguarda, e a magia acaba para ele se passar.\n\nVocê tem uma ligação telepática com o alvo Enfeitiçado enquanto estiverem no mesmo plano de existência. No seu turno, pode usar essa ligação para dar ordens ao alvo (sem gastar ação), como \"Ataque aquela criatura\", \"Vá para lá\" ou \"Pegue aquele objeto\". O alvo faz o possível para obedecer no turno dele. Se terminar uma ordem e não receber outra, age e se move como quiser, concentrado em se proteger. Você pode mandar o alvo usar uma Reação, mas precisa gastar a sua Reação para isso.",
+    "higherLevel": "Sua Concentração pode durar mais com um espaço de 9º círculo (até 8 horas)."
+  },
+  "srd-2024_earthquake": {
+    "name": "Terremoto",
+    "material": "uma pedra rachada",
+    "desc": "Escolha um ponto no chão que você veja dentro do alcance. Pela duração, um tremor intenso sacode o chão num círculo de 100 pés de raio centrado nele. O chão ali é Terreno Difícil.\n\nAo conjurar a magia, e no fim de cada turno seu pela duração, cada criatura no chão da área faz uma salvaguarda de Destreza. Se falhar, fica Caída e perde a Concentração.\n\nVocê também pode causar os efeitos abaixo.\n\n***Fendas.*** No fim do turno em que você conjura a magia, 1d6 fendas se abrem na área. Você escolhe onde, mas não debaixo de construções. Cada fenda tem 1d10 × 10 pés de profundidade e 10 de largura e vai de uma borda da área a outra. Uma criatura no mesmo espaço de uma fenda precisa ser bem-sucedida numa salvaguarda de Destreza ou cai nela. Quem passa se move junto com a borda da fenda enquanto ela se abre.\n\n***Construções.*** O tremor causa 50 de dano Contundente em qualquer construção em contato com o chão da área quando você conjura a magia e no fim de cada turno seu até ela acabar. Se uma construção chegar a 0 Pontos de Vida, desaba.\n\nUma criatura a uma distância da construção que desaba de até metade da altura dela faz uma salvaguarda de Destreza. Se falhar, sofre 12d6 de dano Contundente, fica Caída e soterrada nos escombros; para sair, precisa de uma ação e um teste de Força (Atletismo) CD 20. Se passar, sofre só metade do dano."
+  },
+  "srd-2024_glibness": {
+    "name": "Lábia",
+    "desc": "Até a magia acabar, quando fizer um teste de Carisma, você pode trocar o resultado do dado por 15. Além disso, diga o que disser, magias que verificariam se você está falando a verdade indicam que está."
+  },
+  "srd-2024_holy-aura": {
+    "name": "Aura Sagrada",
+    "material": "um relicário que vale 1.000+ PO",
+    "desc": "Pela duração, você emite uma aura numa Emanação de 30 pés. Na aura, as criaturas que você escolher têm Vantagem em todas as salvaguardas, e as outras criaturas têm Desvantagem nas jogadas de ataque contra elas. Além disso, quando um Corruptor ou Morto-Vivo acerta uma criatura afetada com uma jogada de ataque corpo a corpo, o atacante precisa ser bem-sucedido numa salvaguarda de Constituição ou fica Cego até o fim do próximo turno dele."
+  },
+  "srd-2024_incendiary-cloud": {
+    "name": "Nuvem Incendiária",
+    "desc": "Uma nuvem de brasas e fumaça girando enche uma Esfera de 20 pés de raio centrada num ponto dentro do alcance. A área da nuvem fica Muito Obscurecida. Ela dura pela duração ou até um vento forte (como o de Lufada de Vento) dispersá-la.\n\nQuando a nuvem aparece, cada criatura nela faz uma salvaguarda de Destreza: sofre 10d8 de dano de Fogo se falhar, ou metade se passar. Uma criatura também faz essa salvaguarda quando a Esfera entra no espaço dela e quando entra na Esfera ou termina o turno nela, mas só uma vez por turno.\n\nNo início de cada turno seu, a nuvem se afasta 10 pés de você, na direção que escolher."
+  },
+  "srd-2024_maze": {
+    "name": "Labirinto",
+    "desc": "Você bane uma criatura que você veja dentro do alcance para um semiplano em forma de labirinto. O alvo fica lá pela duração ou até escapar. O alvo pode usar a ação de Estudar para tentar escapar, fazendo um teste de Inteligência (Investigação) CD 20. Se passar, escapa, e a magia acaba. Quando a magia acaba, o alvo reaparece no espaço que deixou ou, se ele estiver ocupado, no espaço vazio mais próximo."
+  },
+  "srd-2024_mind-blank": {
+    "name": "Mente Vazia",
+    "desc": "Até a magia acabar, uma criatura voluntária que você toca tem Imunidade a dano Psíquico e à condição Enfeitiçado. O alvo também não é afetado por nada que sentiria as emoções ou o alinhamento dele, leria os pensamentos dele ou detectaria por magia onde ele está, e nenhuma magia, nem mesmo Desejo, consegue reunir informações sobre o alvo, observá-lo à distância ou controlar a mente dele."
+  },
+  "srd-2024_power-word-stun": {
+    "name": "Palavra de Poder: Atordoar",
+    "desc": "Você domina a mente de uma criatura que você veja dentro do alcance. Se o alvo tiver 150 Pontos de Vida ou menos, fica Atordoado. Se não, fica com Deslocamento 0 até o início do seu próximo turno. O alvo Atordoado faz uma salvaguarda de Constituição no fim de cada turno dele, e a condição acaba se passar."
+  },
+  "srd-2024_sunburst": {
+    "name": "Explosão Solar",
+    "material": "um pedaço de pedra do sol",
+    "desc": "Uma luz do sol brilhante explode numa Esfera de 60 pés de raio, centrada num ponto à sua escolha dentro do alcance. Cada criatura na Esfera faz uma salvaguarda de Constituição. Se falhar, sofre 12d6 de dano Radiante e fica Cega por 1 minuto. Se passar, sofre só metade do dano. Uma criatura Cega por esta magia faz outra salvaguarda de Constituição no fim de cada turno dela, e o efeito acaba se passar. A magia dissipa Escuridão criada por qualquer magia na área dela."
+  },
+  "srd-2024_tsunami": {
+    "name": "Tsunami",
+    "desc": "Uma muralha de água surge num ponto à sua escolha dentro do alcance. Ela pode ter até 300 pés de comprimento, 300 de altura e 50 de espessura, e dura pela duração. Quando aparece, cada criatura na área dela faz uma salvaguarda de Força: sofre 6d10 de dano Contundente se falhar, ou metade se passar.\n\nNo início de cada turno seu depois de a muralha aparecer, ela se afasta 50 pés de você, levando as criaturas que estiverem nela. Qualquer criatura Enorme ou menor dentro da muralha, ou cujo espaço ela invada ao se mover, precisa ser bem-sucedida numa salvaguarda de Força ou sofre 5d10 de dano Contundente. Uma criatura só sofre esse dano uma vez por rodada. No fim do turno, a altura da muralha cai 50 pés, e o dano nas rodadas seguintes cai 1d10. Quando a muralha chega a 0 pé de altura, a magia acaba.\n\nUma criatura presa na muralha pode se mover nadando. Mas, pela força da onda, precisa passar num teste de Força (Atletismo) contra a CD de salvaguarda da sua magia para se mover. Se falhar, não se move. Uma criatura que sai da muralha cai no chão."
+  }
+}

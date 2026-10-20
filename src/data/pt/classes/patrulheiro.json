@@ -3,11 +3,11 @@
 
   "srd-2024_ranger_favored-enemy": {
     "name": "Inimigo Favorito",
-    "desc": "Você sempre tem a magia Hunter's Mark preparada. Pode conjurá-la duas vezes sem gastar espaço de magia e recupera todos os usos dessa capacidade ao terminar um Descanso Longo.\n\nO número de vezes que você pode conjurar a magia sem espaço aumenta em certos níveis de Patrulheiro; o número atual aparece em Recursos de classe, na primeira página da ficha."
+    "desc": "Você sempre tem a magia Marca do Caçador preparada. Pode conjurá-la duas vezes sem gastar espaço de magia e recupera todos os usos dessa capacidade ao terminar um Descanso Longo.\n\nO número de vezes que você pode conjurar a magia sem espaço aumenta em certos níveis de Patrulheiro; o número atual aparece em Recursos de classe, na primeira página da ficha."
   },
   "srd-2024_ranger_spellcasting": {
     "name": "Conjuração",
-    "desc": "Você aprendeu a canalizar a essência mágica da natureza para conjurar magias. As regras abaixo explicam como isso funciona com as magias de Patrulheiro.\n\n**Espaços de Magia.** O número de espaços de magia que você tem para conjurar magias de nível 1+ aparece na página de magias da ficha. Você recupera todos os espaços gastos ao terminar um Descanso Longo.\n\n**Magias Preparadas de Nível 1+.** Você prepara a lista de magias de nível 1+ que pode conjurar com esta característica. Para começar, escolha duas magias de Patrulheiro de nível 1. Cure Wounds e Ensnaring Strike são as recomendadas.\n\nO número de magias da sua lista aumenta com seus níveis de Patrulheiro (o valor atual aparece na página de magias da ficha). Sempre que esse número aumentar, escolha mais magias de Patrulheiro até completar a quantidade. As magias escolhidas precisam ser de um nível para o qual você tenha espaços de magia. Por exemplo, um Patrulheiro de nível 5 pode ter na lista seis magias de Patrulheiro de nível 1 ou 2, em qualquer combinação.\n\nSe outra característica de Patrulheiro der magias que você sempre tem preparadas, elas não contam no limite desta característica, mas contam como magias de Patrulheiro para você.\n\n**Trocando as Magias Preparadas.** Sempre que terminar um Descanso Longo, você pode trocar uma magia da sua lista por outra magia de Patrulheiro para a qual tenha espaços de magia.\n\n**Atributo de Conjuração.** Sabedoria é o seu atributo de conjuração para as magias de Patrulheiro.\n\n**Foco de Conjuração.** Você pode usar um Foco Druídico como Foco de Conjuração para as magias de Patrulheiro."
+    "desc": "Você aprendeu a canalizar a essência mágica da natureza para conjurar magias. As regras abaixo explicam como isso funciona com as magias de Patrulheiro.\n\n**Espaços de Magia.** O número de espaços de magia que você tem para conjurar magias de nível 1+ aparece na página de magias da ficha. Você recupera todos os espaços gastos ao terminar um Descanso Longo.\n\n**Magias Preparadas de Nível 1+.** Você prepara a lista de magias de nível 1+ que pode conjurar com esta característica. Para começar, escolha duas magias de Patrulheiro de nível 1. Curar Ferimentos e Golpe Enredante são as recomendadas.\n\nO número de magias da sua lista aumenta com seus níveis de Patrulheiro (o valor atual aparece na página de magias da ficha). Sempre que esse número aumentar, escolha mais magias de Patrulheiro até completar a quantidade. As magias escolhidas precisam ser de um nível para o qual você tenha espaços de magia. Por exemplo, um Patrulheiro de nível 5 pode ter na lista seis magias de Patrulheiro de nível 1 ou 2, em qualquer combinação.\n\nSe outra característica de Patrulheiro der magias que você sempre tem preparadas, elas não contam no limite desta característica, mas contam como magias de Patrulheiro para você.\n\n**Trocando as Magias Preparadas.** Sempre que terminar um Descanso Longo, você pode trocar uma magia da sua lista por outra magia de Patrulheiro para a qual tenha espaços de magia.\n\n**Atributo de Conjuração.** Sabedoria é o seu atributo de conjuração para as magias de Patrulheiro.\n\n**Foco de Conjuração.** Você pode usar um Foco Druídico como Foco de Conjuração para as magias de Patrulheiro."
   },
   "srd-2024_ranger_weapon-mastery": {
     "name": "Maestria em Armas",
@@ -19,7 +19,7 @@
   },
   "srd-2024_ranger_fighting-style": {
     "name": "Estilo de Luta",
-    "desc": "Você ganha um feat de Estilo de Luta à sua escolha (veja \"Feats\"). Em vez de escolher um desses feats, pode ficar com a opção abaixo.\n\n**Guerreiro Druídico.** Você aprende dois truques de Druida à sua escolha. Guidance e Starry Wisp são os recomendados. Os truques escolhidos contam como magias de Patrulheiro para você, e Sabedoria é o atributo de conjuração deles. Sempre que ganhar um nível de Patrulheiro, você pode trocar um desses truques por outro truque de Druida."
+    "desc": "Você ganha um feat de Estilo de Luta à sua escolha (veja \"Feats\"). Em vez de escolher um desses feats, pode ficar com a opção abaixo.\n\n**Guerreiro Druídico.** Você aprende dois truques de Druida à sua escolha. Orientação e Faísca Estelar são os recomendados. Os truques escolhidos contam como magias de Patrulheiro para você, e Sabedoria é o atributo de conjuração deles. Sempre que ganhar um nível de Patrulheiro, você pode trocar um desses truques por outro truque de Druida."
   },
   "srd-2024_ranger_ranger-subclass": {
     "name": "Subclasse de Patrulheiro",
@@ -47,7 +47,7 @@
   },
   "srd-2024_ranger_relentless-hunter": {
     "name": "Caçador Implacável",
-    "desc": "Sofrer dano não quebra sua Concentração na magia Hunter's Mark."
+    "desc": "Sofrer dano não quebra sua Concentração na magia Marca do Caçador."
   },
   "srd-2024_ranger_natures-veil": {
     "name": "Véu da Natureza",
@@ -55,7 +55,7 @@
   },
   "srd-2024_ranger_precise-hunter": {
     "name": "Caçador Preciso",
-    "desc": "Você tem Vantagem nas jogadas de ataque contra a criatura marcada no momento pela sua Hunter's Mark."
+    "desc": "Você tem Vantagem nas jogadas de ataque contra a criatura marcada no momento pela sua Marca do Caçador."
   },
   "srd-2024_ranger_feral-senses": {
     "name": "Sentidos Selvagens",
@@ -67,13 +67,13 @@
   },
   "srd-2024_ranger_foe-slayer": {
     "name": "Exterminador de Inimigos",
-    "desc": "O dado de dano da sua Hunter's Mark passa a ser d10 em vez de d6."
+    "desc": "O dado de dano da sua Marca do Caçador passa a ser d10 em vez de d6."
   },
 
   "srd-2024_hunter": { "name": "Caçador" },
   "srd-2024_ranger_hunter_hunters-lore": {
     "name": "Saber do Caçador",
-    "desc": "Você pode pedir às forças da natureza que revelem pontos fortes e fracos da sua presa. Enquanto uma criatura estiver marcada pela sua Hunter's Mark, você sabe se ela tem Imunidades, Resistências ou Vulnerabilidades e, se tiver, quais são."
+    "desc": "Você pode pedir às forças da natureza que revelem pontos fortes e fracos da sua presa. Enquanto uma criatura estiver marcada pela sua Marca do Caçador, você sabe se ela tem Imunidades, Resistências ou Vulnerabilidades e, se tiver, quais são."
   },
   "srd-2024_ranger_hunter_hunters-prey": {
     "name": "Presa do Caçador",
@@ -85,7 +85,7 @@
   },
   "srd-2024_ranger_hunter_superior-hunters-prey": {
     "name": "Presa Superior do Caçador",
-    "desc": "Uma vez por turno, quando causar dano a uma criatura marcada pela sua Hunter's Mark, você também pode causar o dano extra dessa magia a outra criatura que possa ver a até 30 pés da primeira."
+    "desc": "Uma vez por turno, quando causar dano a uma criatura marcada pela sua Marca do Caçador, você também pode causar o dano extra dessa magia a outra criatura que possa ver a até 30 pés da primeira."
   },
   "srd-2024_ranger_hunter_superior-hunters-defense": {
     "name": "Defesa Superior do Caçador",

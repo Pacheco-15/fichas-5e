@@ -13,11 +13,33 @@ Abra http://localhost:5173 no navegador.
 
 ## Como usar
 
-1. Siga os passos da lista à esquerda: básico, atributos (valores digitados à mão), perícias, feats, PV, equipamento e magias. Os números ao lado de um passo mostram quantas escolhas ainda faltam nele.
+1. Siga os passos da lista à esquerda: básico, atributos (conjunto padrão, compra de pontos ou rolagem), perícias, feats, PV, equipamento e magias. Os números ao lado de um passo mostram quantas escolhas ainda faltam nele.
 2. O resumo à direita atualiza na hora. **Ver ficha** abre a ficha completa.
 3. **Imprimir / PDF** gera de 2 a 3 páginas em A4: ficha, características e magias.
 4. As fichas ficam salvas no navegador. No menu **⋯** você pode duplicar, excluir e usar **Exportar JSON** para fazer backup ou levar a ficha a outro navegador.
 5. O tema claro ou escuro segue a configuração do sistema.
+
+## Regras
+
+Cada escolha da criação segue as regras do SRD 5.2.1: quantas escolhas, de quais opções, com quais pré-requisitos.
+O app não deixa escolher além disso. O catálogo completo, com o código de cada regra, está em [docs/REGRAS.md](docs/REGRAS.md).
+
+Alguns exemplos:
+
+- perícias e Expertise só das listas que a regra permite;
+- feats com pré-requisito e sem repetir, a não ser os "Repeatable";
+- equipamento inicial como **uma** opção de pacote, e a loja limitada ao ouro que você tem;
+- magias na quantidade da tabela e só de círculos para os quais você tem espaço;
+- idiomas, ferramentas, Weapon Mastery, Metamagic e Eldritch Invocations.
+
+## Testes
+
+```bash
+npm test
+```
+
+Os testes ficam em `src/engine/*.test.ts`, e cada um cita o código da regra que confere (ex.: `R-FEA-1`).
+Um teste de invariantes gera centenas de personagens com escolhas aleatórias e confere que nada fora das regras entra na ficha.
 
 ## O que é calculado
 
@@ -26,7 +48,8 @@ Abra http://localhost:5173 no navegador.
 - CA:
   - armaduras, escudo e o feat Defense;
   - Unarmored Defense do Bárbaro e do Monge, Draconic Resilience.
-- PV: média ou rolados, mais Dwarven Toughness e Draconic Resilience.
+- PV: média ou rolados (de 1 ao dado de vida), mais Dwarven Toughness e Draconic Resilience.
+- Treinamento em armadura e escudo: sem ele, o escudo não dá CA e a armadura impede magias.
 - Iniciativa (com Alert), deslocamento (Monge e Bárbaro) e percepção passiva.
 - Ataques:
   - proficiência por classe, Finesse e o feat Archery;
@@ -37,6 +60,8 @@ Abra http://localhost:5173 no navegador.
 ## Limitações
 
 - Não tem multiclasse.
+- O grimório do Mago não é controlado à parte: as magias preparadas vêm da lista de Mago.
+- Veja a lista completa em [docs/REGRAS.md](docs/REGRAS.md#o-que-o-app-ainda-não-modela).
 - Só traz o conteúdo do SRD 5.2:
   - 12 classes, cada uma com 1 subclasse;
   - 9 espécies e 4 antecedentes;
@@ -51,7 +76,7 @@ Inclui material do System Reference Document 5.2 ("SRD 5.2") da Wizards of the C
 ## Tradução
 
 Não existe SRD 5.2 oficial em português, então os textos das características são traduzidos pelo próprio projeto, em `src/data/pt/`.
-Estão traduzidas todas as características de classe e subclasse, os traços de espécie e os feats; as descrições de magias ainda aparecem em inglês. O texto é um rascunho feito por máquina a partir do PDF oficial e precisa de revisão de quem joga.
+Estão traduzidos as características de classe e subclasse, os traços de espécie, os feats, as 339 magias e todo o equipamento (armas, armaduras, itens, ferramentas e idiomas). Nos seletores, o nome original aparece entre parênteses, para quem joga com o livro em inglês. O texto é um rascunho feito por máquina e precisa de revisão de quem joga.
 
 Para ajudar, veja [src/data/pt/GLOSSARIO.md](src/data/pt/GLOSSARIO.md): ele explica as chaves, o estilo e os termos já definidos.
 A tradução é uma modificação do SRD 5.2 e segue a mesma licença CC-BY-4.0.

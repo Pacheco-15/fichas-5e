@@ -4,7 +4,9 @@ Não existe SRD 5.2 oficial em português: a Wizards publicou só inglês, alem�
 deste diretório são do próprio projeto, feitas a partir do texto em inglês do SRD 5.2.1 (CC-BY-4.0).
 
 Elas ficam fora de `src/data/srd/` porque `npm run fetch-srd` sobrescreve aquela pasta. Tudo que não tiver tradução
-aparece em inglês. Hoje estão traduzidas todas as características de classe e subclasse, os traços de espécie e os feats.
+aparece em inglês. Hoje estão traduzidos: características de classe e subclasse, traços de espécie, feats, as 339 magias,
+todo o equipamento (armas, armaduras, itens e pacotes), ferramentas e idiomas. `src/data/translations.test.ts` falha se
+faltar alguma tradução desses grupos.
 O texto é um rascunho feito por máquina a partir do PDF oficial: revisões de quem joga são muito bem-vindas.
 
 ## Onde traduzir
@@ -12,6 +14,13 @@ O texto é um rascunho feito por máquina a partir do PDF oficial: revisões de 
 - `classes/<classe>.json`: características da classe e da subclasse, nome da subclasse e colunas de Recursos de classe.
 - `especies.json`: traços de espécie e as opções de cada escolha (linhagem, ancestral etc.).
 - `feats.json`: feats.
+- `magias/truques.json` e `magias/circulo-N.json`: magias, uma por chave. Além de `name` e `desc`, cada magia pode ter
+  `higherLevel` (o trecho "Using a Higher-Level Spell Slot" ou "Cantrip Upgrade") e `material` (o componente material).
+- `equipamento.json`: itens (armas, armaduras, equipamento de aventura, pacotes), ferramentas (`tool/<nome>`) e idiomas
+  (`language/<nome>`).
+
+Tempo de conjuração, alcance, duração, escola, tipos de dano e propriedades de arma são traduzidos por regra em
+`src/data/terms.ts`, não um a um.
 
 Todos os arquivos são lidos juntos, então a chave é o que importa, não o arquivo. Cada chave tem um objeto
 `{ "name": "...", "desc": "..." }`. O `desc` é opcional e aceita o mesmo Markdown do SRD (`**negrito**`, `*itálico*`,
@@ -23,20 +32,32 @@ listas com `-` e tabelas com `|`).
 | Nome de subclasse | `key` da subclasse | `srd-2024_champion` |
 | Coluna da tabela da classe (Recursos de classe) | `<classe>/<coluna>` | `srd-2024_fighter/Second Wind` |
 | Feat | `key` do feat | `srd-2024_alert` |
+| Magia | `key` da magia | `srd-2024_fireball` |
+| Item, arma ou armadura | `item/<key do item>` | `item/srd-2024_longsword` |
+| Ferramenta | `tool/<nome da ferramenta no app>` | `tool/Thieves' Tools` |
+| Idioma | `language/<nome>` | `language/Elvish` |
 | Traço de espécie | `<espécie>/<traço>` | `srd-2024_elf/Elven Lineage` |
 | Opção de um traço de espécie | `<espécie>/<traço>/<opção>` | `srd-2024_elf/Elven Lineage/Drow` |
 
 ## Como traduzir
 
+- O JSON do Open5e também tem magias cortadas: Greater Invisibility (vazia), Moonbeam e Knock (sem a primeira frase),
+  Command (sem a opção Approach), Conjure Celestial (sem as duas luzes) e Chain Lightning e Dissonant Whispers (sem o
+  trecho de círculos superiores). Essas foram traduzidas do PDF. No próprio PDF 5.2.1 a Telekinesis termina no meio da
+  frase; a tradução completa a frase com o texto do SRD 5.1.
 - Traduza do **PDF oficial** ([SRD 5.2.1](https://www.dndbeyond.com/srd)), não só do JSON do Open5e. O JSON tem
   trechos faltando (o Indomável perdeu o parágrafo dos níveis 13 e 17) e textos trocados (no Círculo da Terra, Nature's
   Ward e Nature's Sanctuary vêm com a descrição errada). Erros de nível ficam em `LEVEL_FIXES`, em `src/data/rules.ts`.
 - Pode adaptar referências que só fazem sentido no livro. "Como mostra a coluna da tabela" vira "aparece em Recursos de
   classe, na primeira página da ficha"; "a subclasse está descrita depois da classe" vira "este app traz o Campeão".
 - Frases curtas e diretas, em segunda pessoa ("você"), como no original.
-- Mantenha em inglês o que o app mostra em inglês em outros lugares: nomes de **magias**, **armas**, **itens** e
-  **propriedades de maestria**. Quando ajudar, ponha a tradução entre parênteses: "Push (Empurrar)",
-  "Thieves' Tools (Ferramentas de Ladrão)".
+- Nomes de **magias**, **armas**, **armaduras**, **itens**, **ferramentas** e **idiomas** são traduzidos. Nos seletores, o app
+  mostra o original entre parênteses ("Bola de Fogo (Fireball)"), como nos feats. Dentro dos textos, use o nome em
+  português ("como o de Lufada de Vento"). Os nomes já usados estão em `magias/*.json` e `equipamento.json`; reaproveite.
+  `translations.test.ts` falha se um texto de classe, espécie ou feat citar uma magia pelo nome em inglês. Termos de regra
+  com a mesma grafia de uma magia já ficam traduzidos (Resistência, Visão no Escuro, Escudo); as exceções do teste são
+  só a propriedade "Light (Leve)" e a maestria "Slow (Lentidão)", escritas com o original entre parênteses.
+- Propriedades de **maestria** seguem a tabela abaixo ("Empurrar", "Talho").
 - Nomes de **feats** são traduzidos; o app mostra o original entre parênteses ("Alerta (Alert)"). Dentro dos textos de
   classe, as recomendações de feat ficam em inglês ("Boon of Fate é o recomendado"), que é como aparecem no seletor.
 - Distâncias ficam em pés, como na ficha ("30 pés").
@@ -158,7 +179,19 @@ Os termos com inicial maiúscula no original continuam com maiúscula na traduç
 | Expertise | Especialização |
 | D20 Test | Teste de D20 |
 | GM | Mestre |
-| GP | PO (peças de ouro) |
+| GP / SP / CP | PO / PP / PC (peças de ouro, prata e cobre) |
+| Restrained | Contido |
+| Petrified / Stable | Petrificado / Estável |
+| Heavily Obscured / Lightly Obscured | Muito Obscurecido / Levemente Obscurecido |
+| Difficult Terrain | Terreno Difícil |
+| Study / Search / Influence / Utilize action | ação de Estudar / Procurar / Influenciar / Usar |
+| Craft (ferramentas) | Fabricar |
+| Friendly / Indifferent / Hostile | Amistoso / Indiferente / Hostil |
+| Attunement | Sintonização |
+| Shadowfell / Feywild | Pendor das Sombras / Agrestia das Fadas |
+| Upper Planes / Nine Hells | Planos Superiores / Nove Infernos |
+| Using a Higher-Level Spell Slot / Cantrip Upgrade | Em círculos superiores / Melhoria de truque |
+| "for each spell slot level above N" | "para cada círculo do espaço acima do Nº" |
 | Outer Planes / Lower Planes | Planos Exteriores / Planos Inferiores |
 
 ### Nomes de classes e subclasses

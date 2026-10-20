@@ -7,7 +7,7 @@
   },
   "srd-2024_paladin_spellcasting": {
     "name": "Conjuração",
-    "desc": "Você aprendeu a conjurar magias por meio de oração e meditação. As regras abaixo explicam como isso funciona com as magias de Paladino.\n\n**Espaços de Magia.** O número de espaços de magia que você tem para conjurar magias de nível 1+ aparece na página de magias da ficha. Você recupera todos os espaços gastos ao terminar um Descanso Longo.\n\n**Magias Preparadas de Nível 1+.** Você prepara a lista de magias de nível 1+ que pode conjurar com esta característica. Para começar, escolha duas magias de Paladino de nível 1. Heroism e Searing Smite são as recomendadas.\n\nO número de magias da sua lista aumenta com seus níveis de Paladino (o valor atual aparece na página de magias da ficha). Sempre que esse número aumentar, escolha mais magias de Paladino até completar a quantidade. As magias escolhidas precisam ser de um nível para o qual você tenha espaços de magia. Por exemplo, um Paladino de nível 5 pode ter na lista seis magias de Paladino de nível 1 ou 2, em qualquer combinação.\n\nSe outra característica de Paladino der magias que você sempre tem preparadas, elas não contam no limite desta característica, mas contam como magias de Paladino para você.\n\n**Trocando as Magias Preparadas.** Sempre que terminar um Descanso Longo, você pode trocar uma magia da sua lista por outra magia de Paladino para a qual tenha espaços de magia.\n\n**Atributo de Conjuração.** Carisma é o seu atributo de conjuração para as magias de Paladino.\n\n**Foco de Conjuração.** Você pode usar um Símbolo Sagrado como Foco de Conjuração para as magias de Paladino."
+    "desc": "Você aprendeu a conjurar magias por meio de oração e meditação. As regras abaixo explicam como isso funciona com as magias de Paladino.\n\n**Espaços de Magia.** O número de espaços de magia que você tem para conjurar magias de nível 1+ aparece na página de magias da ficha. Você recupera todos os espaços gastos ao terminar um Descanso Longo.\n\n**Magias Preparadas de Nível 1+.** Você prepara a lista de magias de nível 1+ que pode conjurar com esta característica. Para começar, escolha duas magias de Paladino de nível 1. Heroísmo e Golpe Abrasador são as recomendadas.\n\nO número de magias da sua lista aumenta com seus níveis de Paladino (o valor atual aparece na página de magias da ficha). Sempre que esse número aumentar, escolha mais magias de Paladino até completar a quantidade. As magias escolhidas precisam ser de um nível para o qual você tenha espaços de magia. Por exemplo, um Paladino de nível 5 pode ter na lista seis magias de Paladino de nível 1 ou 2, em qualquer combinação.\n\nSe outra característica de Paladino der magias que você sempre tem preparadas, elas não contam no limite desta característica, mas contam como magias de Paladino para você.\n\n**Trocando as Magias Preparadas.** Sempre que terminar um Descanso Longo, você pode trocar uma magia da sua lista por outra magia de Paladino para a qual tenha espaços de magia.\n\n**Atributo de Conjuração.** Carisma é o seu atributo de conjuração para as magias de Paladino.\n\n**Foco de Conjuração.** Você pode usar um Símbolo Sagrado como Foco de Conjuração para as magias de Paladino."
   },
   "srd-2024_paladin_weapon-mastery": {
     "name": "Maestria em Armas",
@@ -15,15 +15,15 @@
   },
   "srd-2024_paladin_fighting-style": {
     "name": "Estilo de Luta",
-    "desc": "Você ganha um feat de Estilo de Luta à sua escolha (veja \"Feats\"). Em vez de escolher um desses feats, pode ficar com a opção abaixo.\n\n**Guerreiro Abençoado.** Você aprende dois truques de Clérigo à sua escolha. Guidance e Sacred Flame são os recomendados. Os truques escolhidos contam como magias de Paladino para você, e Carisma é o atributo de conjuração deles. Sempre que ganhar um nível de Paladino, você pode trocar um desses truques por outro truque de Clérigo."
+    "desc": "Você ganha um feat de Estilo de Luta à sua escolha (veja \"Feats\"). Em vez de escolher um desses feats, pode ficar com a opção abaixo.\n\n**Guerreiro Abençoado.** Você aprende dois truques de Clérigo à sua escolha. Orientação e Chama Sagrada são os recomendados. Os truques escolhidos contam como magias de Paladino para você, e Carisma é o atributo de conjuração deles. Sempre que ganhar um nível de Paladino, você pode trocar um desses truques por outro truque de Clérigo."
   },
   "srd-2024_paladin_paladins-smite": {
     "name": "Golpe do Paladino",
-    "desc": "Você sempre tem a magia Divine Smite preparada. Além disso, pode conjurá-la sem gastar espaço de magia, mas precisa terminar um Descanso Longo antes de conjurá-la assim de novo."
+    "desc": "Você sempre tem a magia Golpe Divino preparada. Além disso, pode conjurá-la sem gastar espaço de magia, mas precisa terminar um Descanso Longo antes de conjurá-la assim de novo."
   },
   "srd-2024_paladin_channel-divinity": {
     "name": "Canalizar Divindade",
-    "desc": "Você consegue canalizar energia divina diretamente dos Planos Exteriores para criar efeitos mágicos. Você começa com um desses efeitos, Sentido Divino, descrito abaixo. Outras características de Paladino dão mais opções de efeito. Cada vez que usar o Canalizar Divindade desta classe, escolha qual dos efeitos dela criar.\n\nVocê pode usar o Canalizar Divindade desta classe duas vezes. Recupera um uso gasto ao terminar um Descanso Curto e todos os usos ao terminar um Descanso Longo. Você ganha mais um uso no nível 11 de Paladino.\n\nSe um efeito de Canalizar Divindade pedir uma salvaguarda, a CD é igual à CD de salvaguarda de magia da característica Conjuração desta classe.\n\n**Sentido Divino.** Com uma Ação Bônus, você abre sua percepção para detectar Celestiais, Corruptores e Mortos-Vivos. Pelos próximos 10 minutos, ou até ficar Incapacitado, você sabe onde está qualquer criatura desses tipos a até 60 pés de você e sabe o tipo dela. No mesmo raio, também percebe qualquer lugar ou objeto consagrado ou profanado, como na magia Hallow."
+    "desc": "Você consegue canalizar energia divina diretamente dos Planos Exteriores para criar efeitos mágicos. Você começa com um desses efeitos, Sentido Divino, descrito abaixo. Outras características de Paladino dão mais opções de efeito. Cada vez que usar o Canalizar Divindade desta classe, escolha qual dos efeitos dela criar.\n\nVocê pode usar o Canalizar Divindade desta classe duas vezes. Recupera um uso gasto ao terminar um Descanso Curto e todos os usos ao terminar um Descanso Longo. Você ganha mais um uso no nível 11 de Paladino.\n\nSe um efeito de Canalizar Divindade pedir uma salvaguarda, a CD é igual à CD de salvaguarda de magia da característica Conjuração desta classe.\n\n**Sentido Divino.** Com uma Ação Bônus, você abre sua percepção para detectar Celestiais, Corruptores e Mortos-Vivos. Pelos próximos 10 minutos, ou até ficar Incapacitado, você sabe onde está qualquer criatura desses tipos a até 60 pés de você e sabe o tipo dela. No mesmo raio, também percebe qualquer lugar ou objeto consagrado ou profanado, como na magia Consagrar."
   },
   "srd-2024_paladin_paladin-subclass": {
     "name": "Subclasse de Paladino",
@@ -39,7 +39,7 @@
   },
   "srd-2024_paladin_faithful-steed": {
     "name": "Montaria Fiel",
-    "desc": "Você pode pedir a ajuda de uma montaria de outro mundo. Você sempre tem a magia Find Steed preparada.\n\nTambém pode conjurar essa magia uma vez sem gastar espaço de magia, e recupera essa capacidade ao terminar um Descanso Longo."
+    "desc": "Você pode pedir a ajuda de uma montaria de outro mundo. Você sempre tem a magia Encontrar Montaria preparada.\n\nTambém pode conjurar essa magia uma vez sem gastar espaço de magia, e recupera essa capacidade ao terminar um Descanso Longo."
   },
   "srd-2024_paladin_aura-of-protection": {
     "name": "Aura de Proteção",
@@ -77,7 +77,7 @@
   },
   "srd-2024_paladin_oath-of-devotion_spells": {
     "name": "Magias do Juramento de Devoção",
-    "desc": "A magia do seu juramento garante que você sempre tenha certas magias à mão: ao alcançar um nível de Paladino indicado na tabela abaixo, você passa a ter sempre as magias listadas preparadas.\n\n|Nível de Paladino|Magias|\n|---|---|\n|3|Protection from Evil and Good, Shield of Faith|\n|5|Aid, Zone of Truth|\n|9|Beacon of Hope, Dispel Magic|\n|13|Freedom of Movement, Guardian of Faith|\n|17|Commune, Flame Strike|"
+    "desc": "A magia do seu juramento garante que você sempre tenha certas magias à mão: ao alcançar um nível de Paladino indicado na tabela abaixo, você passa a ter sempre as magias listadas preparadas.\n\n|Nível de Paladino|Magias|\n|---|---|\n|3|Proteção contra o Bem e o Mal, Escudo da Fé|\n|5|Auxílio, Zona da Verdade|\n|9|Sinal de Esperança, Dissipar Magia|\n|13|Liberdade de Movimento, Guardião da Fé|\n|17|Comunhão, Coluna de Chamas|"
   },
   "srd-2024_paladin_oath-of-devotion_aura-of-devotion": {
     "name": "Aura de Devoção",
@@ -85,7 +85,7 @@
   },
   "srd-2024_paladin_oath-of-devotion_smite-of-protection": {
     "name": "Golpe de Proteção",
-    "desc": "Seu golpe mágico agora irradia energia protetora. Sempre que conjurar Divine Smite, você e seus aliados têm Meia Cobertura enquanto estiverem na sua Aura de Proteção. A aura mantém esse benefício até o início do seu próximo turno."
+    "desc": "Seu golpe mágico agora irradia energia protetora. Sempre que conjurar Golpe Divino, você e seus aliados têm Meia Cobertura enquanto estiverem na sua Aura de Proteção. A aura mantém esse benefício até o início do seu próximo turno."
   },
   "srd-2024_paladin_oath-of-devotion_holy-nimbus": {
     "name": "Auréola Sagrada",
