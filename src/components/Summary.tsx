@@ -6,8 +6,8 @@ import type { Character, Sheet } from '../engine/character';
 export function Summary({ c, s, onOpenSheet }: { c: Character; s: Sheet; onOpenSheet: () => void }) {
   const line = [`${s.cls.pt} ${c.level}`, s.subclass?.pt, s.speciesLabel, s.background?.pt].filter(Boolean).join(' · ');
   const proficient = s.skills.filter((sk) => sk.proficient);
-  const source = (key: string) =>
-    s.background?.skills.includes(key as never) ? s.background.pt : c.classSkills.includes(key as never) ? s.cls.pt : '';
+  // De onde veio a perícia: antecedente, classe, espécie… (nome do espaço de escolha).
+  const source = (key: string) => (s.choices.taken.skills?.[key] ?? '').replace(/^antecedente \((.*)\)$/, '$1').replace(/^Perícias do /, '');
 
   return (
     <aside className="summary" aria-label="Resumo da ficha">

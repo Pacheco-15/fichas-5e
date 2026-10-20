@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'data', 'srd');
 const BASE = 'https://api.open5e.com/v2';
-const ENDPOINTS = ['classes', 'species', 'backgrounds', 'feats', 'spells', 'weapons', 'armor'];
+const ENDPOINTS = ['classes', 'species', 'backgrounds', 'feats', 'spells', 'weapons', 'armor', 'items'];
 
 // Campos que não usamos e só incham os arquivos.
 const DROP = new Set(['document', 'crossreferences', 'url']);

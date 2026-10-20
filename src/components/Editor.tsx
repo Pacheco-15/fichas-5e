@@ -1,20 +1,23 @@
-// Criação/edição do personagem, dividida em passos.
+// Criação/edição do personagem, dividida em passos. As escolhas vêm dos espaços de choices.ts:
+// a tela só mostra o que a regra permite (docs/REGRAS.md).
 import { cloneElement, isValidElement, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react';
+import { ArrowLeftIcon, ArrowRightIcon, CheckIcon, PrinterIcon, WarningCircleIcon } from '@phosphor-icons/react';
 import {
-  ArrowLeftIcon, ArrowRightIcon, CheckIcon, LockSimpleIcon, PlusIcon, PrinterIcon, StarFourIcon, WarningCircleIcon,
-} from '@phosphor-icons/react';
-import {
-  ABILITIES, ARMOR, BACKGROUNDS, CLASSES, FEATS, SKILLS, SPECIES, SPELLS, WEAPONS,
+  ABILITIES, BACKGROUNDS, CLASSES, SPECIES,
   abilityLabel, byKey, modifier, signed, skillLabel,
   type AbilityKey, type SkillKey,
 } from '../data/rules';
+import { ITEMS, gearLabel, itemName } from '../data/equipment';
+import { ARMOR_CATEGORY_PT, spellLabel } from '../data/terms';
 import {
-  backgroundBonusProblem, featSlots, isWeaponProficient, maxSpellLevel,
-  type Character, type PickBudget, type Sheet, type WarningArea,
-} from '../engine/character';
+  POINT_BUDGET, POINT_COST, STANDARD_ARRAY, WARRIOR_OPTIONS, backgroundBonusProblem, pointBuyCost,
+  type AbilityMethod, type ChoiceSlot, type SlotArea,
+} from '../engine/choices';
+import type { Character, Sheet } from '../engine/character';
 import { labelPt, translation } from '../data/translations';
 import { Counter } from './Counter';
 import { Markdown } from './Markdown';
+import { SlotPicker, type SlotPickerProps } from './SlotPicker';
 import { ALIGNMENTS, FEAT_HELP, HELP, SPECIES_CHOICE_HELP } from './help';
 
 interface Props {
@@ -23,13 +26,13 @@ interface Props {
   update: (patch: Partial<Character>) => void;
 }
 
-type StepId = WarningArea | 'feats' | 'hp' | 'story' | 'review';
+type StepId = SlotArea | 'hp' | 'story' | 'review';
 
 const STEPS: { id: StepId; title: string }[] = [
   { id: 'basic', title: 'Básico' },
   { id: 'abilities', title: 'Atributos' },
   { id: 'skills', title: 'Perícias' },
-  { id: 'feats', title: 'Feats' },
+  { id: 'feats', title: 'Feats e opções' },
   { id: 'hp', title: 'Pontos de vida' },
   { id: 'equipment', title: 'Equipamento' },
   { id: 'spells', title: 'Magias' },
@@ -76,8 +79,6 @@ function Field({ label, children, hint, help }: { label: string; children: React
     </div>
   );
 }
-
-const toggle = <T,>(list: T[], item: T) => (list.includes(item) ? list.filter((x) => x !== item) : [...list, item]);
 
 /** Trilho com os passos da criação, o que falta em cada um e o progresso. */
 export function StepRail({ sheet, step, current, onStep }: {
@@ -165,11 +166,30 @@ export function StepPanel({ c, sheet, update, step, onStep }: Props & { step: nu
   );
 }
 
+/** Liga um espaço de escolha às escolhas salvas na ficha. */
+function useSlots(c: Character, sheet: Sheet, update: Props['update']) {
+  const r = sheet.choices;
+  return {
+    of: (area: SlotArea, filter: (s: ChoiceSlot) => boolean = () => true) => r.slots.filter((s) => s.area === area && s.count > 0 && filter(s)),
+    picker: (slot: ChoiceSlot, extra: Partial<SlotPickerProps> = {}) => (
+      <SlotPicker
+        key={slot.id} slot={slot} resolution={r} value={c.picks[slot.id] ?? []}
+        onChange={(v) => update({ picks: { ...c.picks, [slot.id]: v } })}
+        {...extra}
+      />
+    ),
+  };
+}
+
 function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: number) => void }) {
   const cls = sheet.cls;
   const bg = sheet.background;
   const species = byKey(SPECIES, c.speciesKey);
-  const bonus = Object.fromEntries(sheet.skills.map((s) => [s.key, s.bonus])) as Record<SkillKey, number>;
+  const slots = useSlots(c, sheet, update);
+  const skillBonus = (v: string) => {
+    const row = sheet.skills.find((s) => s.key === (v as SkillKey));
+    return row ? signed(row.bonus) : '';
+  };
 
   switch (id) {
     case 'basic':
@@ -189,7 +209,7 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
             <Field label="Classe" help={HELP.class} hint={`Atributo principal: ${cls.primaryAbility} · Dado de vida: d${cls.hitDie}`}>
               <select
                 value={c.classKey}
-                onChange={(e) => update({ classKey: e.target.value, subclassKey: null, classSkills: [], feats: {} })}
+                onChange={(e) => update({ classKey: e.target.value, subclassKey: null, feats: {}, armorKey: null, shield: false })}
               >
                 {CLASSES.map((x) => <option key={x.key} value={x.key}>{x.pt} ({x.name})</option>)}
               </select>
@@ -197,12 +217,12 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
             <Field label="Nível" help={HELP.level}>
               <input
                 type="number" min={1} max={20} value={c.level}
-                onChange={(e) => update({ level: Math.min(20, Math.max(1, Number(e.target.value) || 1)) })}
+                onChange={(e) => update({ level: Math.min(20, Math.max(1, Math.trunc(Number(e.target.value)) || 1)) })}
               />
             </Field>
             <Field label="Subclasse" help={HELP.subclass} hint={c.level < 3 ? 'Disponível a partir do nível 3.' : undefined}>
               <select
-                value={c.subclassKey ?? ''} disabled={c.level < 3}
+                value={c.level >= 3 ? c.subclassKey ?? '' : ''} disabled={c.level < 3}
                 onChange={(e) => update({ subclassKey: e.target.value || null })}
               >
                 <option value="">—</option>
@@ -268,132 +288,66 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
               </div>
             </>
           )}
+          <h3 className="subhead">Idiomas</h3>
+          <p className="hint">Você já sabe: {sheet.languages.filter((l) => !Object.values(c.picks).flat().includes(l)).join(', ')}.</p>
+          <div className="slot-group">{slots.of('basic').map((s) => slots.picker(s, { hint: s.id === 'origin:languages' ? HELP.languages : undefined }))}</div>
         </>
       );
 
     case 'abilities':
-      return (
-        <>
-          <Intro>
-            Os seis atributos dizem o quanto o personagem é forte, ágil, resistente, esperto, atento e carismático. Um jeito
-            simples é distribuir <strong>15, 14, 13, 12, 10 e 8</strong>, com os maiores em {cls.primaryAbility}, o atributo
-            principal do {cls.pt}. Depois some os pontos do antecedente{bg ? ` (${bg.abilities.map(abilityLabel).join(', ')})` : ''}:
-            +2 num e +1 noutro, ou +1 em três.
-          </Intro>
-          {bg && (
-            <div className="counters">
-              <Counter
-                label={`Pontos do antecedente (${bg.pt})`}
-                used={Object.values(c.backgroundBonus).reduce((s, n) => s + (n ?? 0), 0)}
-                total={3}
-                invalid={backgroundBonusProblem(c.backgroundBonus, bg.abilities) !== null}
-              />
-            </div>
-          )}
-          <table className="table ability-table">
-            <thead>
-              <tr><th>Atributo</th><th>Base</th><th>Antecedente</th><th>Feats</th><th>Total</th><th>Mod</th></tr>
-            </thead>
-            <tbody>
-              {ABILITIES.map((a) => {
-                const fromFeats = sheet.scores[a.key] - c.baseScores[a.key] - (sheet.backgroundBonus[a.key] ?? 0);
-                // Desativa o que quebraria a regra; se a ficha já estiver inválida, deixa tudo livre para corrigir.
-                const alreadyInvalid = !!bg && backgroundBonusProblem(c.backgroundBonus, bg.abilities) !== null;
-                const allowed = (n: number) =>
-                  !bg || alreadyInvalid || backgroundBonusProblem({ ...c.backgroundBonus, [a.key]: n }, bg.abilities) === null;
-                return (
-                  <tr key={a.key}>
-                    <td>{a.pt}</td>
-                    <td>
-                      <input
-                        type="number" min={1} max={30} value={c.baseScores[a.key]}
-                        onChange={(e) => update({ baseScores: { ...c.baseScores, [a.key]: Number(e.target.value) || 0 } })}
-                      />
-                    </td>
-                    <td>
-                      {bg?.abilities.includes(a.key) ? (
-                        <select
-                          value={c.backgroundBonus[a.key] ?? 0}
-                          onChange={(e) => update({ backgroundBonus: { ...c.backgroundBonus, [a.key]: Number(e.target.value) } })}
-                        >
-                          <option value={0}>—</option>
-                          <option value={1} disabled={!allowed(1)}>+1</option>
-                          <option value={2} disabled={!allowed(2)}>+2</option>
-                        </select>
-                      ) : <span className="muted">—</span>}
-                    </td>
-                    <td>{fromFeats ? signed(fromFeats) : <span className="muted">—</span>}</td>
-                    <td><strong>{sheet.scores[a.key]}</strong></td>
-                    <td>{signed(modifier(sheet.scores[a.key]))}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-          <p className="hint">
-            Antecedente: só um atributo pode receber +2, e o total é 3 pontos. Para mudar o +2 de lugar, tire-o primeiro do
-            atributo onde ele está.
-          </p>
-          <p className="hint">{HELP.modifier}</p>
-        </>
-      );
+      return <AbilitiesStep c={c} sheet={sheet} update={update} />;
 
-    case 'skills':
+    case 'skills': {
+      const skillSlots = slots.of('skills', (s) => s.group === 'skills' || s.id.endsWith(':skilled'));
+      const expertiseSlots = slots.of('skills', (s) => s.group === 'expertise');
+      const toolSlots = slots.of('skills', (s) => s.id === 'background:tool' || s.id === 'class:tools');
       return (
         <>
           <Intro>
             Perícias são as coisas em que o personagem é treinado, como Furtividade ou Persuasão. O antecedente já dá
-            {bg ? ` ${bg.skills.map(skillLabel).join(' e ')}` : ' duas'}. Agora escolha as da classe.
+            {bg ? ` ${bg.skills.map(skillLabel).join(' e ')}` : ' duas'}. Cada escolha abaixo vem de uma regra e só aceita as perícias
+            que essa regra permite. Uma perícia que você já tem aparece com cadeado.
           </Intro>
-          <SkillPicker
-            title="Perícias da classe"
-            help={HELP.skills}
-            options={cls.skillChoice.options}
-            selected={c.classSkills}
-            max={cls.skillChoice.count}
-            locked={bg?.skills ?? []}
-            lockedBy={bg?.pt}
-            bonus={bonus}
-            onChange={(classSkills) => update({ classSkills })}
-          />
-          <SkillPicker
-            title="Outras perícias"
-            help={HELP.extraSkills}
-            options={SKILLS.map((s) => s.key)}
-            selected={c.extraSkills}
-            budget={sheet.extraSkillBudget}
-            empty="Este personagem não ganha perícias extras pelas regras de criação. Elas vêm do Humano, do Elfo, do feat Talentoso, do Bárbaro no nível 3 e do Colégio do Conhecimento."
-            other={c.extraSkillBonus}
-            onOther={(extraSkillBonus) => update({ extraSkillBonus })}
-            locked={[...(bg?.skills ?? []), ...c.classSkills]}
-            bonus={bonus}
-            grid
-            onChange={(extraSkills) => update({ extraSkills })}
-          />
-          <SkillPicker
-            title="Especialização (Expertise)"
-            help={HELP.expertise}
-            options={sheet.skills.filter((s) => s.proficient).map((s) => s.key)}
-            selected={c.expertise}
-            budget={sheet.expertiseBudget}
-            empty="Só Ladino (nível 1), Bardo, Patrulheiro e Mago (nível 2) ganham Especialização."
-            other={c.expertiseBonus}
-            onOther={(expertiseBonus) => update({ expertiseBonus })}
-            bonus={bonus}
-            expertise
-            onChange={(expertise) => update({ expertise })}
-          />
+          <div className="slot-group">
+            {skillSlots.map((s) => slots.picker(s, { aside: skillBonus, hint: s.id === 'class-skills' ? HELP.skills : undefined }))}
+          </div>
+          <h3 className="subhead">Especialização (Expertise)</h3>
+          {expertiseSlots.length ? (
+            <div className="slot-group">{expertiseSlots.map((s) => slots.picker(s, { aside: skillBonus, hint: HELP.expertise }))}</div>
+          ) : (
+            <p className="hint">Só Ladino (nível 1), Bardo, Patrulheiro e Mago (nível 2) ganham Especialização.</p>
+          )}
+          <h3 className="subhead">Ferramentas</h3>
+          <p className="hint">Você já tem: {sheet.tools.filter((t) => !Object.values(c.picks).flat().includes(t)).join(', ') || 'nenhuma fixa'}.</p>
+          <div className="slot-group">{toolSlots.map((s) => slots.picker(s))}</div>
+          <h3 className="subhead">Fora das regras de criação</h3>
+          <p className="hint">Só use se o mestre der perícias ou Especializações a mais (um item mágico, uma recompensa).</p>
+          <div className="row">
+            <label className="other-sources">Perícias do mestre
+              <input type="number" min={0} max={18} value={c.extraSkillBonus} onChange={(e) => update({ extraSkillBonus: Math.min(18, Math.max(0, Math.trunc(Number(e.target.value)) || 0)) })} />
+            </label>
+            <label className="other-sources">Especializações do mestre
+              <input type="number" min={0} max={18} value={c.expertiseBonus} onChange={(e) => update({ expertiseBonus: Math.min(18, Math.max(0, Math.trunc(Number(e.target.value)) || 0)) })} />
+            </label>
+          </div>
         </>
       );
+    }
 
     case 'feats':
       return (
         <>
           <Intro>
-            Feats são talentos especiais. O antecedente já dá um; outros chegam com o nível ou com a classe. Escolha um em
-            cada espaço que aparecer abaixo.
+            Feats são talentos especiais. O antecedente já dá um; outros chegam com o nível ou com a classe. Cada espaço só
+            mostra os feats cujo pré-requisito você cumpre, e um feat só se repete se ele disser "Repeatable".
           </Intro>
-          <FeatSection c={c} update={update} />
+          <FeatSection c={c} sheet={sheet} update={update} />
+          {slots.of('feats', (s) => s.id.includes(':mi-')).map((s) => slots.picker(s, { variant: 'chips' }))}
+          {slots.of('feats', (s) => !s.id.includes(':mi-')).length > 0 && <h3 className="subhead">Opções da classe</h3>}
+          <div className="slot-group">
+            {slots.of('feats', (s) => s.id.startsWith('feature:') || s.id === 'class:metamagic').map((s) => slots.picker(s, { variant: 'cards' }))}
+            {slots.of('feats', (s) => s.id === 'class:invocations').map((s) => slots.picker(s, { variant: 'list' }))}
+          </div>
         </>
       );
 
@@ -403,7 +357,7 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
           <Intro>
             Pontos de vida (PV) mostram quanto dano o personagem aguenta antes de cair. Na <strong>média</strong> você ganha um
             valor fixo a cada nível, sem sorte nem azar. Em <strong>rolados</strong> você rola o dado de vida (d{cls.hitDie}) a cada
-            nível e digita o resultado. Se não sabe qual escolher, fique com a média.
+            nível e digita o resultado, de 1 a {cls.hitDie}. Se não sabe qual escolher, fique com a média.
           </Intro>
           <div className="row">
             <label><input type="radio" checked={c.hpMethod === 'average'} onChange={() => update({ hpMethod: 'average' })} /> Média ({Math.floor(cls.hitDie / 2) + 1} por nível)</label>
@@ -418,7 +372,7 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
                     value={c.hpRolls[i] ?? ''}
                     onChange={(e) => {
                       const hpRolls = [...c.hpRolls];
-                      hpRolls[i] = Math.min(cls.hitDie, Math.max(1, Number(e.target.value) || 1));
+                      hpRolls[i] = Math.min(cls.hitDie, Math.max(1, Math.trunc(Number(e.target.value)) || 1));
                       update({ hpRolls });
                     }}
                   />
@@ -431,60 +385,10 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
       );
 
     case 'equipment':
-      return (
-        <>
-          <Intro>
-            Escolha armadura e armas. As armas em cinza são as que a classe não sabe usar bem: dá para pegar, mas sem o bônus
-            de proficiência.
-          </Intro>
-          <div className="grid2">
-            <Field label="Armadura" help={HELP.armor} hint={`Treinamento: ${cls.armorText}`}>
-              <select value={c.armorKey ?? ''} onChange={(e) => update({ armorKey: e.target.value || null })}>
-                <option value="">Nenhuma</option>
-                {ARMOR.filter((a) => a.category !== 'shield').map((a) => (
-                  <option key={a.key} value={a.key}>{a.name} ({a.category}, CA {a.acBase}{a.addDex ? (a.dexCap ? ` + DES máx ${a.dexCap}` : ' + DES') : ''})</option>
-                ))}
-              </select>
-            </Field>
-            <Field label="Escudo" help={HELP.shield}>
-              <label className="row"><input type="checkbox" checked={c.shield} onChange={(e) => update({ shield: e.target.checked })} /> Usa escudo (+2 CA)</label>
-            </Field>
-          </div>
-          <FieldHead label="Armas" help={HELP.weapons} />
-          <p className="hint">Proficiência da classe: {cls.weaponText}</p>
-          <div className="check-grid">
-            {WEAPONS.map((w) => (
-              <label key={w.key} className={isWeaponProficient(cls, w) ? '' : 'muted'}>
-                <input type="checkbox" checked={c.weaponKeys.includes(w.key)} onChange={() => update({ weaponKeys: toggle(c.weaponKeys, w.key) })} />
-                {w.name}
-              </label>
-            ))}
-          </div>
-          <Field label="Equipamento e dinheiro" help={HELP.equipment} hint={<>Classe: {cls.equipmentText}<br />Antecedente: {bg?.equipmentText}</>}>
-            <textarea rows={4} value={c.equipment} onChange={(e) => update({ equipment: e.target.value })} />
-          </Field>
-          <div className="grid2">
-            <Field label="Ferramentas" help={HELP.tools} hint={[cls.toolText, bg?.toolText].filter(Boolean).join(' · ')}>
-              <input value={c.tools} onChange={(e) => update({ tools: e.target.value })} />
-            </Field>
-            <Field label="Idiomas" help={HELP.languages}>
-              <input value={c.languages} onChange={(e) => update({ languages: e.target.value })} />
-            </Field>
-          </div>
-        </>
-      );
+      return <EquipmentStep c={c} sheet={sheet} update={update} />;
 
     case 'spells':
-      return (
-        <>
-          <Intro>
-            {cls.casterType === 'NONE'
-              ? <>O {cls.pt} não conjura magias, então pode pular este passo. Ele só serve para magias de feats, como Magic Initiate.</>
-              : <><strong>Truques</strong> podem ser usados à vontade. As outras magias gastam <strong>espaços de magia</strong>, que voltam depois de um descanso longo.</>}
-          </Intro>
-          <SpellSection c={c} sheet={sheet} update={update} />
-        </>
-      );
+      return <SpellsStep c={c} sheet={sheet} update={update} />;
 
     case 'story':
       return (
@@ -527,95 +431,143 @@ function StepBody({ id, c, sheet, update, go }: Props & { id: StepId; go: (i: nu
   }
 }
 
-/** Perícias como fichas clicáveis, com o bônus atual de cada uma. */
-function SkillPicker({
-  title, help, options, selected, onChange, bonus, max: fixedMax, budget, empty, other, onOther, locked = [], lockedBy, grid, expertise,
-}: {
-  title: string;
-  /** Limite calculado pelas regras e de onde vem cada escolha; substitui `max`. */
-  budget?: PickBudget;
-  /** Texto quando o personagem não tem nenhuma escolha deste tipo pelas regras. */
-  empty?: string;
-  /** Escolhas a mais dadas pelo mestre ou por item mágico. */
-  other?: number;
-  onOther?: (n: number) => void;
-  help?: ReactNode;
-  options: SkillKey[];
-  selected: SkillKey[];
-  onChange: (v: SkillKey[]) => void;
-  bonus: Record<SkillKey, number>;
-  max?: number;
-  locked?: SkillKey[];
-  /** De onde vêm as perícias travadas, ex.: o antecedente. */
-  lockedBy?: string;
-  grid?: boolean;
-  expertise?: boolean;
-}) {
-  const max = budget ? budget.total : fixedMax;
-  const otherId = useId();
-  const ruleSources = budget?.sources.filter((s) => s.label !== 'Outras fontes') ?? [];
+/* ---------- Atributos ---------- */
+
+const METHODS: { id: AbilityMethod; label: string; desc: string }[] = [
+  { id: 'standard', label: 'Conjunto padrão', desc: '15, 14, 13, 12, 10 e 8, um em cada atributo.' },
+  { id: 'pointbuy', label: 'Compra de pontos', desc: `${POINT_BUDGET} pontos, valores de 8 a 15.` },
+  { id: 'random', label: 'Rolagem', desc: '4d6 seis vezes, descartando o menor dado. Valores de 3 a 18.' },
+];
+
+function AbilitiesStep({ c, sheet, update }: Props) {
+  const cls = sheet.cls;
+  const bg = sheet.background;
+  const cost = pointBuyCost(c.baseScores);
+  const setBase = (a: AbilityKey, v: number) => update({ baseScores: { ...c.baseScores, [a]: v } });
+
+  const changeMethod = (m: AbilityMethod) => {
+    if (m === c.abilityMethod) return;
+    // Trocar de método recomeça de valores que já valem nele.
+    const baseScores = m === 'standard' ? { str: 15, dex: 14, con: 13, int: 12, wis: 10, cha: 8 }
+      : m === 'pointbuy' ? { str: 8, dex: 8, con: 8, int: 8, wis: 8, cha: 8 }
+      : c.baseScores;
+    update({ abilityMethod: m, baseScores });
+  };
+
   return (
-    <div className="picker">
-      <div className="picker-head">
-        <FieldHead label={title} help={help} />
-        {max !== undefined && (max > 0 || selected.length > 0) && <Counter used={selected.length} total={max} compact />}
+    <>
+      <Intro>
+        Os seis atributos dizem o quanto o personagem é forte, ágil, resistente, esperto, atento e carismático. Escolha como
+        gerar os valores; os maiores costumam ir em {cls.primaryAbility}, o atributo principal do {cls.pt}. Depois some os
+        pontos do antecedente{bg ? ` (${bg.abilities.map(abilityLabel).join(', ')})` : ''}: +2 num e +1 noutro, ou +1 em três.
+      </Intro>
+      <div className="option-cards" role="radiogroup" aria-label="Método de atributos">
+        {METHODS.map((m) => (
+          <button
+            key={m.id} type="button" role="radio" aria-checked={c.abilityMethod === m.id}
+            className={`option-card${c.abilityMethod === m.id ? ' selected' : ''}`} onClick={() => changeMethod(m.id)}
+          >
+            <span className="option-title">{c.abilityMethod === m.id && <CheckIcon />}{m.label}</span>
+            <span className="option-desc">{m.desc}</span>
+          </button>
+        ))}
       </div>
-      {budget && (
-        <div className="picker-sources">
-          <p className="hint">
-            {ruleSources.length > 0
-              ? <>Vem de: {ruleSources.map((s) => `${s.label}: ${s.count}`).join(' · ')}</>
-              : empty}
-          </p>
-          {onOther && (
-            <label className="other-sources" htmlFor={otherId}>
-              Outras fontes (mestre, item mágico)
-              <input
-                id={otherId} type="number" min={0} max={18} value={other ?? 0}
-                onChange={(e) => onOther(Math.min(18, Math.max(0, Number(e.target.value) || 0)))}
-              />
-            </label>
-          )}
-        </div>
-      )}
-      <div className={`chips${grid ? ' grid' : ''}`}>
-        {options.map((k) => {
-          const isSelected = selected.includes(k);
-          const isLocked = locked.includes(k) && !isSelected;
-          const full = !isLocked && max !== undefined && selected.length >= max && !isSelected;
-          const state = isSelected ? 'selected' : isLocked ? 'locked' : full ? 'full' : '';
-          return (
-            <button
-              key={k} type="button" className={`chip ${state}`} aria-pressed={isSelected} disabled={isLocked || full}
-              title={isLocked ? `Já vem ${lockedBy ? `de ${lockedBy}` : 'de outra escolha'}` : undefined}
-              onClick={() => onChange(toggle(selected, k))}
-            >
-              {isSelected ? (expertise ? <StarFourIcon className="lead" /> : <CheckIcon className="lead" />)
-                : isLocked ? <LockSimpleIcon className="lead" />
-                : full ? null
-                : grid || expertise ? <span className="lead" /> : <PlusIcon className="lead" />}
-              {skillLabel(k)}
-              <span className="bonus">{isLocked && lockedBy && !grid ? lockedBy : signed(bonus[k])}</span>
-            </button>
-          );
-        })}
-        {options.length === 0 && <span className="hint">Nenhuma perícia proficiente ainda.</span>}
+      <div className="counters">
+        {c.abilityMethod === 'pointbuy' && (
+          <Counter label="Pontos da compra" used={cost ?? POINT_BUDGET + 1} total={POINT_BUDGET} invalid={cost === null} />
+        )}
+        {bg && (
+          <Counter
+            label={`Pontos do antecedente (${bg.pt})`}
+            used={Object.values(c.backgroundBonus).reduce((s, n) => s + (n ?? 0), 0)}
+            total={3}
+            invalid={backgroundBonusProblem(c.backgroundBonus, bg.abilities) !== null}
+          />
+        )}
       </div>
-    </div>
+      <table className="table ability-table">
+        <thead>
+          <tr><th>Atributo</th><th>Base</th><th>Antecedente</th><th>Feats</th><th>Total</th><th>Mod</th></tr>
+        </thead>
+        <tbody>
+          {ABILITIES.map((a) => {
+            const fromFeats = sheet.scores[a.key] - sheet.choices.scoresBeforeFeats[a.key];
+            const alreadyInvalid = !!bg && backgroundBonusProblem(c.backgroundBonus, bg.abilities) !== null;
+            const allowed = (n: number) =>
+              !bg || alreadyInvalid || backgroundBonusProblem({ ...c.backgroundBonus, [a.key]: n }, bg.abilities) === null;
+            const value = c.baseScores[a.key];
+            // Conjunto padrão: cada valor do conjunto só pode estar num atributo.
+            const usedElsewhere = (v: number) =>
+              ABILITIES.filter((b) => b.key !== a.key && c.baseScores[b.key] === v).length >= STANDARD_ARRAY.filter((x) => x === v).length;
+            return (
+              <tr key={a.key}>
+                <td>{a.pt}</td>
+                <td>
+                  {c.abilityMethod === 'standard' ? (
+                    <select
+                      value={value} aria-label={`${a.pt}: valor base`}
+                      onChange={(e) => {
+                        // Troca com o atributo que tinha esse valor, para o conjunto continuar completo.
+                        const v = Number(e.target.value);
+                        const other = ABILITIES.find((b) => b.key !== a.key && c.baseScores[b.key] === v);
+                        update({ baseScores: { ...c.baseScores, [a.key]: v, ...(other && { [other.key]: value }) } });
+                      }}
+                    >
+                      {STANDARD_ARRAY.map((v) => <option key={v} value={v}>{v}{usedElsewhere(v) ? ' (troca)' : ''}</option>)}
+                    </select>
+                  ) : c.abilityMethod === 'pointbuy' ? (
+                    <select value={value} aria-label={`${a.pt}: valor base`} onChange={(e) => setBase(a.key, Number(e.target.value))}>
+                      {Object.keys(POINT_COST).map(Number).map((v) => {
+                        const next = (cost ?? 0) - (POINT_COST[value] ?? 0) + POINT_COST[v];
+                        return <option key={v} value={v} disabled={cost !== null && next > POINT_BUDGET}>{v} ({POINT_COST[v]} pts)</option>;
+                      })}
+                    </select>
+                  ) : (
+                    <input
+                      type="number" min={3} max={18} value={value} aria-label={`${a.pt}: valor base`}
+                      onChange={(e) => setBase(a.key, Math.min(18, Math.max(3, Math.trunc(Number(e.target.value)) || 3)))}
+                    />
+                  )}
+                </td>
+                <td>
+                  {bg?.abilities.includes(a.key) ? (
+                    <select
+                      value={c.backgroundBonus[a.key] ?? 0}
+                      onChange={(e) => update({ backgroundBonus: { ...c.backgroundBonus, [a.key]: Number(e.target.value) } })}
+                    >
+                      <option value={0}>—</option>
+                      <option value={1} disabled={!allowed(1)}>+1</option>
+                      <option value={2} disabled={!allowed(2)}>+2</option>
+                    </select>
+                  ) : <span className="muted">—</span>}
+                </td>
+                <td>{fromFeats ? signed(fromFeats) : <span className="muted">—</span>}</td>
+                <td><strong>{sheet.scores[a.key]}</strong></td>
+                <td>{signed(modifier(sheet.scores[a.key]))}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <p className="hint">
+        Antecedente: só um atributo pode receber +2, e o total é 3 pontos. Nenhum bônus leva um atributo acima de 20. Para mudar
+        o +2 de lugar, tire-o primeiro do atributo onde ele está.
+      </p>
+      <p className="hint">{HELP.modifier}</p>
+    </>
   );
 }
 
-function FeatSection({ c, update }: { c: Character; update: (p: Partial<Character>) => void }) {
-  const cls = byKey(CLASSES, c.classKey)!;
-  const slots = featSlots(c, cls, byKey(BACKGROUNDS, c.backgroundKey), byKey(SPECIES, c.speciesKey));
+/* ---------- Feats ---------- */
+
+function FeatSection({ c, sheet, update }: Props) {
+  const cls = sheet.cls;
   return (
     <div className="feats">
-      {slots.map((slot) => {
+      {sheet.choices.feats.map(({ slot, feat, abilities, options, warrior }) => {
         const choice = c.feats[slot.id] ?? { featKey: null, abilities: [] };
-        const featKey = slot.fixedKey !== undefined ? slot.fixedKey : choice.featKey;
-        const feat = byKey(FEATS, featKey);
-        const setChoice = (patch: Partial<typeof choice>) =>
-          update({ feats: { ...c.feats, [slot.id]: { ...choice, ...patch } } });
+        const setChoice = (patch: Partial<typeof choice>) => update({ feats: { ...c.feats, [slot.id]: { ...choice, ...patch } } });
+        const allowedAbilities = feat?.name === 'Grappler' ? (['str', 'dex'] as AbilityKey[]) : ABILITIES.map((a) => a.key);
         return (
           <div key={slot.id} className="feat-slot">
             <Field label={slot.label} help={FEAT_HELP[slot.allowed[0]]}>
@@ -624,8 +576,10 @@ function FeatSection({ c, update }: { c: Character; update: (p: Partial<Characte
               ) : (
                 <select value={choice.featKey ?? ''} onChange={(e) => setChoice({ featKey: e.target.value || null, abilities: [] })}>
                   <option value="">—</option>
-                  {FEATS.filter((f) => slot.allowed.includes(f.type)).map((f) => (
-                    <option key={f.key} value={f.key}>{labelPt(f.key, f.name)} · {f.type}</option>
+                  {options.map((o) => (
+                    <option key={o.value} value={o.value} disabled={!!o.disabled}>
+                      {labelPt(o.value, o.label)} · {o.desc}{o.disabled ? ` (${o.disabled})` : ''}
+                    </option>
                   ))}
                 </select>
               )}
@@ -636,18 +590,26 @@ function FeatSection({ c, update }: { c: Character; update: (p: Partial<Characte
                   <select
                     key={i}
                     value={choice.abilities[i] ?? ''}
+                    aria-label={`Ponto de atributo ${i + 1}`}
                     onChange={(e) => {
-                      const abilities = [...choice.abilities];
-                      abilities[i] = e.target.value as AbilityKey;
-                      setChoice({ abilities: abilities.filter(Boolean) });
+                      const next = [...choice.abilities];
+                      next[i] = e.target.value as AbilityKey;
+                      setChoice({ abilities: next.filter(Boolean) });
                     }}
                   >
                     <option value="">+1 em…</option>
-                    {ABILITIES.map((a) => <option key={a.key} value={a.key}>+1 {a.pt}</option>)}
+                    {allowedAbilities.map((a) => {
+                      const atMax = sheet.choices.scoresBeforeFeats[a] >= feat.maxScore && !abilities.includes(a);
+                      return <option key={a} value={a} disabled={atMax}>+1 {abilityLabel(a)}{atMax ? ' (no máximo)' : ''}</option>;
+                    })}
                   </select>
                 ))}
-                <Counter label="Pontos de atributo" used={choice.abilities.length} total={feat.abilityPicks} compact />
-                <span className="hint">Máx. {feat.maxScore}{feat.name === 'Ability Score Improvement' ? '. Repita o atributo para +2.' : ''}</span>
+                <Counter label="Pontos de atributo" used={abilities.length} total={feat.abilityPicks} compact />
+                <span className="hint">
+                  Máx. {feat.maxScore}
+                  {feat.name === 'Ability Score Improvement' ? '. Repita o atributo para +2.' : ''}
+                  {feat.name === 'Grappler' ? '. Só Força ou Destreza.' : ''}
+                </span>
               </div>
             )}
             {feat && (
@@ -655,6 +617,7 @@ function FeatSection({ c, update }: { c: Character; update: (p: Partial<Characte
                 <Markdown text={translation(feat.key)?.desc ?? (feat.benefits.join('\n\n') || feat.desc)} />
               </div>
             )}
+            {warrior && <p className="hint">{WARRIOR_OPTIONS[cls.name].name}. Escolha os truques no passo Magias.</p>}
           </div>
         );
       })}
@@ -662,63 +625,147 @@ function FeatSection({ c, update }: { c: Character; update: (p: Partial<Characte
   );
 }
 
-function SpellSection({ c, sheet, update }: Props) {
+/* ---------- Equipamento ---------- */
+
+const SHOP_LABEL: Record<string, string> = {
+  weapon: 'Armas', armor: 'Armaduras', shield: 'Escudo', 'adventuring-gear': 'Equipamento de aventura',
+  tools: 'Ferramentas', ammunition: 'Munição', 'equipment-pack': 'Pacotes', 'spellcasting-focus': 'Foco de conjuração',
+};
+
+function EquipmentStep({ c, sheet, update }: Props) {
   const cls = sheet.cls;
-  const [onlyClass, setOnlyClass] = useState(true);
+  const slots = useSlots(c, sheet, update);
   const [query, setQuery] = useState('');
-  const [levelFilter, setLevelFilter] = useState<number | 'all'>('all');
-  const max = cls.casterType === 'NONE' ? 1 : maxSpellLevel(cls, c.level);
-
-  const list = useMemo(
-    () =>
-      SPELLS.filter(
-        (s) =>
-          (!onlyClass || s.classes.includes(cls.key)) &&
-          s.level <= Math.max(max, onlyClass ? max : 9) &&
-          (levelFilter === 'all' || s.level === levelFilter) &&
-          s.name.toLowerCase().includes(query.toLowerCase()),
-      ),
-    [onlyClass, cls.key, max, levelFilter, query],
+  const [category, setCategory] = useState('weapon');
+  const shop = useMemo(
+    () => ITEMS.filter((i) => (i.category === category || (category === 'armor' && i.category === 'shield'))
+      && `${itemName(i)} ${i.name}`.toLowerCase().includes(query.toLowerCase()))
+      .sort((a, b) => itemName(a).localeCompare(itemName(b))),
+    [category, query],
   );
+  const buy = (itemKey: string) => {
+    const existing = c.purchases.find((p) => p.itemKey === itemKey);
+    update({
+      purchases: existing
+        ? c.purchases.map((p) => (p.itemKey === itemKey ? { ...p, qty: p.qty + 1 } : p))
+        : [...c.purchases, { itemKey, qty: 1 }],
+    });
+  };
+  const unbuy = (itemKey: string) => update({
+    purchases: c.purchases.map((p) => (p.itemKey === itemKey ? { ...p, qty: p.qty - 1 } : p)).filter((p) => p.qty > 0),
+  });
+  const packages = slots.of('equipment', (s) => s.id === 'equipment:class' || s.id === 'equipment:background');
+  const others = slots.of('equipment', (s) => s.id === 'equipment:instrument');
+  const mastery = slots.of('equipment', (s) => s.id === 'class:weapon-mastery');
 
-  const sc = sheet.spellcasting;
   return (
-    <div className="step-body">
-      {cls.casterType !== 'NONE' && sc && (
+    <>
+      <Intro>
+        A classe e o antecedente dão, cada um, <strong>uma</strong> opção de equipamento inicial: um pacote pronto ou moedas
+        de ouro (PO). O ouro que sobrar pode ser gasto na loja abaixo, até acabar. Depois escolha o que o personagem veste.
+      </Intro>
+      <div className="slot-group">{packages.map((s) => slots.picker(s, { variant: 'cards' }))}</div>
+      {others.map((s) => slots.picker(s))}
+
+      <h3 className="subhead">Ouro</h3>
+      <p className={sheet.gold.left < 0 ? 'warnings' : 'hint'}>
+        Total: <strong>{sheet.gold.total} PO</strong> · Gasto: <strong>{sheet.gold.spent} PO</strong> · Sobra: <strong>{sheet.gold.left} PO</strong>.
+        Começando acima do nível 1, o mestre decide se o personagem ganha mais.
+      </p>
+      <label className="other-sources">Ouro extra dado pelo mestre
+        <input type="number" min={0} value={c.extraGold} onChange={(e) => update({ extraGold: Math.max(0, Math.trunc(Number(e.target.value)) || 0) })} />
+      </label>
+
+      <h3 className="subhead">Loja</h3>
+      <div className="shop">
+        <div className="row">
+          <select value={category} onChange={(e) => setCategory(e.target.value)} aria-label="Categoria">
+            {Object.entries(SHOP_LABEL).filter(([k]) => k !== 'shield').map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+          </select>
+          <input placeholder="Buscar item…" value={query} onChange={(e) => setQuery(e.target.value)} />
+        </div>
+        <div className="spell-list">
+          {shop.map((i) => (
+            <div key={i.key} className="shop-row">
+              <span>{itemName(i)}{itemName(i) !== i.name && <span className="muted"> ({i.name})</span>}</span>
+              <span className="price">{i.cost} PO</span>
+              <button type="button" disabled={i.cost > sheet.gold.left} title={i.cost > sheet.gold.left ? 'Ouro insuficiente' : undefined} onClick={() => buy(i.key)}>Comprar</button>
+            </div>
+          ))}
+          {shop.length === 0 && <p className="hint">Nada encontrado.</p>}
+        </div>
+      </div>
+
+      <h3 className="subhead">Seu equipamento</h3>
+      {sheet.inventory.length ? (
+        <ul className="inventory">
+          {sheet.inventory.map((l, i) => (
+            <li key={`${l.from}-${l.text}-${i}`}>
+              <span>{l.qty > 1 ? `${l.qty}× ` : ''}{l.text}</span>
+              <span className="from">{l.from}</span>
+              {l.from === 'compra' && l.item && <button type="button" onClick={() => unbuy(l.item!.key)}>Devolver</button>}
+            </li>
+          ))}
+        </ul>
+      ) : <p className="hint">Escolha os pacotes acima para ver o equipamento.</p>}
+
+      <h3 className="subhead">O que você veste</h3>
+      <div className="grid2">
+        <Field label="Armadura" help={HELP.armor} hint={`Treinamento: ${sheet.armorText.replace(/^Armadura: /, '')}`}>
+          <select value={sheet.armor?.key ?? ''} onChange={(e) => update({ armorKey: e.target.value || null })}>
+            <option value="">Nenhuma</option>
+            {sheet.ownedArmor.map((a) => (
+              <option key={a.key} value={a.key}>{gearLabel(a.key, a.name)} ({ARMOR_CATEGORY_PT[a.category]}, CA {a.acBase}{a.addDex ? (a.dexCap ? ` + DES máx ${a.dexCap}` : ' + DES') : ''})</option>
+            ))}
+          </select>
+        </Field>
+        <Field label="Escudo" help={HELP.shield} hint={!sheet.hasShield ? 'Você não tem escudo no equipamento.' : !sheet.choices.armorTraining.shield ? 'Sem treinamento: o escudo não dá CA.' : undefined}>
+          <label className="row"><input type="checkbox" checked={c.shield && sheet.hasShield} disabled={!sheet.hasShield} onChange={(e) => update({ shield: e.target.checked })} /> Usa escudo (+2 CA)</label>
+        </Field>
+      </div>
+
+      {mastery.map((s) => (
+        <div key={s.id}>
+          <h3 className="subhead">Maestria com armas</h3>
+          {slots.picker(s, { hint: `Escolha os tipos de arma cujas propriedades de maestria você usa. Proficiência da classe: ${sheet.weaponText}.` })}
+        </div>
+      ))}
+
+      <Field label="Outros itens e anotações" help={HELP.equipment} hint={<>Classe: {cls.equipmentText}<br />Antecedente: {sheet.background?.equipmentText}</>}>
+        <textarea rows={3} value={c.equipment} onChange={(e) => update({ equipment: e.target.value })} />
+      </Field>
+    </>
+  );
+}
+
+/* ---------- Magias ---------- */
+
+function SpellsStep({ c, sheet, update }: Props) {
+  const cls = sheet.cls;
+  const slots = useSlots(c, sheet, update);
+  const spellSlots = slots.of('spells');
+  const granted = sheet.choices.granted;
+  return (
+    <>
+      <Intro>
+        {cls.casterType === 'NONE'
+          ? <>O {cls.pt} não conjura magias. Este passo só mostra magias de feats (Magic Initiate), do Fighting Style ou da espécie.</>
+          : <><strong>Truques</strong> podem ser usados à vontade. As outras magias gastam <strong>espaços de magia</strong>, que voltam depois de um descanso longo. Cada lista abaixo só mostra o que a regra daquela escolha permite.</>}
+      </Intro>
+      {!sheet.canCast && <p className="warnings">Com a armadura atual (sem treinamento), você não pode conjurar.</p>}
+      {granted.length > 0 && (
         <>
-          <div className="counters">
-            {sc.cantrips > 0 && <Counter label="Truques" used={sc.chosenCantrips} total={sc.cantrips} />}
-            <Counter label="Magias preparadas" used={sc.chosenPrepared} total={sc.prepared} />
-          </div>
-          <p className="hint">
-            Contam só as magias da lista do {cls.pt}. Nível máximo de magia: {max}.
-          </p>
+          <h3 className="subhead">Sempre preparadas</h3>
+          <p className="hint">Vêm da classe, da subclasse ou da espécie e não contam no limite de preparadas.</p>
+          <ul className="granted">
+            {granted.map((g) => <li key={g.spell.key} className="tag tag-neutral" title={g.source}>{g.spell.level === 0 ? 'T' : g.spell.level} · {spellLabel(g.spell)}</li>)}
+          </ul>
         </>
       )}
-      <div className="row">
-        <label><input type="checkbox" checked={onlyClass} onChange={(e) => setOnlyClass(e.target.checked)} /> Só a lista do {cls.pt}</label>
-        <select value={levelFilter} onChange={(e) => setLevelFilter(e.target.value === 'all' ? 'all' : Number(e.target.value))}>
-          <option value="all">Todos os círculos</option>
-          {Array.from({ length: 10 }, (_, i) => <option key={i} value={i}>{i === 0 ? 'Truques' : `${i}º círculo`}</option>)}
-        </select>
-        <input placeholder="Buscar magia…" value={query} onChange={(e) => setQuery(e.target.value)} />
+      <div className="slot-group">
+        {spellSlots.map((s) => slots.picker(s, { variant: 'list' }))}
       </div>
-      <p className="hint">Selecionadas: {c.spellKeys.length}. Desmarque "só a lista" para adicionar magias de Magic Initiate, domínio ou patrono.</p>
-      <div className="spell-list">
-        {list.map((s) => (
-          <label key={s.key} className="spell-row" title={s.desc}>
-            <input type="checkbox" checked={c.spellKeys.includes(s.key)} onChange={() => update({ spellKeys: toggle(c.spellKeys, s.key) })} />
-            <span className="spell-level">{s.level === 0 ? 'T' : s.level}</span>
-            {s.name}
-            <span className="school">{s.school}</span>
-            <span className="flags">
-              {s.concentration && <span className="tag tag-neutral" title="Concentração">C</span>}
-              {s.ritual && <span className="tag tag-neutral" title="Ritual">R</span>}
-            </span>
-          </label>
-        ))}
-        {list.length === 0 && <p className="hint">Nenhuma magia encontrada.</p>}
-      </div>
-    </div>
+      {spellSlots.length === 0 && granted.length === 0 && <p className="hint">Nenhuma magia para escolher com essa combinação.</p>}
+    </>
   );
 }
