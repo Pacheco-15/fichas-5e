@@ -2,7 +2,13 @@
 
 Criador de fichas de personagem, grátis e de código aberto, compatível com as regras de 2024 (5.5e) do SRD 5.2. Monta personagens do nível 1 ao 20 e gera a ficha pronta para imprimir ou salvar em PDF. Tudo roda no navegador e as fichas ficam salvas só no seu computador.
 
-## Rodar
+## Usar online
+
+O app fica publicado em **https://pacheco-15.github.io/fichas-5e/**. Não precisa instalar nada, e as fichas ficam salvas
+no seu navegador. Cada push na `main` publica a versão nova, depois de passar no lint e nos testes
+(`.github/workflows/pages.yml`).
+
+## Rodar no seu computador
 
 ```bash
 npm install
