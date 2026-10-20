@@ -53,19 +53,19 @@
   },
   "srd-2024_elf/Elven Lineage": {
     "name": "Linhagem Élfica",
-    "desc": "Você faz parte de uma linhagem que concede habilidades sobrenaturais. Escolha uma linhagem na tabela abaixo. Você ganha o benefício de nível 1 dela.\n\nNos níveis de personagem 3 e 5, você aprende uma magia de nível mais alto, como mostra a tabela. Você sempre tem essa magia preparada. Pode conjurá-la uma vez sem espaço de magia e recupera essa capacidade ao terminar um Descanso Longo. Também pode conjurá-la usando qualquer espaço de magia do nível adequado que tiver.\n\n|Linhagem|Nível 1|Nível 3|Nível 5|\n|---|---|---|---|\n|Drow|O alcance da sua Visão no Escuro aumenta para 120 pés. Você também conhece o truque Dancing Lights.|Faerie Fire|Darkness|\n|Alto Elfo (High Elf)|Você conhece o truque Prestidigitation. Sempre que terminar um Descanso Longo, pode trocá-lo por outro truque da lista de magias de Mago.|Detect Magic|Misty Step|\n|Elfo da Floresta (Wood Elf)|Seu Deslocamento aumenta para 35 pés. Você também conhece o truque Druidcraft.|Longstrider|Pass without Trace|\n\nInteligência, Sabedoria ou Carisma é o seu atributo de conjuração para as magias deste traço (escolha ao definir a linhagem)."
+    "desc": "Você faz parte de uma linhagem que concede habilidades sobrenaturais. Escolha uma linhagem na tabela abaixo. Você ganha o benefício de nível 1 dela.\n\nNos níveis de personagem 3 e 5, você aprende uma magia de nível mais alto, como mostra a tabela. Você sempre tem essa magia preparada. Pode conjurá-la uma vez sem espaço de magia e recupera essa capacidade ao terminar um Descanso Longo. Também pode conjurá-la usando qualquer espaço de magia do nível adequado que tiver.\n\n|Linhagem|Nível 1|Nível 3|Nível 5|\n|---|---|---|---|\n|Drow|O alcance da sua Visão no Escuro aumenta para 120 pés. Você também conhece o truque Luzes Dançantes.|Fogo das Fadas|Escuridão|\n|Alto Elfo (High Elf)|Você conhece o truque Prestidigitação. Sempre que terminar um Descanso Longo, pode trocá-lo por outro truque da lista de magias de Mago.|Detectar Magia|Passo Nebuloso|\n|Elfo da Floresta (Wood Elf)|Seu Deslocamento aumenta para 35 pés. Você também conhece o truque Arte Druídica.|Passos Largos|Passos sem Pegadas|\n\nInteligência, Sabedoria ou Carisma é o seu atributo de conjuração para as magias deste traço (escolha ao definir a linhagem)."
   },
   "srd-2024_elf/Elven Lineage/Drow": {
     "name": "Drow",
-    "desc": "Nível 1: O alcance da sua Visão no Escuro aumenta para 120 pés. Você também conhece o truque Dancing Lights.\nNível 3: Faerie Fire\nNível 5: Darkness"
+    "desc": "Nível 1: O alcance da sua Visão no Escuro aumenta para 120 pés. Você também conhece o truque Luzes Dançantes.\nNível 3: Fogo das Fadas\nNível 5: Escuridão"
   },
   "srd-2024_elf/Elven Lineage/High Elf": {
     "name": "Alto Elfo",
-    "desc": "Nível 1: Você conhece o truque Prestidigitation. Sempre que terminar um Descanso Longo, pode trocá-lo por outro truque da lista de magias de Mago.\nNível 3: Detect Magic\nNível 5: Misty Step"
+    "desc": "Nível 1: Você conhece o truque Prestidigitação. Sempre que terminar um Descanso Longo, pode trocá-lo por outro truque da lista de magias de Mago.\nNível 3: Detectar Magia\nNível 5: Passo Nebuloso"
   },
   "srd-2024_elf/Elven Lineage/Wood Elf": {
     "name": "Elfo da Floresta",
-    "desc": "Nível 1: Seu Deslocamento aumenta para 35 pés. Você também conhece o truque Druidcraft.\nNível 3: Longstrider\nNível 5: Pass without Trace"
+    "desc": "Nível 1: Seu Deslocamento aumenta para 35 pés. Você também conhece o truque Arte Druídica.\nNível 3: Passos Largos\nNível 5: Passos sem Pegadas"
   },
   "srd-2024_elf/Fey Ancestry": {
     "name": "Ancestralidade Feérica",
@@ -90,15 +90,15 @@
   },
   "srd-2024_gnome/Gnomish Lineage": {
     "name": "Linhagem Gnômica",
-    "desc": "Você faz parte de uma linhagem que concede habilidades sobrenaturais. Escolha uma das opções abaixo; em qualquer uma delas, Inteligência, Sabedoria ou Carisma é o seu atributo de conjuração para as magias deste traço (escolha ao definir a linhagem).\n\n**Gnomo da Floresta (Forest Gnome).** Você conhece o truque Minor Illusion. Também sempre tem a magia Speak with Animals preparada. Pode conjurá-la sem espaço de magia um número de vezes igual ao seu Bônus de Proficiência e recupera todos os usos gastos ao terminar um Descanso Longo. Também pode usar qualquer espaço de magia que tiver para conjurá-la.\n\n**Gnomo das Rochas (Rock Gnome).** Você conhece os truques Mending e Prestidigitation. Além disso, pode passar 10 minutos conjurando Prestidigitation para criar um mecanismo de relojoaria Minúsculo (CA 5, 1 PV), como um brinquedo, um acendedor ou uma caixinha de música. Ao criá-lo, você define a função escolhendo um efeito de Prestidigitation; o mecanismo produz esse efeito sempre que você ou outra criatura usar uma Ação Bônus para ativá-lo com um toque. Se o efeito escolhido tiver opções, você escolhe uma delas ao criar o mecanismo. Por exemplo, se escolher o efeito de acender e apagar, você define se o mecanismo acende ou apaga fogo; ele não faz as duas coisas. Você pode ter três desses mecanismos ao mesmo tempo, e cada um se desfaz 8 horas depois de criado ou quando você o desmonta com um toque, usando a ação Usar."
+    "desc": "Você faz parte de uma linhagem que concede habilidades sobrenaturais. Escolha uma das opções abaixo; em qualquer uma delas, Inteligência, Sabedoria ou Carisma é o seu atributo de conjuração para as magias deste traço (escolha ao definir a linhagem).\n\n**Gnomo da Floresta (Forest Gnome).** Você conhece o truque Ilusão Menor. Também sempre tem a magia Falar com Animais preparada. Pode conjurá-la sem espaço de magia um número de vezes igual ao seu Bônus de Proficiência e recupera todos os usos gastos ao terminar um Descanso Longo. Também pode usar qualquer espaço de magia que tiver para conjurá-la.\n\n**Gnomo das Rochas (Rock Gnome).** Você conhece os truques Consertar e Prestidigitação. Além disso, pode passar 10 minutos conjurando Prestidigitação para criar um mecanismo de relojoaria Minúsculo (CA 5, 1 PV), como um brinquedo, um acendedor ou uma caixinha de música. Ao criá-lo, você define a função escolhendo um efeito de Prestidigitação; o mecanismo produz esse efeito sempre que você ou outra criatura usar uma Ação Bônus para ativá-lo com um toque. Se o efeito escolhido tiver opções, você escolhe uma delas ao criar o mecanismo. Por exemplo, se escolher o efeito de acender e apagar, você define se o mecanismo acende ou apaga fogo; ele não faz as duas coisas. Você pode ter três desses mecanismos ao mesmo tempo, e cada um se desfaz 8 horas depois de criado ou quando você o desmonta com um toque, usando a ação Usar."
   },
   "srd-2024_gnome/Gnomish Lineage/Forest Gnome": {
     "name": "Gnomo da Floresta",
-    "desc": "Você conhece o truque Minor Illusion. Também sempre tem a magia Speak with Animals preparada. Pode conjurá-la sem espaço de magia um número de vezes igual ao seu Bônus de Proficiência e recupera todos os usos gastos ao terminar um Descanso Longo. Também pode usar qualquer espaço de magia que tiver para conjurá-la."
+    "desc": "Você conhece o truque Ilusão Menor. Também sempre tem a magia Falar com Animais preparada. Pode conjurá-la sem espaço de magia um número de vezes igual ao seu Bônus de Proficiência e recupera todos os usos gastos ao terminar um Descanso Longo. Também pode usar qualquer espaço de magia que tiver para conjurá-la."
   },
   "srd-2024_gnome/Gnomish Lineage/Rock Gnome": {
     "name": "Gnomo das Rochas",
-    "desc": "Você conhece os truques Mending e Prestidigitation. Além disso, pode passar 10 minutos conjurando Prestidigitation para criar um mecanismo de relojoaria Minúsculo (CA 5, 1 PV), como um brinquedo, um acendedor ou uma caixinha de música. Ao criá-lo, você define a função escolhendo um efeito de Prestidigitation; o mecanismo produz esse efeito sempre que você ou outra criatura usar uma Ação Bônus para ativá-lo com um toque. Se o efeito escolhido tiver opções, você escolhe uma delas ao criar o mecanismo. Você pode ter três desses mecanismos ao mesmo tempo, e cada um se desfaz 8 horas depois de criado ou quando você o desmonta com um toque, usando a ação Usar."
+    "desc": "Você conhece os truques Consertar e Prestidigitação. Além disso, pode passar 10 minutos conjurando Prestidigitação para criar um mecanismo de relojoaria Minúsculo (CA 5, 1 PV), como um brinquedo, um acendedor ou uma caixinha de música. Ao criá-lo, você define a função escolhendo um efeito de Prestidigitação; o mecanismo produz esse efeito sempre que você ou outra criatura usar uma Ação Bônus para ativá-lo com um toque. Se o efeito escolhido tiver opções, você escolhe uma delas ao criar o mecanismo. Você pode ter três desses mecanismos ao mesmo tempo, e cada um se desfaz 8 horas depois de criado ou quando você o desmonta com um toque, usando a ação Usar."
   },
 
   "srd-2024_goliath/Giant Ancestry": {
@@ -187,22 +187,22 @@
   },
   "srd-2024_tiefling/Fiendish Legacy": {
     "name": "Legado Infernal",
-    "desc": "Você recebeu um legado que concede habilidades sobrenaturais. Escolha um legado na tabela abaixo. Você ganha o benefício de nível 1 dele.\n\nNos níveis de personagem 3 e 5, você aprende uma magia de nível mais alto, como mostra a tabela. Você sempre tem essa magia preparada. Pode conjurá-la uma vez sem espaço de magia e recupera essa capacidade ao terminar um Descanso Longo. Também pode conjurá-la usando qualquer espaço de magia do nível adequado que tiver.\n\nInteligência, Sabedoria ou Carisma é o seu atributo de conjuração para as magias deste traço (escolha ao definir o legado).\n\n|Legado|Nível 1|Nível 3|Nível 5|\n|---|---|---|---|\n|Abissal (Abyssal)|Você tem Resistência a dano de Veneno. Também conhece o truque Poison Spray.|Ray of Sickness|Hold Person|\n|Ctônico (Chthonic)|Você tem Resistência a dano Necrótico. Também conhece o truque Chill Touch.|False Life|Ray of Enfeeblement|\n|Infernal|Você tem Resistência a dano de Fogo. Também conhece o truque Fire Bolt.|Hellish Rebuke|Darkness|"
+    "desc": "Você recebeu um legado que concede habilidades sobrenaturais. Escolha um legado na tabela abaixo. Você ganha o benefício de nível 1 dele.\n\nNos níveis de personagem 3 e 5, você aprende uma magia de nível mais alto, como mostra a tabela. Você sempre tem essa magia preparada. Pode conjurá-la uma vez sem espaço de magia e recupera essa capacidade ao terminar um Descanso Longo. Também pode conjurá-la usando qualquer espaço de magia do nível adequado que tiver.\n\nInteligência, Sabedoria ou Carisma é o seu atributo de conjuração para as magias deste traço (escolha ao definir o legado).\n\n|Legado|Nível 1|Nível 3|Nível 5|\n|---|---|---|---|\n|Abissal (Abyssal)|Você tem Resistência a dano de Veneno. Também conhece o truque Borrifo Venenoso.|Raio Nauseante|Imobilizar Pessoa|\n|Ctônico (Chthonic)|Você tem Resistência a dano Necrótico. Também conhece o truque Toque Gélido.|Vida Falsa|Raio do Enfraquecimento|\n|Infernal|Você tem Resistência a dano de Fogo. Também conhece o truque Raio de Fogo.|Repreensão Infernal|Escuridão|"
   },
   "srd-2024_tiefling/Fiendish Legacy/Abyssal": {
     "name": "Abissal",
-    "desc": "Nível 1: Você tem Resistência a dano de Veneno. Também conhece o truque Poison Spray.\nNível 3: Ray of Sickness\nNível 5: Hold Person"
+    "desc": "Nível 1: Você tem Resistência a dano de Veneno. Também conhece o truque Borrifo Venenoso.\nNível 3: Raio Nauseante\nNível 5: Imobilizar Pessoa"
   },
   "srd-2024_tiefling/Fiendish Legacy/Chthonic": {
     "name": "Ctônico",
-    "desc": "Nível 1: Você tem Resistência a dano Necrótico. Também conhece o truque Chill Touch.\nNível 3: False Life\nNível 5: Ray of Enfeeblement"
+    "desc": "Nível 1: Você tem Resistência a dano Necrótico. Também conhece o truque Toque Gélido.\nNível 3: Vida Falsa\nNível 5: Raio do Enfraquecimento"
   },
   "srd-2024_tiefling/Fiendish Legacy/Infernal": {
     "name": "Infernal",
-    "desc": "Nível 1: Você tem Resistência a dano de Fogo. Também conhece o truque Fire Bolt.\nNível 3: Hellish Rebuke\nNível 5: Darkness"
+    "desc": "Nível 1: Você tem Resistência a dano de Fogo. Também conhece o truque Raio de Fogo.\nNível 3: Repreensão Infernal\nNível 5: Escuridão"
   },
   "srd-2024_tiefling/Otherworldly Presence": {
     "name": "Presença Extraplanar",
-    "desc": "Você conhece o truque Thaumaturgy. Quando o conjura com este traço, a magia usa o mesmo atributo de conjuração do seu Legado Infernal."
+    "desc": "Você conhece o truque Taumaturgia. Quando o conjura com este traço, a magia usa o mesmo atributo de conjuração do seu Legado Infernal."
   }
 }

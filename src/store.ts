@@ -1,6 +1,7 @@
 // Fichas salvas no localStorage do navegador, com exportação/importação em JSON.
 import { useEffect, useState } from 'react';
 import { newCharacter, normalizeCharacter, type Character } from './engine/character';
+import { prunePicks } from './engine/choices';
 
 const STORAGE_KEY = 'fichas-dnd-5.5e';
 
@@ -29,8 +30,9 @@ export function useCharacters() {
 
   const current = characters.find((c) => c.id === currentId) ?? characters[0];
 
+  // Depois de cada mudança, tira as escolhas que deixaram de valer pelas regras (ex.: trocou de classe).
   const update = (patch: Partial<Character>) =>
-    setCharacters((list) => list.map((c) => (c.id === current.id ? { ...c, ...patch } : c)));
+    setCharacters((list) => list.map((c) => (c.id === current.id ? prunePicks({ ...c, ...patch }) : c)));
 
   const add = (c: Character) => {
     setCharacters((list) => [...list, c]);

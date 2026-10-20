@@ -2,6 +2,8 @@
 import type { ReactNode } from 'react';
 import { ABILITIES, abilityShort, signed, type AbilityKey } from '../data/rules';
 import { translation } from '../data/translations';
+import { gearName } from '../data/equipment';
+import { spellText } from '../data/terms';
 import type { Character, Sheet as SheetData } from '../engine/character';
 import { Markdown } from './Markdown';
 
@@ -121,10 +123,10 @@ export function Sheet({ c, s }: { c: Character; s: SheetData }) {
 
             <h3>Proficiências</h3>
             <div className="proficiencies">
-              <p><strong>Armaduras:</strong> {s.cls.armorText}</p>
-              <p><strong>Armas:</strong> {s.cls.weaponText}</p>
-              <p><strong>Ferramentas:</strong> {c.tools || '—'}</p>
-              <p><strong>Idiomas:</strong> {c.languages || '—'}</p>
+              <p><strong>Armaduras:</strong> {s.armorText.replace(/^Armadura: /, '')}</p>
+              <p><strong>Armas:</strong> {s.weaponText}</p>
+              <p><strong>Ferramentas:</strong> {s.tools.join(', ') || '—'}</p>
+              <p><strong>Idiomas:</strong> {s.languages.join(', ') || '—'}</p>
               {featsTaken.length > 0 && (
                 <p><strong>Feats:</strong> {featsTaken.map((f) => translation(f.feat!.key)?.name ?? f.feat!.name).join(', ')}</p>
               )}
@@ -135,7 +137,12 @@ export function Sheet({ c, s }: { c: Character; s: SheetData }) {
         <div className="sheet-bottom">
           <div>
             <h3>Equipamento</h3>
-            <p className="pre">{c.equipment || '—'}</p>
+            <p>
+              {s.inventory.map((l) => `${l.qty > 1 ? `${l.qty}× ` : ''}${l.text}`).join(', ') || '—'}
+              {s.armor && <><br /><strong>Vestindo:</strong> {gearName(s.armor.key, s.armor.name)}{c.shield && s.hasShield ? ' e Escudo' : ''}</>}
+              <br /><strong>Ouro:</strong> {s.gold.left} PO
+            </p>
+            {c.equipment && <p className="pre">{c.equipment}</p>}
           </div>
           <div>
             <h3>Personalidade</h3>
@@ -204,28 +211,41 @@ export function Sheet({ c, s }: { c: Character; s: SheetData }) {
               <tr><th>Nv</th><th>Magia</th><th>Tempo</th><th>Alcance</th><th>Duração</th><th>Comp.</th></tr>
             </thead>
             <tbody>
-              {sc.spells.map((sp) => (
-                <tr key={sp.key}>
-                  <td>{sp.level === 0 ? 'T' : sp.level}</td>
-                  <td>
-                    <strong>{sp.name}</strong>
-                    <span className="muted"> · {sp.school}{sp.concentration ? ' · Concentração' : ''}{sp.ritual ? ' · Ritual' : ''}</span>
-                  </td>
-                  <td>{sp.castingTime}</td>
-                  <td>{sp.range}</td>
-                  <td>{sp.duration}</td>
-                  <td>{sp.components}</td>
-                </tr>
-              ))}
+              {sc.spells.map(({ spell: sp, source, alwaysPrepared }) => {
+                const t = spellText(sp);
+                return (
+                  <tr key={sp.key}>
+                    <td>{sp.level === 0 ? 'T' : sp.level}</td>
+                    <td>
+                      <strong>{t.name}</strong>
+                      {t.original && <span className="original"> ({t.original})</span>}
+                      <span className="muted"> · {t.school}{sp.concentration ? ' · Concentração' : ''}{sp.ritual ? ' · Ritual' : ''}</span>
+                      <div className="muted tiny">{source}{alwaysPrepared ? ' · sempre preparada' : ''}</div>
+                    </td>
+                    <td>{t.castingTime}</td>
+                    <td>{t.range}</td>
+                    <td>{t.duration}</td>
+                    <td>{t.components}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
           <div className="spell-descs">
-            {sc.spells.map((sp) => (
-              <article key={sp.key} className="feature">
-                <h4>{sp.name} <span className="muted">· {sp.level === 0 ? 'Truque' : `${sp.level}º círculo`}</span></h4>
-                <Markdown text={sp.higherLevel ? `${sp.desc}\n\n**Em níveis superiores.** ${sp.higherLevel}` : sp.desc} />
-              </article>
-            ))}
+            {sc.spells.map(({ spell: sp }) => {
+              const t = spellText(sp);
+              return (
+                <article key={sp.key} className="feature">
+                  <h4>
+                    {t.name}
+                    {t.original && <span className="original"> ({t.original})</span>}
+                    <span className="muted"> · {t.levelLabel} de {t.school}</span>
+                  </h4>
+                  <p className="tiny muted">{t.castingTime} · {t.range} · {t.components} · {t.duration}</p>
+                  <Markdown text={t.higherLevel ? `${t.desc}\n\n**${sp.level === 0 ? 'Melhoria de truque' : 'Em círculos superiores'}.** ${t.higherLevel}` : t.desc} />
+                </article>
+              );
+            })}
           </div>
         </section>
       )}

@@ -1,11 +1,22 @@
 // Estado salvo de um personagem e o cálculo de tudo que aparece na ficha.
+// As regras de escolha (o que pode ser escolhido e quanto) ficam em choices.ts; ver docs/REGRAS.md.
 import {
-  ABILITIES, ARMOR, BACKGROUNDS, CLASSES, FEATS, SKILLS, SPECIES, SPELLS, WEAPONS,
-  byKey, modifier, proficiencyBonus,
-  type AbilityKey, type ArmorDef, type BackgroundDef, type ClassDef, type FeatDef, type FeatType,
+  ABILITIES, ARMOR, BACKGROUNDS, CLASSES, SKILLS, SPECIES, SPELLS, WEAPONS,
+  byKey, proficiencyBonus,
+  type AbilityKey, type ArmorDef, type BackgroundDef, type ClassDef, type FeatDef,
   type Feature, type SkillKey, type SpeciesDef, type SpellDef, type SubclassDef, type WeaponDef,
 } from '../data/rules';
+import { ITEMS, gearName, itemName, languageName, toolName, type ItemDef } from '../data/equipment';
+import { ARMOR_CATEGORY_PT, damagePt, propertyPt, weaponProfPt, weaponRangePt } from '../data/terms';
+import { FEATURE_CHOICES } from '../data/features';
 import { translation } from '../data/translations';
+import {
+  STANDARD_ARRAY, baseScoresProblem, backgroundBonusProblem, featSlots, maxSpellLevel, mods as modsOf, resolveChoices,
+  type AbilityMethod, type FeatSlot, type Resolution, type SlotArea,
+} from './choices';
+
+export { backgroundBonusProblem, featSlots, maxSpellLevel };
+export type { FeatSlot };
 
 export type Scores = Record<AbilityKey, number>;
 
@@ -13,6 +24,11 @@ export interface FeatChoice {
   featKey: string | null;
   /** Um +1 por item; repetir o atributo dá +2. */
   abilities: AbilityKey[];
+}
+
+export interface Purchase {
+  itemKey: string;
+  qty: number;
 }
 
 export interface Character {
@@ -26,27 +42,27 @@ export interface Character {
   /** Opção escolhida em cada escolha da espécie (chave de SpeciesChoice → nome da opção). */
   speciesChoices: Record<string, string>;
   backgroundKey: string;
+  abilityMethod: AbilityMethod;
   baseScores: Scores;
   /** Bônus do antecedente: +2/+1 ou +1/+1/+1 entre os 3 atributos do antecedente. */
   backgroundBonus: Partial<Scores>;
-  classSkills: SkillKey[];
-  /** Perícias de espécie (Humano, Elfo), do feat Skilled etc. */
-  extraSkills: SkillKey[];
-  expertise: SkillKey[];
-  /** Perícias e Especializações a mais dadas fora das regras de criação (mestre, item mágico). */
+  /** Escolhas de cada espaço (id do espaço em choices.ts → valores). */
+  picks: Record<string, string[]>;
+  /** Perícias e Especializações a mais dadas pelo mestre, fora das regras de criação. */
   extraSkillBonus: number;
   expertiseBonus: number;
   feats: Record<string, FeatChoice>;
   hpMethod: 'average' | 'rolled';
   /** Resultado do dado de vida para os níveis 2..20 (índice 0 = nível 2). */
   hpRolls: number[];
+  /** Itens comprados com o ouro do equipamento inicial. */
+  purchases: Purchase[];
+  /** Ouro extra dado pelo mestre (começo em nível alto, R-EQU-7). */
+  extraGold: number;
   armorKey: string | null;
   shield: boolean;
-  weaponKeys: string[];
-  spellKeys: string[];
   alignment: string;
-  languages: string;
-  tools: string;
+  /** Outros itens e anotações de equipamento. */
   equipment: string;
   personality: string;
   notes: string;
@@ -65,98 +81,78 @@ export function newCharacter(): Character {
     speciesKey: SPECIES.find((s) => s.name === 'Human')!.key,
     speciesChoices: {},
     backgroundKey: BACKGROUNDS.find((b) => b.name === 'Soldier')!.key,
+    abilityMethod: 'standard',
     baseScores: { str: 15, dex: 14, con: 13, int: 12, wis: 10, cha: 8 },
     backgroundBonus: {},
-    classSkills: [],
-    extraSkills: [],
-    expertise: [],
+    picks: {},
     extraSkillBonus: 0,
     expertiseBonus: 0,
     feats: {},
     hpMethod: 'average',
     hpRolls: [],
+    purchases: [],
+    extraGold: 0,
     armorKey: null,
     shield: false,
-    weaponKeys: [],
-    spellKeys: [],
     alignment: '',
-    languages: 'Common',
-    tools: '',
     equipment: '',
     personality: '',
     notes: '',
   };
 }
 
+/* ---------- Migração de fichas antigas ---------- */
+
+/** Campos de versões anteriores, que guardavam escolhas soltas sem dizer de qual regra vinham. */
+interface Legacy {
+  speciesNotes?: string;
+  classSkills?: SkillKey[];
+  extraSkills?: SkillKey[];
+  expertise?: SkillKey[];
+  spellKeys?: string[];
+  weaponKeys?: string[];
+  languages?: string;
+  tools?: string;
+}
+
+/** Põe cada valor antigo no primeiro espaço que o aceita e ainda tem lugar. */
+function distribute(c: Character, values: string[], area: SlotArea, prefer?: string) {
+  for (const v of values) {
+    const r = resolveChoices(c);
+    const fits = r.slots.filter((s) => s.area === area && s.options.some((o) => o.value === v && !o.disabled));
+    const slot = fits.find((s) => s.id === prefer && (r.picks[s.id]?.length ?? 0) < s.count)
+      ?? fits.find((s) => (r.picks[s.id]?.length ?? 0) < s.count);
+    if (slot && !(c.picks[slot.id] ?? []).includes(v)) c.picks = { ...c.picks, [slot.id]: [...(c.picks[slot.id] ?? []), v] };
+  }
+}
+
 /** Garante campos novos em fichas salvas por versões antigas do app. */
-export function normalizeCharacter(raw: Partial<Character>): Character {
-  const c: Character & { speciesNotes?: string } = { ...newCharacter(), ...raw, id: raw.id ?? uid() };
-  // Versões antigas guardavam as escolhas da espécie como texto livre: vai para as notas.
-  if (c.speciesNotes) c.notes = [`Espécie: ${c.speciesNotes}`, c.notes].filter(Boolean).join('\n\n');
-  delete c.speciesNotes;
+export function normalizeCharacter(raw: Partial<Character> & Legacy): Character {
+  const { speciesNotes, classSkills, extraSkills, expertise, spellKeys, weaponKeys, languages, tools, ...rest } = raw;
+  const c: Character = { ...newCharacter(), ...rest, id: raw.id ?? uid(), picks: { ...(raw.picks ?? {}) } };
+  if (!raw.abilityMethod) {
+    const values = ABILITIES.map((a) => c.baseScores[a.key]).sort((a, b) => b - a);
+    c.abilityMethod = values.every((v, i) => v === STANDARD_ARRAY[i]) ? 'standard' : 'random';
+  }
+  const notes: string[] = [];
+  if (speciesNotes) notes.push(`Espécie: ${speciesNotes}`);
+  if (languages && languages.trim() && languages.trim() !== 'Common') notes.push(`Idiomas (versão antiga): ${languages}`);
+  if (tools?.trim()) notes.push(`Ferramentas (versão antiga): ${tools}`);
+  if (notes.length) c.notes = [...notes, c.notes].filter(Boolean).join('\n\n');
+
+  if (classSkills?.length) distribute(c, classSkills, 'skills', 'class-skills');
+  if (extraSkills?.length) distribute(c, extraSkills, 'skills');
+  if (expertise?.length) distribute(c, expertise, 'skills');
+  if (spellKeys?.length) {
+    const byLevel = [...spellKeys].sort((a, b) => (byKey(SPELLS, a)?.level ?? 0) - (byKey(SPELLS, b)?.level ?? 0));
+    distribute(c, byLevel, 'spells');
+  }
+  // Armas escolhidas soltas viram compras; se passarem do ouro, a ficha avisa.
+  for (const key of weaponKeys ?? []) {
+    const item = ITEMS.find((i) => i.weaponKey === key);
+    if (item && !c.purchases.some((p) => p.itemKey === item.key)) c.purchases = [...c.purchases, { itemKey: item.key, qty: 1 }];
+  }
   return c;
-}
-
-/* ---------- Bônus do antecedente ---------- */
-
-/**
- * Regra de 2024: +2 num atributo e +1 noutro, ou +1 em três, só entre os atributos do antecedente.
- * Devolve o problema da combinação, ou null se ela é válida (mesmo incompleta).
- */
-export function backgroundBonusProblem(bonus: Partial<Scores>, abilities: AbilityKey[]): string | null {
-  const picked = (Object.entries(bonus) as [AbilityKey, number | undefined][]).filter(([, n]) => n);
-  if (picked.some(([k, n]) => !abilities.includes(k) || n! < 0 || n! > 2)) return 'só os atributos do antecedente podem receber bônus.';
-  if (picked.filter(([, n]) => n === 2).length > 1) return 'só um atributo pode receber +2.';
-  if (picked.reduce((s, [, n]) => s + n!, 0) > 3) return 'o antecedente dá só 3 pontos no total.';
-  return null;
-}
-
-/* ---------- Espaços de feat ---------- */
-
-export interface FeatSlot {
-  id: string;
-  label: string;
-  level: number;
-  allowed: FeatType[];
-  /** Feat fixo (o do antecedente). */
-  fixedKey?: string | null;
-}
-
-export function featSlots(c: Character, cls: ClassDef, bg: BackgroundDef | undefined, species: SpeciesDef | undefined): FeatSlot[] {
-  const slots: FeatSlot[] = [];
-  if (bg) slots.push({ id: 'background', label: `Antecedente (${bg.pt})`, level: 1, allowed: ['Origin'], fixedKey: bg.featKey });
-  if (species?.name === 'Human') slots.push({ id: 'human', label: 'Humano: Versatile', level: 1, allowed: ['Origin'] });
-
-  const fightingStyle: Record<string, number[]> = { Fighter: [1], Paladin: [2], Ranger: [2] };
-  for (const lvl of fightingStyle[cls.name] ?? []) {
-    if (c.level >= lvl) slots.push({ id: `style-${lvl}`, label: `Fighting Style (nível ${lvl})`, level: lvl, allowed: ['Fighting Style'] });
-  }
-  const sub = byKey(cls.subclasses, c.subclassKey);
-  if (sub?.name === 'Champion' && c.level >= 7) {
-    slots.push({ id: 'style-7', label: 'Additional Fighting Style (nível 7)', level: 7, allowed: ['Fighting Style'] });
-  }
-  for (const lvl of cls.featLevels) {
-    if (c.level < lvl) continue;
-    slots.push(
-      lvl === 19
-        ? { id: `feat-${lvl}`, label: `Epic Boon (nível ${lvl})`, level: lvl, allowed: ['Epic Boon', 'General'] }
-        : { id: `feat-${lvl}`, label: `Feat (nível ${lvl})`, level: lvl, allowed: ['General'] },
-    );
-  }
-  return slots;
-}
-
-/* ---------- Limites de escolha ---------- */
-
-/** Quantas escolhas o personagem pode fazer e de onde cada uma vem. */
-export interface PickBudget {
-  total: number;
-  sources: { label: string; count: number }[];
-}
-
-function budget(sources: [string, number][]): PickBudget {
-  const list = sources.filter(([, n]) => n > 0).map(([label, count]) => ({ label, count }));
-  return { total: list.reduce((s, x) => s + x.count, 0), sources: list };
 }
 
 /* ---------- Ficha calculada ---------- */
@@ -171,6 +167,8 @@ export interface SkillRow {
 }
 
 export interface AttackRow {
+  /** Chave da arma no SRD, ou "unarmed" para o Ataque Desarmado. */
+  key: string;
   name: string;
   bonus: number;
   damage: string;
@@ -188,11 +186,25 @@ export interface SheetFeature {
 }
 
 /** Parte da criação onde o aviso se resolve. */
-export type WarningArea = 'basic' | 'abilities' | 'skills' | 'equipment' | 'spells';
+export type WarningArea = SlotArea;
 
 export interface Warning {
   area: WarningArea;
   text: string;
+}
+
+export interface InventoryLine {
+  item?: ItemDef;
+  text: string;
+  qty: number;
+  from: 'classe' | 'antecedente' | 'compra';
+}
+
+export interface SpellLine {
+  spell: SpellDef;
+  /** De onde a magia vem: classe, Magic Initiate, sempre preparada… */
+  source: string;
+  alwaysPrepared: boolean;
 }
 
 export interface Sheet {
@@ -203,6 +215,7 @@ export interface Sheet {
   speciesLabel: string;
   background?: BackgroundDef;
   armor?: ArmorDef;
+  choices: Resolution;
   pb: number;
   scores: Scores;
   mods: Scores;
@@ -221,9 +234,19 @@ export interface Sheet {
   resources: { name: string; value: string }[];
   features: SheetFeature[];
   feats: { slot: FeatSlot; feat?: FeatDef; abilities: AbilityKey[] }[];
-  /** Perícias além das da classe e do antecedente (espécie, feats, subclasse). */
-  extraSkillBudget: PickBudget;
-  expertiseBudget: PickBudget;
+  armorText: string;
+  weaponText: string;
+  languages: string[];
+  tools: string[];
+  inventory: InventoryLine[];
+  /** Ouro dos pacotes + extra do mestre, gasto nas compras, e o que sobra. */
+  gold: { total: number; spent: number; left: number };
+  /** Armaduras e escudo que o personagem tem e pode vestir (R-EQU-3). */
+  ownedArmor: ArmorDef[];
+  hasShield: boolean;
+  /** Tipos de arma com maestria escolhida (R-CLA-6). */
+  masteries: string[];
+  canCast: boolean;
   spellcasting?: {
     ability: AbilityKey;
     dc: number;
@@ -233,8 +256,7 @@ export interface Sheet {
     slots: number[];
     pact?: { count: number; level: number };
     maxSpellLevel: number;
-    spells: SpellDef[];
-    /** Quantas das magias escolhidas são truques / magias de nível 1+ da lista da classe. */
+    spells: SpellLine[];
     chosenCantrips: number;
     chosenPrepared: number;
   };
@@ -245,16 +267,9 @@ const column = (cls: ClassDef, name: string, level: number) => cls.columns.find(
 
 const SPELL_COLUMNS = new Set(['Cantrips', 'Prepared Spells', 'Spell Slots', 'Slot Level']);
 
-export function maxSpellLevel(cls: ClassDef, level: number): number {
-  if (cls.casterType === 'PACT') return parseInt(column(cls, 'Slot Level', level) ?? '0', 10) || 0;
-  const slots = cls.spellSlots[level] ?? [];
-  let max = 0;
-  slots.forEach((n, i) => { if (n > 0) max = i + 1; });
-  return max;
-}
-
-export function isWeaponProficient(cls: ClassDef, w: WeaponDef): boolean {
+export function isWeaponProficient(cls: ClassDef, w: WeaponDef, martial: 'class' | 'all' = 'class'): boolean {
   if (w.simple) return cls.weaponRule.simple;
+  if (martial === 'all') return true;
   switch (cls.weaponRule.martial) {
     case 'all': return true;
     case 'light': return w.light;
@@ -265,15 +280,16 @@ export function isWeaponProficient(cls: ClassDef, w: WeaponDef): boolean {
 
 export function computeSheet(c: Character): Sheet {
   const cls = byKey(CLASSES, c.classKey) ?? CLASSES[0];
-  const subclass = c.level >= 3 ? byKey(cls.subclasses, c.subclassKey) : undefined;
+  const level = Math.min(20, Math.max(1, c.level));
+  const subclass = level >= 3 ? byKey(cls.subclasses, c.subclassKey) : undefined;
   const species = byKey(SPECIES, c.speciesKey);
   const background = byKey(BACKGROUNDS, c.backgroundKey);
-  const level = Math.min(20, Math.max(1, c.level));
   const pb = proficiencyBonus(level);
-  const warnings: Warning[] = [];
+  const choices = resolveChoices(c);
+  const warnings: Warning[] = choices.issues.map((i) => ({ area: i.area, text: i.text }));
   const warn = (area: WarningArea, text: string) => warnings.push({ area, text });
 
-  /* Escolhas da espécie */
+  /* Escolhas da espécie (R-ESP-1) */
   const speciesPicks = (species?.choices ?? []).map((choice) => ({
     choice,
     option: choice.options.find((o) => o.name === c.speciesChoices[choice.key]),
@@ -282,148 +298,153 @@ export function computeSheet(c: Character): Sheet {
   const picked = (key: string) => speciesPicks.find((p) => p.choice.key === key)?.option;
   const labelParts = speciesPicks
     .filter((p) => p.option && p.choice.kind !== 'ability')
-    // "Elfo da Floresta (Wood Elf)" → "Elfo da Floresta"
     .map((p) => p.option!.label.replace(/ \(.*\)$/, ''));
   const speciesLabel = species ? `${species.pt}${labelParts.length ? ` (${labelParts.join(', ')})` : ''}` : '';
 
-  /* Feats e atributos */
-  const slots = featSlots(c, cls, background, species);
-  const feats = slots.map((slot) => {
-    const choice = c.feats[slot.id];
-    const featKey = slot.fixedKey !== undefined ? slot.fixedKey : choice?.featKey;
-    const feat = byKey(FEATS, featKey);
-    const abilities = feat ? (choice?.abilities ?? []).slice(0, feat.abilityPicks) : [];
-    return { slot, feat, abilities };
-  });
-  const hasFeat = (name: string) => feats.some((f) => f.feat?.name === name);
+  if (level >= 3 && !subclass && cls.subclasses.length) warn('basic', 'Escolha uma subclasse (nível 3+).');
 
+  /* Atributos (R-ATR, R-ANT-1, R-ANT-2) */
+  const baseProblem = baseScoresProblem(c.abilityMethod, c.baseScores);
+  if (baseProblem) warn('abilities', `Valores base inválidos: ${baseProblem}`);
   const bgProblem = background ? backgroundBonusProblem(c.backgroundBonus, background.abilities) : null;
   const backgroundBonus: Partial<Scores> = {};
-  const scores = { ...c.baseScores };
-  if (background && !bgProblem) {
-    for (const a of background.abilities) {
-      // O bônus do antecedente não leva nenhum atributo acima de 20.
-      const bonus = Math.min(c.backgroundBonus[a] ?? 0, Math.max(0, 20 - scores[a]));
-      if (bonus) backgroundBonus[a] = bonus;
-      scores[a] += bonus;
-    }
+  for (const a of ABILITIES) {
+    const n = choices.scoresBeforeFeats[a.key] - c.baseScores[a.key];
+    if (n) backgroundBonus[a.key] = n;
   }
-  for (const { feat, abilities } of feats) {
-    for (const a of abilities) scores[a] = Math.min(feat!.maxScore, scores[a] + 1);
-  }
-  const mods = Object.fromEntries(ABILITIES.map((a) => [a.key, modifier(scores[a.key])])) as Scores;
-
   const bonusTotal = Object.values(c.backgroundBonus).reduce((s, n) => s + (n ?? 0), 0);
   if (bgProblem) {
     warn('abilities', `Bônus do antecedente inválido: ${bgProblem} Use +2/+1 ou +1/+1/+1; até corrigir, ele não entra na ficha.`);
   } else if (background && bonusTotal !== 3) {
     warn('abilities', `Distribua 3 pontos do antecedente (+2/+1 ou +1/+1/+1). Atual: ${bonusTotal}.`);
   }
+  const scores = choices.scores;
+  const mods = modsOf(scores);
+  const hasFeat = (name: string) => choices.feats.some((f) => f.feat?.name === name);
 
-  /* Salvaguardas e perícias */
+  /* Salvaguardas (R-SAL) */
+  const saveProf = new Set<AbilityKey>(cls.saves);
+  if (cls.name === 'Monk' && level >= 14) for (const a of ABILITIES) saveProf.add(a.key);
+  if (cls.name === 'Rogue' && level >= 15) { saveProf.add('wis'); saveProf.add('cha'); }
   const saves = ABILITIES.map((a) => {
-    const proficient = cls.saves.includes(a.key);
+    const proficient = saveProf.has(a.key);
     return { key: a.key, proficient, bonus: mods[a.key] + (proficient ? pb : 0) };
   });
 
-  // Perícias extras e Especialização: só o que as regras do SRD dão; o excesso não entra na ficha.
-  const skilledFeats = feats.filter((f) => f.feat?.name === 'Skilled').length;
-  const extraSkillBudget = budget([
-    ['Humano (Habilidoso)', species?.name === 'Human' ? 1 : 0],
-    ['Elfo (Sentidos Aguçados)', species?.name === 'Elf' ? 1 : 0],
-    ['Talentoso (perícias ou ferramentas)', skilledFeats * 3],
-    ['Bárbaro (Conhecimento Primitivo)', cls.name === 'Barbarian' && level >= 3 ? 1 : 0],
-    ['Colégio do Conhecimento (Proficiências Adicionais)', subclass?.name === 'College of Lore' ? 3 : 0],
-    ['Outras fontes', Math.max(0, c.extraSkillBonus)],
-  ]);
-  const expertiseBudget = budget([
-    ['Ladino (Especialização)', cls.name === 'Rogue' ? (level >= 6 ? 4 : 2) : 0],
-    ['Bardo (Especialização)', cls.name === 'Bard' && level >= 2 ? (level >= 9 ? 4 : 2) : 0],
-    ['Patrulheiro (Explorador Hábil)', cls.name === 'Ranger' && level >= 2 ? 1 : 0],
-    ['Patrulheiro (Especialização)', cls.name === 'Ranger' && level >= 9 ? 2 : 0],
-    ['Mago (Erudito)', cls.name === 'Wizard' && level >= 2 ? 1 : 0],
-    ['Outras fontes', Math.max(0, c.expertiseBonus)],
-  ]);
-  const extraSkills = c.extraSkills.slice(0, extraSkillBudget.total);
-  const expertiseSkills = c.expertise.slice(0, expertiseBudget.total);
-  if (c.extraSkills.length > extraSkillBudget.total) {
-    warn('skills', `Outras perícias: ${c.extraSkills.length} escolhidas, mas o limite é ${extraSkillBudget.total}. As que passam do limite não entram na ficha.`);
-  }
-  if (c.expertise.length > expertiseBudget.total) {
-    warn('skills', `Especialização: ${c.expertise.length} escolhidas, mas o limite é ${expertiseBudget.total}. As que passam do limite não entram na ficha.`);
-  }
-
-  const profSkills = new Set<SkillKey>([...c.classSkills, ...(background?.skills ?? []), ...extraSkills]);
+  /* Perícias (R-PER-9 a R-PER-11) */
   const jackOfAllTrades = cls.name === 'Bard' && level >= 2;
   const skills: SkillRow[] = SKILLS.map((s) => {
-    const proficient = profSkills.has(s.key);
-    const expertise = proficient && expertiseSkills.includes(s.key);
+    const proficient = choices.skills.has(s.key);
+    const expertise = proficient && choices.expertise.has(s.key);
     const profPart = expertise ? pb * 2 : proficient ? pb : jackOfAllTrades ? Math.floor(pb / 2) : 0;
     return { key: s.key, label: s.pt, ability: s.ability, proficient, expertise, bonus: mods[s.ability] + profPart };
   });
-  if (c.classSkills.length !== cls.skillChoice.count) {
-    warn('skills', `Escolha ${cls.skillChoice.count} perícias da classe (escolhidas: ${c.classSkills.length}).`);
-  }
   const perception = skills.find((s) => s.key === 'perception')!.bonus;
 
-  /* Armadura */
-  const armor = byKey(ARMOR, c.armorKey);
+  /* Equipamento (R-EQU-1 a R-EQU-3) */
+  const inventory: InventoryLine[] = [];
+  const instrument = choices.picks['equipment:instrument']?.[0];
+  const classTool = choices.picks['class:tools']?.[0];
+  const gamingSet = choices.picks['background:tool']?.[0];
+  for (const [pkg, from] of [[choices.equipment.cls, 'classe'], [choices.equipment.bg, 'antecedente']] as const) {
+    for (const e of pkg?.entries ?? []) {
+      const text = e.pick === 'instrument' ? (instrument ? toolName(instrument) : 'Instrumento (escolha)')
+        : e.pick === 'class-tool' ? (classTool ? toolName(classTool) : 'Ferramenta (escolha)')
+        : e.pick === 'gaming-set' ? (gamingSet ? toolName(gamingSet) : 'Gaming Set (escolha)')
+        : e.item ? itemName(e.item) : e.text;
+      inventory.push({ item: e.item, text, qty: e.qty, from });
+    }
+  }
+  const goldTotal = (choices.equipment.cls?.gold ?? 0) + (choices.equipment.bg?.gold ?? 0) + Math.max(0, c.extraGold);
+  let spent = 0;
+  for (const p of c.purchases) {
+    const item = byKey(ITEMS, p.itemKey);
+    if (!item || p.qty <= 0) continue;
+    spent += item.cost * p.qty;
+    inventory.push({ item, text: itemName(item), qty: p.qty, from: 'compra' });
+  }
+  spent = Math.round(spent * 100) / 100;
+  const gold = { total: goldTotal, spent, left: Math.round((goldTotal - spent) * 100) / 100 };
+  if (gold.left < 0) warn('equipment', `As compras custam ${spent} PO, mas você tem ${goldTotal} PO.`);
+
+  const ownedArmor = ARMOR.filter((a) => a.category !== 'shield' && inventory.some((l) => l.item?.armorKey === a.key));
+  const hasShield = inventory.some((l) => l.item?.armorKey === 'srd-2024_shield');
+  const armor = ownedArmor.find((a) => a.key === c.armorKey);
+  if (c.armorKey && !armor) warn('equipment', 'A armadura vestida não está no seu equipamento.');
+  const shield = c.shield && hasShield;
+  if (c.shield && !hasShield) warn('equipment', 'Você marcou escudo, mas não tem um no equipamento.');
+
+  /* Armadura (R-NUM-4, R-NUM-5, R-EQU-4, R-EQU-5) */
+  const training = choices.armorTraining;
   const unarmored: { ac: number; note: string }[] = [{ ac: 10 + mods.dex, note: 'Sem armadura' }];
-  if (cls.name === 'Barbarian') unarmored.push({ ac: 10 + mods.dex + mods.con, note: 'Unarmored Defense' });
-  if (cls.name === 'Monk' && !c.shield) unarmored.push({ ac: 10 + mods.dex + mods.wis, note: 'Unarmored Defense' });
-  if (subclass?.name === 'Draconic Sorcery') unarmored.push({ ac: 10 + mods.dex + mods.cha, note: 'Draconic Resilience' });
+  if (cls.name === 'Barbarian') unarmored.push({ ac: 10 + mods.dex + mods.con, note: 'Defesa sem Armadura' });
+  if (cls.name === 'Monk' && !shield) unarmored.push({ ac: 10 + mods.dex + mods.wis, note: 'Defesa sem Armadura' });
+  if (subclass?.name === 'Draconic Sorcery') unarmored.push({ ac: 10 + mods.dex + mods.cha, note: 'Resiliência Dracônica' });
   let ac: number;
   let acNote: string;
+  let canCast = true;
   if (armor) {
     const dex = armor.addDex ? (armor.dexCap === null ? mods.dex : Math.min(armor.dexCap, mods.dex)) : 0;
     ac = armor.acBase + dex;
-    acNote = armor.name;
-    if (hasFeat('Defense')) { ac += 1; acNote += ' + Defense'; }
-    if (!cls.armor[armor.category as 'light' | 'medium' | 'heavy']) warn('equipment', `A classe não tem treinamento em armadura ${armor.category}.`);
-    if (armor.strRequired && scores.str < armor.strRequired) warn('equipment', `${armor.name} pede Força ${armor.strRequired}: −10 pés de deslocamento.`);
+    acNote = gearName(armor.key, armor.name);
+    if (hasFeat('Defense')) { ac += 1; acNote += ' + Defesa'; }
+    if (!training[armor.category as 'light' | 'medium' | 'heavy']) {
+      canCast = false;
+      warn('equipment', `Sem treinamento em armadura ${ARMOR_CATEGORY_PT[armor.category]}: Desvantagem em testes de FOR e DES, e você não pode conjurar magias.`);
+    }
   } else {
     const best = unarmored.reduce((a, b) => (b.ac > a.ac ? b : a));
     ac = best.ac;
     acNote = best.note;
   }
-  if (c.shield) {
-    ac += 2;
-    acNote += ' + Escudo';
-    if (!cls.armor.shield) warn('equipment', 'A classe não tem treinamento com Escudo.');
+  if (shield) {
+    if (training.shield) {
+      ac += 2;
+      acNote += ' + Escudo';
+    } else {
+      warn('equipment', 'Sem treinamento com Escudo: ele não dá o +2 na CA.');
+    }
   }
 
-  /* Deslocamento */
+  /* Deslocamento (R-ESP-6, R-NUM-9, R-EQU-6) */
   let speed = species?.speed ?? 30;
-  // Ex.: Elfo da Floresta: "Your Speed increases to 35 feet".
   for (const { option } of speciesPicks) {
     const fromChoice = Number(option?.desc.match(/Speed increases to (\d+) feet/)?.[1]);
     if (fromChoice > speed) speed = fromChoice;
   }
-  if (cls.name === 'Monk' && !armor && !c.shield) {
+  if (cls.name === 'Monk' && !armor && !shield) {
     speed += level >= 18 ? 30 : level >= 14 ? 25 : level >= 10 ? 20 : level >= 6 ? 15 : level >= 2 ? 10 : 0;
   }
   if (cls.name === 'Barbarian' && level >= 5 && armor?.category !== 'heavy') speed += 10;
-  if (armor?.strRequired && scores.str < armor.strRequired) speed -= 10;
+  if (armor?.strRequired && scores.str < armor.strRequired) {
+    speed -= 10;
+    warn('equipment', `${gearName(armor.key, armor.name)} pede Força ${armor.strRequired}: −10 ft de deslocamento.`);
+  }
 
-  /* Pontos de vida */
+  /* Pontos de vida (R-NUM-1, R-NUM-2, R-ESP-7) */
   const avg = Math.floor(cls.hitDie / 2) + 1;
   let hpMax = cls.hitDie + mods.con;
   for (let lvl = 2; lvl <= level; lvl++) {
-    const roll = c.hpMethod === 'rolled' ? c.hpRolls[lvl - 2] || avg : avg;
+    const rolled = c.hpRolls[lvl - 2];
+    const roll = c.hpMethod === 'rolled' && rolled >= 1 && rolled <= cls.hitDie ? rolled : avg;
     hpMax += Math.max(1, roll + mods.con);
+  }
+  if (c.hpMethod === 'rolled') {
+    const missing = Array.from({ length: level - 1 }, (_, i) => c.hpRolls[i]).filter((r) => !(r >= 1 && r <= cls.hitDie)).length;
+    if (missing) warn('basic', `PV rolados: falta${missing > 1 ? 'm' : ''} ${missing} resultado${missing > 1 ? 's' : ''} (usando a média até lá).`);
   }
   if (species?.name === 'Dwarf') hpMax += level;
   if (subclass?.name === 'Draconic Sorcery') hpMax += level;
   hpMax = Math.max(1, hpMax);
 
-  /* Ataques */
+  /* Ataques (R-NUM-6, R-NUM-7, R-FEA-9, R-CLA-6) */
+  const masteries = choices.picks['class:weapon-mastery'] ?? [];
   const isMonk = cls.name === 'Monk';
   const martialArts = column(cls, 'Martial Arts', level);
   const attacks: AttackRow[] = [];
-  for (const key of c.weaponKeys) {
-    const w = byKey(WEAPONS, key);
-    if (!w) continue;
-    const proficient = isWeaponProficient(cls, w);
+  const weaponsOwned = WEAPONS.filter((w) => inventory.some((l) => l.item?.weaponKey === w.key));
+  for (const w of weaponsOwned) {
+    const proficient = isWeaponProficient(cls, w, choices.martialWeapons);
     const monkWeapon = isMonk && !w.ranged && (w.simple || w.light);
     const ability: AbilityKey = w.ranged ? 'dex' : w.finesse || monkWeapon ? (mods.dex > mods.str ? 'dex' : 'str') : 'str';
     const archery = w.ranged && hasFeat('Archery') ? 2 : 0;
@@ -431,27 +452,29 @@ export function computeSheet(c: Character): Sheet {
     const dice = monkWeapon && martialArts && dieSize(martialArts) > dieSize(w.damage) ? martialArts : w.damage;
     const notes = [
       w.versatile && `Versátil ${w.versatile}`,
-      w.rangeText && `Alcance ${w.rangeText}`,
-      ...w.properties.filter((p) => p.mastery).map((p) => `Maestria: ${p.name}`),
+      w.rangeText && (/^Range/.test(w.rangeText) ? weaponRangePt(w.rangeText) : `Alcance ${weaponRangePt(w.rangeText)}`),
+      ...(masteries.includes(w.key) ? w.properties.filter((p) => p.mastery).map((p) => `Maestria: ${propertyPt(p.name)}`) : []),
     ].filter(Boolean).join(' · ');
     attacks.push({
-      name: w.name,
+      key: w.key,
+      name: gearName(w.key, w.name),
       bonus: mod + (proficient ? pb : 0) + archery,
-      damage: `${dice}${mod ? (mod > 0 ? `+${mod}` : mod) : ''} ${w.damageType.toLowerCase()}`,
+      damage: `${dice}${mod ? (mod > 0 ? `+${mod}` : mod) : ''} ${damagePt(w.damageType)}`,
       notes,
       proficient,
     });
   }
   const unarmedMod = isMonk ? Math.max(mods.str, mods.dex) : mods.str;
   attacks.push({
-    name: 'Unarmed Strike',
+    key: 'unarmed',
+    name: 'Ataque Desarmado',
     bonus: unarmedMod + pb,
-    damage: isMonk && martialArts ? `${martialArts}${unarmedMod >= 0 ? '+' : ''}${unarmedMod} bludgeoning` : `${Math.max(1, 1 + unarmedMod)} bludgeoning`,
+    damage: isMonk && martialArts ? `${martialArts}${unarmedMod >= 0 ? '+' : ''}${unarmedMod} contundente` : `${Math.max(1, 1 + unarmedMod)} contundente`,
     notes: '',
     proficient: true,
   });
 
-  /* Recursos de classe (colunas da tabela) */
+  /* Recursos de classe (R-NIV-4) */
   const resources = cls.columns
     .filter((col) => !SPELL_COLUMNS.has(col.name))
     .map((col) => ({ name: translation(`${cls.key}/${col.name}`)?.name ?? col.name, value: col.values[level] ?? '—' }))
@@ -470,6 +493,11 @@ export function computeSheet(c: Character): Sheet {
   pushFeatures(cls.features, cls.pt);
   if (subclass) pushFeatures(subclass.features, subclass.pt);
   features.sort((a, b) => a.level - b.level);
+  for (const fc of FEATURE_CHOICES) {
+    const v = choices.features[fc.id];
+    const f = features.find((x) => x.original === fc.feature || x.name === fc.feature);
+    if (v && f) f.name = `${f.name}: ${v}`;
+  }
   for (const t of species?.traits ?? []) {
     const option = picked(t.name);
     const ability = picked(`${t.name}:ability`);
@@ -486,47 +514,75 @@ export function computeSheet(c: Character): Sheet {
         : pt?.desc ?? t.desc,
     });
   }
-  if (level >= 3 && !subclass && cls.subclasses.length) warn('basic', 'Escolha uma subclasse (nível 3+).');
 
-  /* Magias */
+  /* Magias (R-MAG, R-NUM-8) */
+  const spellLines: SpellLine[] = [];
+  const seenSpell = new Set<string>();
+  const addSpell = (key: string, source: string, alwaysPrepared: boolean) => {
+    const spell = byKey(SPELLS, key);
+    if (!spell || seenSpell.has(key)) return;
+    seenSpell.add(key);
+    spellLines.push({ spell, source, alwaysPrepared });
+  };
+  // Fora da lista de preparadas da classe, as magias de nível 1+ escolhidas ficam sempre preparadas
+  // (Magic Initiate, Magical Discoveries); truques não se preparam.
+  for (const slot of choices.slots.filter((s) => s.area === 'spells')) {
+    for (const v of choices.picks[slot.id] ?? []) {
+      addSpell(v, slot.label, slot.id !== 'spells:prepared' && (byKey(SPELLS, v)?.level ?? 0) > 0);
+    }
+  }
+  for (const g of choices.granted) addSpell(g.spell.key, g.source, g.spell.level > 0);
+  spellLines.sort((a, b) => a.spell.level - b.spell.level || a.spell.name.localeCompare(b.spell.name));
+
   let spellcasting: Sheet['spellcasting'];
+  const cantripSlot = choices.slots.find((s) => s.id === 'spells:cantrips');
+  const preparedSlot = choices.slots.find((s) => s.id === 'spells:prepared');
   if (cls.spellAbility && cls.casterType !== 'NONE') {
     const ab = cls.spellAbility;
     const max = maxSpellLevel(cls, level);
-    const pactCount = cls.casterType === 'PACT' ? parseInt(column(cls, 'Spell Slots', level) ?? '0', 10) : 0;
     spellcasting = {
       ability: ab,
       dc: 8 + pb + mods[ab],
       attack: pb + mods[ab],
-      cantrips: parseInt(column(cls, 'Cantrips', level) ?? '0', 10) || 0,
-      prepared: parseInt(column(cls, 'Prepared Spells', level) ?? '0', 10) || 0,
+      cantrips: cantripSlot?.count ?? 0,
+      prepared: preparedSlot?.count ?? 0,
       slots: cls.casterType === 'PACT' ? [] : cls.spellSlots[level] ?? [],
-      pact: cls.casterType === 'PACT' ? { count: pactCount, level: max } : undefined,
+      pact: cls.casterType === 'PACT' ? { count: parseInt(column(cls, 'Spell Slots', level) ?? '0', 10) || 0, level: max } : undefined,
       maxSpellLevel: max,
-      spells: c.spellKeys.map((k) => byKey(SPELLS, k)).filter((s): s is SpellDef => !!s),
-      chosenCantrips: 0,
-      chosenPrepared: 0,
+      spells: spellLines,
+      chosenCantrips: choices.picks['spells:cantrips']?.length ?? 0,
+      chosenPrepared: choices.picks['spells:prepared']?.length ?? 0,
     };
-    const chosenCantrips = spellcasting.spells.filter((s) => s.level === 0 && s.classes.includes(cls.key)).length;
-    const chosenLeveled = spellcasting.spells.filter((s) => s.level > 0 && s.classes.includes(cls.key)).length;
-    spellcasting.chosenCantrips = chosenCantrips;
-    spellcasting.chosenPrepared = chosenLeveled;
-    if (chosenCantrips > spellcasting.cantrips) warn('spells', `Truques da classe: ${chosenCantrips} de ${spellcasting.cantrips}.`);
-    if (chosenLeveled > spellcasting.prepared) warn('spells', `Magias preparadas da classe: ${chosenLeveled} de ${spellcasting.prepared}.`);
-  } else if (c.spellKeys.length) {
-    // Magias de feats (Magic Initiate) sem a classe ser conjuradora.
-    const spells = c.spellKeys.map((k) => byKey(SPELLS, k)).filter((s): s is SpellDef => !!s);
-    const ab: AbilityKey = (['int', 'wis', 'cha'] as AbilityKey[]).reduce((a, b) => (mods[b] > mods[a] ? b : a));
-    spellcasting = { ability: ab, dc: 8 + pb + mods[ab], attack: pb + mods[ab], cantrips: 0, prepared: 0, slots: [], maxSpellLevel: 1, spells, chosenCantrips: 0, chosenPrepared: 0 };
+  } else if (spellLines.length) {
+    // Magias de espécie ou de feats (Magic Initiate) sem a classe ser conjuradora.
+    const miAbility = Object.entries(choices.picks).find(([k]) => k.endsWith(':mi-ability'))?.[1][0] as AbilityKey | undefined;
+    const speciesAbility = species?.choices.find((ch) => ch.kind === 'ability');
+    const ab = miAbility ?? (speciesAbility && (c.speciesChoices[speciesAbility.key] as AbilityKey)) ?? 'cha';
+    spellcasting = {
+      ability: ab, dc: 8 + pb + mods[ab], attack: pb + mods[ab], cantrips: 0, prepared: 0, slots: [], maxSpellLevel: 0,
+      spells: spellLines, chosenCantrips: 0, chosenPrepared: 0,
+    };
   }
+  if (!canCast && spellcasting) warn('spells', 'Com a armadura atual (sem treinamento), você não pode conjurar magias.');
+
+  /* Proficiências em texto */
+  const armorText = [
+    training.light && 'leve', training.medium && 'média', training.heavy && 'pesada',
+  ].filter(Boolean).join(', ').replace(/^$/, 'nenhuma') + (training.shield ? ' e escudo' : '');
+  const weaponText = weaponProfPt(choices.martialWeapons === 'all' ? 'Simple and Martial weapons' : cls.weaponText);
 
   return {
-    cls, subclass, species, speciesLabel, background, armor, pb, scores, mods, backgroundBonus, saves, skills,
+    cls, subclass, species, speciesLabel, background, armor, choices, pb, scores, mods, backgroundBonus, saves, skills,
     passivePerception: 10 + perception,
     initiative: mods.dex + (hasFeat('Alert') ? pb : 0),
     ac, acNote, speed, hpMax,
     hitDice: `${level}d${cls.hitDie}`,
-    attacks, resources, features, feats, extraSkillBudget, expertiseBudget, spellcasting, warnings,
+    attacks, resources, features,
+    feats: choices.feats.map(({ slot, feat, abilities }) => ({ slot, feat, abilities })),
+    armorText: `Armadura: ${armorText}`, weaponText,
+    languages: choices.languages.map(languageName), tools: choices.tools.map(toolName),
+    inventory, gold, ownedArmor, hasShield, masteries, canCast,
+    spellcasting, warnings,
   };
 }
 
